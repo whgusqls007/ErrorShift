@@ -64,5 +64,4 @@ public class ErrorResponse2 {
           .collect(Collectors.toList());
     }
   }
-
 }
