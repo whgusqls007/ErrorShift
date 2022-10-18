@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.HelloDTO;
+import com.example.demo.service.HelloService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +25,10 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/api/v1/get-api")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class GetController {
+
+  @Autowired
+  public HelloService helloService;
+
   /**
    * todo: getMapping, getName() 함수, @PathVariabl을 사용해서 '/{name}' 로 요청이 들어오면
    * 'Hello {name}!' 를 반환합니다.
@@ -68,4 +74,11 @@ public class GetController {
     System.out.println("helloDto: " + helloDto);
     return ResponseEntity.ok(helloDto);
   }
+
+  @GetMapping("/test")
+  @ResponseBody
+  public ResponseEntity<String> test() {
+    return ResponseEntity.ok(helloService.getName("test"));
+  }
+
 }

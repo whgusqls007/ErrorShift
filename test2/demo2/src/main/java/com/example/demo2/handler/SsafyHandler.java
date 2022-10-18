@@ -11,6 +11,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import com.example.demo2.errorCode.ErrorCode;
 import com.example.demo2.response.error4xx.Error400Response;
 import com.example.demo2.response.error4xx.Error404Response;
+import com.example.demo2.response.error5xx.Error500NullPointerExceptionResponse;
 
 @ControllerAdvice
 @Component
@@ -32,4 +33,10 @@ public class SsafyHandler implements SsafyExceptionHandler {
         HttpStatus.NOT_FOUND);
   }
 
+  @ExceptionHandler(NullPointerException.class)
+  public ResponseEntity<Error500NullPointerExceptionResponse> testHandler(NullPointerException e) {
+    System.out.println("핸들러 호출 됨");
+    return new ResponseEntity<>(
+        Error500NullPointerExceptionResponse.of(ErrorCode.INTERNAL_SERVER_ERROR, e), HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }
