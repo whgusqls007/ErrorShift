@@ -81,8 +81,6 @@ public class Error500NullPointerExceptionResponse {
           put("errMsg", writer.getBuffer().toString().split("at")[0].replaceAll("\\\r\\\n\\\t", ""));
         }
       };
-      
     }
-
   }
 }

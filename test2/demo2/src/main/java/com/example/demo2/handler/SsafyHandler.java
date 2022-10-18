@@ -33,9 +33,10 @@ public class SsafyHandler implements SsafyExceptionHandler {
         HttpStatus.NOT_FOUND);
   }
 
+  // 500 NullPointerException 핸들러
+  @Override
   @ExceptionHandler(NullPointerException.class)
-  public ResponseEntity<Error500NullPointerExceptionResponse> testHandler(NullPointerException e) {
-    System.out.println("핸들러 호출 됨");
+  public ResponseEntity<Error500NullPointerExceptionResponse> hadleNullPointerException(NullPointerException e) {
     return new ResponseEntity<>(
         Error500NullPointerExceptionResponse.of(ErrorCode.INTERNAL_SERVER_ERROR, e), HttpStatus.INTERNAL_SERVER_ERROR);
   }
