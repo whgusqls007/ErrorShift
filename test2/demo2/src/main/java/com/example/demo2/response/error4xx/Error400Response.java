@@ -42,7 +42,16 @@ public class Error400Response {
   public static Error400Response of(final ErrorCode code, final BindingResult bindingResult) {
     return new Error400Response(code, FieldError.of(bindingResult));
   }
-  
+
+  @Override
+  public String toString() {
+    return "{" +
+        " message='" + getMessage() + "'" +
+        ", status='" + getStatus() + "'" +
+        ", errors='" + getErrors() + "'" +
+        "}";
+  }
+
   public static class FieldError {
     private String field;
     private String value;

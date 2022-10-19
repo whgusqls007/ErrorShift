@@ -43,6 +43,15 @@ public class Error404Response {
     return new Error404Response(code, FieldError.of(e));
   }
 
+  @Override
+  public String toString() {
+    return "{" +
+        " message='" + getMessage() + "'" +
+        ", status='" + getStatus() + "'" +
+        ", errors='" + getErrors() + "'" +
+        "}";
+  }
+
   public static class FieldError {
     private String requestURL;
     private String method;
@@ -69,4 +78,5 @@ public class Error404Response {
       };
     }
   }
+
 }

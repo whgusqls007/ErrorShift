@@ -43,6 +43,15 @@ public class Error500NullPointerExceptionResponse {
     return new Error500NullPointerExceptionResponse(code, FieldError.of(e));
   }
 
+  @Override
+  public String toString() {
+    return "{" +
+        " message='" + getMessage() + "'" +
+        ", status='" + getStatus() + "'" +
+        ", errors='" + getErrors() + "'" +
+        "}";
+  }
+
   public static class FieldError {
     private String errMsg;
     private String location;

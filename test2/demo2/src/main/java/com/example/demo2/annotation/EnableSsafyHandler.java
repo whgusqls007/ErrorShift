@@ -1,5 +1,19 @@
 package com.example.demo2.annotation;
 
-public @interface EnableSsafyHandler {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
+import org.springframework.context.annotation.Import;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
+import com.example.demo2.configuration.EnableSsafyHandlerSelector;
+
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Import(EnableSsafyHandlerSelector.class)
+@ControllerAdvice
+public @interface EnableSsafyHandler {
+  String[] value() default {};
 }
