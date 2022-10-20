@@ -8,6 +8,7 @@ import com.ssafy.e206.annotation.EnableSsafyHandler;
 import com.ssafy.e206.handler.SsafyHandlerAll;
 import com.ssafy.e206.handler.SsafyHandler400;
 import com.ssafy.e206.handler.SsafyHandler404;
+import com.ssafy.e206.handler.SsafyHandler405;
 import com.ssafy.e206.handler.SsafyHandler500;
 
 @SuppressWarnings("null")
@@ -35,7 +36,7 @@ public class EnableSsafyHandlerSelector implements ImportSelector {
             handlerClasses[i] = SsafyHandler404.class.getName();
             break;
           case "405":
-            handlerClasses[i] = SsafyHandler500.class.getName();
+            handlerClasses[i] = SsafyHandler405.class.getName();
             break;
           case "500":
             handlerClasses[i] = SsafyHandler500.class.getName();
