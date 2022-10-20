@@ -34,6 +34,9 @@ public class EnableSsafyHandlerSelector implements ImportSelector {
           case "404":
             handlerClasses[i] = SsafyHandler404.class.getName();
             break;
+          case "405":
+            handlerClasses[i] = SsafyHandler500.class.getName();
+            break;
           case "500":
             handlerClasses[i] = SsafyHandler500.class.getName();
             break;

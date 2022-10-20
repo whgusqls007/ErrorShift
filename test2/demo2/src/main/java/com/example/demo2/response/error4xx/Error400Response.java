@@ -6,34 +6,18 @@ import java.util.stream.Collectors;
 import org.springframework.validation.BindingResult;
 
 import com.example.demo2.errorCode.ErrorCode;
+import com.example.demo2.response.ErrorResponse;
 
-public class Error400Response {
-
-  private String message;
-  private int status;
+public class Error400Response extends ErrorResponse {
   private List<FieldError> errors;
-
-  public String getMessage() {
-    return this.message;
-  }
-
-  public int getStatus() {
-    return this.status;
-  }
 
   public List<FieldError> getErrors() {
     return this.errors;
   }
 
   private Error400Response(final ErrorCode code, final List<FieldError> errors) {
-    this.message = code.getMessage();
-    this.status = code.getStatus();
+    super(code.getMessage(), code.getStatus());
     this.errors = errors;
-  }
-
-  private Error400Response(final ErrorCode code) {
-    this.message = code.getMessage();
-    this.status = code.getStatus();
   }
 
   private Error400Response() {
@@ -41,15 +25,6 @@ public class Error400Response {
 
   public static Error400Response of(final ErrorCode code, final BindingResult bindingResult) {
     return new Error400Response(code, FieldError.of(bindingResult));
-  }
-
-  @Override
-  public String toString() {
-    return "{" +
-        " message='" + getMessage() + "'" +
-        ", status='" + getStatus() + "'" +
-        ", errors='" + getErrors() + "'" +
-        "}";
   }
 
   public static class FieldError {
@@ -91,5 +66,14 @@ public class Error400Response {
               error.getDefaultMessage()))
           .collect(Collectors.toList());
     }
+  }
+
+  @Override
+  public String toString() {
+    return "{" +
+        " message='" + getMessage() + "'" +
+        ", status='" + getStatus() + "'" +
+        ", errors='" + getErrors() + "'" +
+        "}";
   }
 }

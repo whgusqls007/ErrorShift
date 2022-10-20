@@ -6,34 +6,18 @@ import java.util.Map;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.example.demo2.errorCode.ErrorCode;
+import com.example.demo2.response.ErrorResponse;
 
-public class Error404Response {
-
-  private String message;
-  private int status;
+public class Error404Response extends ErrorResponse {
   private Map<String, String> errors;
-
-  public String getMessage() {
-    return this.message;
-  }
-
-  public int getStatus() {
-    return this.status;
-  }
 
   public Map<String, String> getErrors() {
     return this.errors;
   }
 
   private Error404Response(final ErrorCode code, final Map<String, String> map) {
-    this.message = code.getMessage();
-    this.status = code.getStatus();
+    super(code.getMessage(), code.getStatus());
     this.errors = map;
-  }
-
-  private Error404Response(final ErrorCode code) {
-    this.message = code.getMessage();
-    this.status = code.getStatus();
   }
 
   private Error404Response() {
@@ -41,15 +25,6 @@ public class Error404Response {
 
   public static Error404Response of(final ErrorCode code, final NoHandlerFoundException e) {
     return new Error404Response(code, FieldError.of(e));
-  }
-
-  @Override
-  public String toString() {
-    return "{" +
-        " message='" + getMessage() + "'" +
-        ", status='" + getStatus() + "'" +
-        ", errors='" + getErrors() + "'" +
-        "}";
   }
 
   public static class FieldError {
@@ -79,4 +54,12 @@ public class Error404Response {
     }
   }
 
+  @Override
+  public String toString() {
+    return "{" +
+        " message='" + getMessage() + "'" +
+        ", status='" + getStatus() + "'" +
+        ", errors='" + getErrors() + "'" +
+        "}";
+  }
 }

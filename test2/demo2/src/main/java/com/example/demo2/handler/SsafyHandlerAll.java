@@ -3,6 +3,7 @@ package com.example.demo2.handler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +13,7 @@ import com.example.demo2.errorCode.ErrorCode;
 import com.example.demo2.logger.LoggerService;
 import com.example.demo2.response.error4xx.Error400Response;
 import com.example.demo2.response.error4xx.Error404Response;
+import com.example.demo2.response.error4xx.Error405Response;
 import com.example.demo2.response.error5xx.Error500NullPointerExceptionResponse;
 
 @Configuration
@@ -38,6 +40,14 @@ public class SsafyHandlerAll {
     Error404Response error404Response = Error404Response.of(ErrorCode.NOT_FOUND, e);
     loggerService.log(error404Response.toString());
     return new ResponseEntity<>(error404Response, HttpStatus.NOT_FOUND);
+  }
+
+  // 405 핸들러
+  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+  public ResponseEntity<Error405Response> handleNoHandlerFoundException(HttpRequestMethodNotSupportedException e) {
+    Error405Response error405Response = Error405Response.of(ErrorCode.METHOD_NOT_ALLOWED, e);
+    loggerService.log(error405Response.toString());
+    return new ResponseEntity<>(error405Response, HttpStatus.METHOD_NOT_ALLOWED);
   }
 
   // 500 NullPointerException 핸들러
