@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
@@ -14,6 +15,7 @@ import com.example.demo2.configuration.EnableSsafyHandlerSelector;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(EnableSsafyHandlerSelector.class)
 @ControllerAdvice
+@ComponentScan(basePackages = "com.example.demo2.logger")
 public @interface EnableSsafyHandler {
   String[] value() default {};
 }
