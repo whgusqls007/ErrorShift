@@ -1,6 +1,6 @@
 package com.example.demo.exceptionHandler;
 
-import com.example.demo2.annotation.EnableSsafyHandler;
+import com.ssafy.e206.annotation.EnableSsafyHandler;
 
 @EnableSsafyHandler
 public class GlobalExceptionHandler {

@@ -29,16 +29,14 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-	implementation 'com.example:demo2:1.0.1'
-	testImplementation 'com.example:demo2:1.0.1'
+	implementation 'com.ssafy:e206:1.0.0-beta'
+	testImplementation 'com.ssafy:e206:1.0.0-beta'
 
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	// swagger annotations 1.5.21
 	implementation 'io.swagger:swagger-annotations:1.5.21'
 	// swagger models 1.5.21
 	implementation 'io.swagger:swagger-models:1.5.21'
-	implementation 'org.apache.commons:commons-lang3:3.9'
-	implementation 'com.squareup:javapoet:1.11.1'
 	implementation group: 'com.google.auto.service', name: 'auto-service-annotations', version: '1.0.1'
 }
 
