@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.example.demo2.errorCode.ErrorCode;
 import com.example.demo2.logger.LoggerService;
-import com.example.demo2.response.error5xx.Error500NullPointerExceptionResponse;
+import com.example.demo2.response.error5xx.Error500RuntimeExceptionResponse;
 
 @Configuration
 @ControllerAdvice
@@ -20,11 +20,12 @@ public class SsafyHandler500 {
     this.loggerService = loggerService;
   }
 
-  @ExceptionHandler(NullPointerException.class)
-  public ResponseEntity<Error500NullPointerExceptionResponse> hadleNullPointerException(NullPointerException e) {
-    Error500NullPointerExceptionResponse error500NullPointerExceptionResponse = Error500NullPointerExceptionResponse
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<Error500RuntimeExceptionResponse> handleRuntimeException(RuntimeException e) {
+    Error500RuntimeExceptionResponse error500RuntimeExceptionResponse = Error500RuntimeExceptionResponse
         .of(ErrorCode.INTERNAL_SERVER_ERROR, e);
-    loggerService.log(error500NullPointerExceptionResponse.toString());
-    return new ResponseEntity<>(error500NullPointerExceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    loggerService.log(error500RuntimeExceptionResponse.toString());
+    return new ResponseEntity<>(error500RuntimeExceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

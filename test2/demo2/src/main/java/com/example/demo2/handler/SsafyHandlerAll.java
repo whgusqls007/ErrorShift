@@ -14,7 +14,7 @@ import com.example.demo2.logger.LoggerService;
 import com.example.demo2.response.error4xx.Error400Response;
 import com.example.demo2.response.error4xx.Error404Response;
 import com.example.demo2.response.error4xx.Error405Response;
-import com.example.demo2.response.error5xx.Error500NullPointerExceptionResponse;
+import com.example.demo2.response.error5xx.Error500RuntimeExceptionResponse;
 
 @Configuration
 @ControllerAdvice
@@ -50,12 +50,13 @@ public class SsafyHandlerAll {
     return new ResponseEntity<>(error405Response, HttpStatus.METHOD_NOT_ALLOWED);
   }
 
-  // 500 NullPointerException 핸들러
-  @ExceptionHandler(NullPointerException.class)
-  public ResponseEntity<Error500NullPointerExceptionResponse> hadleNullPointerException(NullPointerException e) {
-    Error500NullPointerExceptionResponse error500NullPointerExceptionResponse = Error500NullPointerExceptionResponse
+
+  // 500 RuntimeException 핸들러
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<Error500RuntimeExceptionResponse> handleRuntimeException(RuntimeException e) {
+    Error500RuntimeExceptionResponse error500RuntimeExceptionResponse = Error500RuntimeExceptionResponse
         .of(ErrorCode.INTERNAL_SERVER_ERROR, e);
-    loggerService.log(error500NullPointerExceptionResponse.toString());
-    return new ResponseEntity<>(error500NullPointerExceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    loggerService.log(error500RuntimeExceptionResponse.toString());
+    return new ResponseEntity<>(error500RuntimeExceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

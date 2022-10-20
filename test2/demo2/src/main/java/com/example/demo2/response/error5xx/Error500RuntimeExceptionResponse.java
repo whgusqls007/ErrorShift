@@ -1,14 +1,13 @@
 package com.example.demo2.response.error5xx;
 
+import com.example.demo2.errorCode.ErrorCode;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.demo2.errorCode.ErrorCode;
-
-public class Error500NullPointerExceptionResponse {
-
+public class Error500RuntimeExceptionResponse {
   private String message;
   private int status;
   private Map<String, String> errors;
@@ -25,22 +24,22 @@ public class Error500NullPointerExceptionResponse {
     return this.errors;
   }
 
-  private Error500NullPointerExceptionResponse(final ErrorCode code, final Map<String, String> errors) {
+  private Error500RuntimeExceptionResponse(final ErrorCode code, final Map<String, String> errors) {
     this.message = code.getMessage();
     this.status = code.getStatus();
     this.errors = errors;
   }
 
-  private Error500NullPointerExceptionResponse(final ErrorCode code) {
+  private Error500RuntimeExceptionResponse(final ErrorCode code) {
     this.message = code.getMessage();
     this.status = code.getStatus();
   }
 
-  private Error500NullPointerExceptionResponse() {
+  private Error500RuntimeExceptionResponse() {
   }
 
-  public static Error500NullPointerExceptionResponse of(final ErrorCode code, final NullPointerException e) {
-    return new Error500NullPointerExceptionResponse(code, FieldError.of(e));
+  public static Error500RuntimeExceptionResponse of(final ErrorCode code, final RuntimeException e) {
+    return new Error500RuntimeExceptionResponse(code, FieldError.of(e));
   }
 
   @Override
@@ -75,10 +74,10 @@ public class Error500NullPointerExceptionResponse {
       this.errMsg = errMsg;
     }
 
-    private static Map<String, String> of(final NullPointerException e) {
+    private static Map<String, String> of(final RuntimeException e) {
       StringWriter writer = new StringWriter();
       e.printStackTrace(new PrintWriter(writer));
-      String[] errorMsg = writer.getBuffer().toString().split("at")[1].replaceAll(" ", "").replaceAll("\\)",
+      String[] errorMsg = writer.getBuffer().toString().split("at ")[1].replaceAll(" ", "").replaceAll("\\)",
           "").split("\\(");
       String Location = errorMsg[0];
       String Line = errorMsg[1].replaceAll("\\\r\\\n\\\t", "");
@@ -87,7 +86,7 @@ public class Error500NullPointerExceptionResponse {
         {
           put("location", Location);
           put("line", Line.split(":")[1]);
-          put("errMsg", writer.getBuffer().toString().split("at")[0].replaceAll("\\\r\\\n\\\t", ""));
+          put("errMsg", writer.getBuffer().toString().split("at ")[0].replaceAll("\\\r\\\n\\\t", ""));
         }
       };
     }
