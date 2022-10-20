@@ -1,48 +1,31 @@
 package com.example.demo.controller;
 
-import org.apache.commons.lang3.concurrent.ConcurrentException;
-import org.omg.CORBA.SystemException;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.events.EventException;
-import org.w3c.dom.ls.LSException;
+import java.awt.geom.IllegalPathStateException;
+import java.lang.invoke.WrongMethodTypeException;
+import java.lang.reflect.MalformedParameterizedTypeException;
+import java.lang.reflect.MalformedParametersException;
+import java.nio.BufferOverflowException;
+import java.nio.BufferUnderflowException;
+import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.ProviderNotFoundException;
+import java.security.ProviderException;
+import java.util.ConcurrentModificationException;
+import java.util.EmptyStackException;
+import java.util.IllformedLocaleException;
+import java.util.NoSuchElementException;
+import java.util.concurrent.RejectedExecutionException;
 
-import javax.lang.model.UnknownEntityException;
-import javax.lang.model.type.MirroredTypesException;
 import javax.management.JMRuntimeException;
 import javax.print.attribute.UnmodifiableSetException;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
-import javax.xml.bind.DataBindingException;
-import javax.xml.bind.TypeConstraintException;
 import javax.xml.crypto.NoSuchMechanismException;
 import javax.xml.ws.WebServiceException;
-import java.awt.color.CMMException;
-import java.awt.color.ProfileDataException;
-import java.awt.geom.IllegalPathStateException;
-import java.awt.image.ImagingOpException;
-import java.awt.image.RasterFormatException;
-import java.io.UncheckedIOException;
-import java.lang.annotation.AnnotationTypeMismatchException;
-import java.lang.annotation.IncompleteAnnotationException;
-import java.lang.invoke.WrongMethodTypeException;
-import java.lang.reflect.MalformedParameterizedTypeException;
-import java.lang.reflect.MalformedParametersException;
-import java.lang.reflect.Method;
-import java.lang.reflect.UndeclaredThrowableException;
-import java.nio.BufferOverflowException;
-import java.nio.BufferUnderflowException;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.FileSystemNotFoundException;
-import java.nio.file.ProviderNotFoundException;
-import java.security.ProviderException;
-import java.time.DateTimeException;
-import java.util.*;
-import java.util.concurrent.CompletionException;
-import java.util.concurrent.RejectedExecutionException;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/re")
