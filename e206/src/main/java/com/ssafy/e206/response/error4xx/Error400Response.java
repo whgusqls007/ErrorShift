@@ -32,6 +32,7 @@ public class Error400Response extends ErrorResponse {
     private String value;
     private String message;
     private String objName;
+    private String possibleSolution;
 
     public String getField() {
       return this.field;
@@ -49,11 +50,28 @@ public class Error400Response extends ErrorResponse {
       return this.objName;
     }
 
-    private FieldError(final String field, final String objName, final String value, final String message) {
+    public String getPossibleSolution() {
+      return this.possibleSolution;
+    }
+
+    @Override
+    public String toString() {
+      return "{" +
+          " field='" + getField() + "'" +
+          " value='" + getValue() + "'" +
+          " message='" + getMessage() + "'" +
+          " objName='" + getObjName() + "'" +
+          " possibleSolution='" + getPossibleSolution() + "'" +
+          " }";
+    }
+
+    private FieldError(final String field, final String objName, final String value, final String message,
+        final String possibleSolution) {
       this.field = field;
       this.objName = objName;
       this.value = value;
       this.message = message;
+      this.possibleSolution = possibleSolution;
     }
 
     private static List<FieldError> of(final BindingResult bindingResult) {
@@ -63,7 +81,9 @@ public class Error400Response extends ErrorResponse {
               error.getField(),
               error.getObjectName(),
               String.valueOf(error.getRejectedValue()),
-              error.getDefaultMessage()))
+              error.getDefaultMessage(),
+              "Your request value is " + error.getRejectedValue() + " for " + error.getField() + " of "
+                  + error.getObjectName() + ". You can check the request value and try again."))
           .collect(Collectors.toList());
     }
   }
@@ -72,8 +92,8 @@ public class Error400Response extends ErrorResponse {
   public String toString() {
     return "{" +
         " message='" + getMessage() + "'" +
-        ", status='" + getStatus() + "'" +
-        ", errors='" + getErrors() + "'" +
-        "}";
+        " status='" + getStatus() + "'" +
+        " errors='" + getErrors() + "'" +
+        " }";
   }
 }

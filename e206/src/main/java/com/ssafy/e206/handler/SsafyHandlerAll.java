@@ -30,7 +30,7 @@ public class SsafyHandlerAll {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Error400Response> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
     Error400Response error400Response = Error400Response.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
-    loggerService.log(error400Response.toString());
+    loggerService.log("\n" + error400Response.toString());
     return new ResponseEntity<>(error400Response, HttpStatus.BAD_REQUEST);
   }
 
@@ -38,7 +38,7 @@ public class SsafyHandlerAll {
   @ExceptionHandler(NoHandlerFoundException.class)
   public ResponseEntity<Error404Response> handleNoHandlerFoundException(NoHandlerFoundException e) {
     Error404Response error404Response = Error404Response.of(ErrorCode.NOT_FOUND, e);
-    loggerService.log(error404Response.toString());
+    loggerService.log("\n" + error404Response.toString());
     return new ResponseEntity<>(error404Response, HttpStatus.NOT_FOUND);
   }
 
@@ -46,7 +46,7 @@ public class SsafyHandlerAll {
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   public ResponseEntity<Error405Response> handleNoHandlerFoundException(HttpRequestMethodNotSupportedException e) {
     Error405Response error405Response = Error405Response.of(ErrorCode.METHOD_NOT_ALLOWED, e);
-    loggerService.log(error405Response.toString());
+    loggerService.log("\n" + error405Response.toString());
     return new ResponseEntity<>(error405Response, HttpStatus.METHOD_NOT_ALLOWED);
   }
 

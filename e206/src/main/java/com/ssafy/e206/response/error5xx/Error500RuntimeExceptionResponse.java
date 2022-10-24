@@ -79,6 +79,7 @@ public class Error500RuntimeExceptionResponse {
       e.printStackTrace(new PrintWriter(writer));
       String[] errorMsg = writer.getBuffer().toString().split("at ")[1].replaceAll(" ", "").replaceAll("\\)",
           "").split("\\(");
+      String errMsg = writer.getBuffer().toString().split("at ")[0].replaceAll("\\\r\\\n\\\t", "");
       String Location = errorMsg[0];
       String Line = errorMsg[1].replaceAll("\\\r\\\n\\\t", "");
 
@@ -86,7 +87,9 @@ public class Error500RuntimeExceptionResponse {
         {
           put("location", Location);
           put("line", Line.split(":")[1]);
-          put("errMsg", writer.getBuffer().toString().split("at ")[0].replaceAll("\\\r\\\n\\\t", ""));
+          put("errMsg", errMsg);
+          put("possibleSolution", "Your error is occurred in " + Location + " at line " + Line.split(":")[1]
+              + ". You can check the error and try again.");
         }
       };
     }

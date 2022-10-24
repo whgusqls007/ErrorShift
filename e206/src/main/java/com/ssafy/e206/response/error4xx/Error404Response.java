@@ -28,27 +28,13 @@ public class Error404Response extends ErrorResponse {
   }
 
   public static class FieldError {
-    private String requestURL;
-    private String method;
-
-    public String getRequestURL() {
-      return this.requestURL;
-    }
-
-    public String getMethod() {
-      return this.method;
-    }
-
-    private FieldError(final String requestURL, final String method) {
-      this.requestURL = requestURL;
-      this.method = method;
-    }
-
     private static Map<String, String> of(final NoHandlerFoundException e) {
       return new HashMap<String, String>() {
         {
           put("requestURL", e.getRequestURL());
           put("method", e.getHttpMethod());
+          put("possibleSolution",
+              "Your request URL is " + e.getRequestURL() + " . You can check the request URL and try again.");
         }
       };
     }

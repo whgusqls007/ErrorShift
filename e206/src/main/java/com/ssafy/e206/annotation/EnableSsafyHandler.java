@@ -18,4 +18,5 @@ import com.ssafy.e206.configuration.EnableSsafyHandlerSelector;
 @ComponentScan(basePackages = "com.ssafy.e206.logger")
 public @interface EnableSsafyHandler {
   String[] value() default {};
+
 }

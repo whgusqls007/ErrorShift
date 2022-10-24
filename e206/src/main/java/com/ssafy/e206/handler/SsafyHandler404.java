@@ -24,7 +24,7 @@ public class SsafyHandler404 {
   @ExceptionHandler(NoHandlerFoundException.class)
   public ResponseEntity<Error404Response> handleNoHandlerFoundException(NoHandlerFoundException e) {
     Error404Response error404Response = Error404Response.of(ErrorCode.NOT_FOUND, e);
-    loggerService.log(error404Response.toString());
+    loggerService.log("\n" + error404Response.toString());
     return new ResponseEntity<>(error404Response, HttpStatus.NOT_FOUND);
   }
 }

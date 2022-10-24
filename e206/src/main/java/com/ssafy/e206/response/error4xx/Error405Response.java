@@ -21,9 +21,6 @@ public class Error405Response extends ErrorResponse {
     this.errors = map;
   }
 
-  private Error405Response() {
-  }
-
   public static Error405Response of(final ErrorCode code, final HttpRequestMethodNotSupportedException e) {
     return new Error405Response(code, FieldError.of(e));
   }
@@ -57,6 +54,11 @@ public class Error405Response extends ErrorResponse {
           put("message", e.getMessage());
           put("requestedMethod", e.getMethod());
           put("supportedMethod", Arrays.toString(e.getSupportedMethods()));
+
+          
+          put("possibleSolution", "you use " + e.getMethod() + " method, but you can use "
+              + Arrays.toString(e.getSupportedMethods()) 
+              + " method(s) for this request. Please check the request method and try again.");
         }
       };
     }
@@ -64,10 +66,9 @@ public class Error405Response extends ErrorResponse {
 
   @Override
   public String toString() {
-    return "{" +
-        " message='" + getMessage() + "'" +
-        ", status='" + getStatus() + "'" +
-        ", errors='" + getErrors() + "'" +
+    return "{" + super.toString() +
+        " errors='" + getErrors() + "'" +
         "}";
   }
+
 }

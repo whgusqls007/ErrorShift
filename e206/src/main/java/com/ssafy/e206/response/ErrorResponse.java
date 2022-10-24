@@ -19,4 +19,11 @@ public class ErrorResponse {
   public int getStatus() {
     return this.status;
   }
+
+  @Override
+  public String toString() {
+    return "{\n" +
+        "\tmessage='" + getMessage() + "'\n" +
+        "\tstatus='" + getStatus() + "'\n";
+  }
 }
