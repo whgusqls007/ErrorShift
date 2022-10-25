@@ -1,7 +1,10 @@
 package com.example.test.exceptionHandler;
 
-import com.ssafy.e206.annotation.EnableSsafyHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
-@EnableSsafyHandler()
+import com.ssafy.e206.annotation.TestAnnotation;
+
+// @EnableSsafyHandler
+@TestAnnotation(value = NoHandlerFoundException.class)
 public class GlobalExceptionHandler {
 }

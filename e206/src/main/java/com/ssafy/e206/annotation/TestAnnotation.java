@@ -9,13 +9,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import com.ssafy.e206.configuration.EnableSsafyHandlerSelector;
+import com.ssafy.e206.configuration.TestAnnotationSelector;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(EnableSsafyHandlerSelector.class)
+@Import(TestAnnotationSelector.class)
 @ControllerAdvice
 @ComponentScan(basePackages = "com.ssafy.e206.logger")
-public @interface EnableSsafyHandler {
-  String[] value() default {};
+public @interface TestAnnotation {
+  Class<?> value() default NullPointerException;
 }
