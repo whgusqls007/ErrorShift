@@ -7,7 +7,7 @@ import "./NavBar.css"
 function NavBar(){
     return(
         <div>
-            <Navbar bg="light" variant="light" style={{height:80}}>
+            <Navbar bg="light" variant="light" fixed="top" style={{height:80}}>
                 <Container>
                 <Navbar.Brand href="/">ErrorShift</Navbar.Brand>
                 <Nav>
