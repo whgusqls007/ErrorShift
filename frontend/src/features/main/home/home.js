@@ -1,4 +1,5 @@
 import NavBar from "../../../common/navbar/NavBar"
+import Footer from "../../../common/footer/Footer"
 import "bootstrap/dist/css/bootstrap.min.css"
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import img from "../../../assets/img/img1.jpg"
@@ -16,6 +17,7 @@ function Home(){
                     </div>
                 </div>
             </div>
+            <Footer></Footer>
         </div>
     )
 }
