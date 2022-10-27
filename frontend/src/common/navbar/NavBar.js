@@ -7,9 +7,9 @@ import "./NavBar.css"
 function NavBar(){
     return(
         <div>
-            <Navbar bg="light" variant="light" fixed="top" style={{height:80}}>
+            <Navbar className="navbar-box" bg="light" variant="light" fixed="top">
                 <Container>
-                <Navbar.Brand href="/">ErrorShift</Navbar.Brand>
+                <Navbar.Brand className="item-name" href="/" style={{fontSize:28}} >ErrorShift</Navbar.Brand>
                 <Nav>
                     <Nav.Link href="/adv" style={{marginRight:"3rem"}}>홍보 및 시연</Nav.Link>
                     <Nav.Link href="/errortype" style={{marginRight:"3rem"}}>에러 분류</Nav.Link>
