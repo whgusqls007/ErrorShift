@@ -13,6 +13,7 @@ import FiveZeroTwo from '../features/errorpage/5xx/502'
 
 function App() {
   return (
+
     <Router>
       <Routes>
         <Route exact path="/" element={ <Main/> } />
