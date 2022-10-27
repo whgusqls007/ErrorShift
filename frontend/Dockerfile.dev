@@ -4,5 +4,7 @@ COPY package*.json /var/jenkins_home/workspace/errorshift/frontend/
 RUN npm install
 COPY ./ /var/jenkins_home/workspace/errorshift/frontend/
 RUN npm run build
-ENTRYPOINT ["serve", "-s", "build"]
+RUN npm install -g serve
+CMD ["serve", "-s", "build"]
+#ENTRYPOINT ["serve", "-s", "build"]
 #CMD ["npm", "run", "start"]
