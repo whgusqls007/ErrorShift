@@ -1,8 +1,8 @@
-import NavBar from "../../../common/navbar/NavBar"
-import Footer from "../../../common/footer/Footer"
-import SideBar from "../../../common/sidebar/SideBar"
+import NavBar from '../../common/navbar/NavBar'
+import Footer from '../../common/footer/Footer'
+import SideBar from '../../common/sidebar/SideBar'
 
-function FiveZeroOne(){
+function FourZeroOne(){
     return(
         <div>
             <NavBar></NavBar>
@@ -11,11 +11,11 @@ function FiveZeroOne(){
                     <SideBar></SideBar>
                 </div>
                 <div style={{height:500, marginTop:80}}>
-                    <h1>501페이지입니다.</h1>
+                    <h1>에러타입2.</h1>
                 </div>
             </div>
             <Footer></Footer>
         </div>
     )
 }
-export default FiveZeroOne;
+export default FourZeroOne;

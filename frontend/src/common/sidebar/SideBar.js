@@ -8,16 +8,9 @@ function SideBar(){
         <div>
             <Sidebar style={{marginTop:80}}>
                 <Menu>
-                    <SubMenu label="4XX 에러">
-                        <MenuItem routerLink={<Link to="/errortype/400" />}> 400 </MenuItem>
-                        <MenuItem routerLink={<Link to="/errortype/401" />}> 401 </MenuItem>
-                        <MenuItem routerLink={<Link to="/errortype/402" />}> 402 </MenuItem>
-                    </SubMenu>
-                    <SubMenu label="5XX 에러">
-                        <MenuItem routerLink={<Link to="/errortype/500" />}> 500 </MenuItem>
-                        <MenuItem routerLink={<Link to="/errortype/501" />}> 501 </MenuItem>
-                        <MenuItem routerLink={<Link to="/errortype/502" />}> 502 </MenuItem>
-                    </SubMenu>
+                    <MenuItem routerLink={<Link to="/errortype/errortype1"/>}> 에러타입1 </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/errortype2"/>}> 에러타입2 </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/errortype3"/>}> 에러타입3 </MenuItem>
                 </Menu>
             </Sidebar>
         </div>
