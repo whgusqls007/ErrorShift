@@ -5,10 +5,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.ssafy.e206.annotation.TestAnnotation;
-import com.ssafy.e206.errorCode.ErrorCode;
 
-@TestAnnotation(exception = NoHandlerFoundException.class, errorCode = HttpStatus.NOT_FOUND, message = "Not Found")
-@TestAnnotation(exception = NullPointerException.class, errorCode = HttpStatus.INTERNAL_SERVER_ERROR, message = "Internal Server Error")
+@TestAnnotation(exception = NoHandlerFoundException.class, errorCode = HttpStatus.NOT_FOUND, basePackage = "com.example.test.exceptionHandler.Error404Response")
+@TestAnnotation(exception = NullPointerException.class, errorCode = HttpStatus.INTERNAL_SERVER_ERROR)
 @ControllerAdvice
 public class GlobalExceptionHandler {
 }

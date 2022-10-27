@@ -12,5 +12,5 @@ public @interface TestAnnotation {
 
   HttpStatus errorCode() default HttpStatus.OK;
 
-  String message() default "OK";
+  String basePackage() default "";
 }

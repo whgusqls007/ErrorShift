@@ -1,5 +1,9 @@
 package com.ssafy.e206.configuration;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportAware;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -8,58 +12,43 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.function.ServerResponse.Context;
 
-import com.ssafy.e206.annotation.TestAnnotation;
 import com.ssafy.e206.annotation.TestAnnotations;
-import com.ssafy.e206.errorCode.ErrorCode;
+import com.ssafy.e206.response.CommonResponse;
 
 @SuppressWarnings("null")
 @Configuration
 @ControllerAdvice
 public class TestAnnotationSelector implements ImportAware {
-  Class<? extends Throwable>[] exception;
   AnnotationAttributes[] annotationAttributes;
 
   private void setAnnotationAttributes(AnnotationAttributes[] annotationAttributes) {
     this.annotationAttributes = annotationAttributes;
   }
 
-  private void setException(Class<? extends Throwable>[] exception) {
-    this.exception = exception;
-  }
-
   @ExceptionHandler
   public ResponseEntity<String> handleException(Exception exception) {
+
+    try {
+      Object obj = Class.forName(this.annotationAttributes[0].getString("basePackage")).newInstance();
+      CommonResponse response = (CommonResponse) obj;
+      response.aaaa();
+      // Method m = obj.getClass().getDeclaredMethod("aaaa", new Class<?>[0]);
+      // m.invoke(obj);
+    } catch (ClassNotFoundException | SecurityException | IllegalAccessException
+        | IllegalArgumentException | InstantiationException e) {
+      e.printStackTrace();
+      return new ResponseEntity<>("aaaa 없음", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     for (int i = 0; i < this.annotationAttributes.length; i++) {
       if (this.annotationAttributes[i].getClass("exception").isInstance(exception)) {
-        return new ResponseEntity<>(this.annotationAttributes[i].getString("message"), annotationAttributes[i].getEnum("errorCode"));
+        HttpStatus httpStatus = this.annotationAttributes[i].getEnum("errorCode");
+        return new ResponseEntity<>(httpStatus.toString(), httpStatus);
       }
     }
     return new ResponseEntity<>("asdasdasdasdasd", HttpStatus.INTERNAL_SERVER_ERROR);
-  }
-
-  private ErrorCode getErrorCode(AnnotationMetadata importingClassMetadata) {
-    return AnnotationAttributes
-        .fromMap(importingClassMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
-        .getEnum("errorCode");
-  }
-
-  private String getMessage(AnnotationMetadata importingClassMetadata) {
-    return AnnotationAttributes
-        .fromMap(importingClassMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
-        .getString("message");
-  }
-
-  private int getStatus(AnnotationMetadata importingClassMetadata) {
-    return AnnotationAttributes
-        .fromMap(importingClassMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
-        .getNumber("status");
-  }
-
-  private Class<? extends Throwable> getException(AnnotationMetadata importingClassMetadata) {
-    return AnnotationAttributes
-        .fromMap(importingClassMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
-        .getClass("exception");
   }
 
   private AnnotationAttributes[] getAnnotation(AnnotationMetadata importingClassMetadata) {
@@ -73,36 +62,5 @@ public class TestAnnotationSelector implements ImportAware {
     System.out.println(":asdfasdfasdf");
     AnnotationAttributes[] annotationAttributes = getAnnotation(importingClassMetadata);
     setAnnotationAttributes(annotationAttributes);
-    // List<Class<? extends Throwable>> exceptionList = new ArrayList<>();
-
-    // for (int i = 0; i < annotationAttributes.length; i++) {
-    // exceptionList.add(annotationAttributes[i].getClass("exception"));
-    // }
-
-    // setException(exceptionList.toArray(new Class[exceptionList.size()]));
-
-    // Class<? extends Throwable> exception = getException(importingClassMetadata);
-    // this.setException(exception);
-    // System.out
-    // .println("File: TestAnnotationSelector.java ~ line: (45) ~ function:
-    // voidsetImportMetadata ---> exception: "
-    // + exception);
-
-    // ErrorCode errorCode = getErrorCode(importingClassMetadata);
-    // System.out
-    // .println("File: TestAnnotationSelector.java ~ line: (47) ~ function:
-    // voidsetImportMetadata ---> errorCode: "
-    // + errorCode);
-
-    // String message = getMessage(importingClassMetadata);
-    // System.out.println(
-    // "File: TestAnnotationSelector.java ~ line: (49) ~ function:
-    // voidsetImportMetadata ---> message: " + message);
-
-    // int status = getStatus(importingClassMetadata);
-    // System.out.println(
-    // "File: TestAnnotationSelector.java ~ line: (51) ~ function:
-    // voidsetImportMetadata ---> status: " + status);
-
   }
 }
