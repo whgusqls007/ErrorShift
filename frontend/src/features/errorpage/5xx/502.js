@@ -2,9 +2,7 @@ import NavBar from "../../../common/navbar/NavBar"
 import Footer from "../../../common/footer/Footer"
 import SideBar from "../../../common/sidebar/SideBar"
 
-import './ErrorType.css'
-
-function ErrorType(){
+function FiveZeroTwo(){
     return(
         <div>
             <NavBar></NavBar>
@@ -12,12 +10,12 @@ function ErrorType(){
                 <div>
                     <SideBar></SideBar>
                 </div>
-                <div className="content" style={{height:500}}>
-
+                <div style={{height:500, marginTop:80}}>
+                    <h1>502페이지입니다.</h1>
                 </div>
             </div>
             <Footer></Footer>
         </div>
     )
 }
-export default ErrorType;
+export default FiveZeroTwo;
