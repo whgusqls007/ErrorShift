@@ -12,9 +12,9 @@ function Home(){
             <NavBar></NavBar>
             <div className="Home">
                 <div className="main1">
-                    <div>
+                    <div className="word">
                         <h1>ErrorShift</h1>
-                        <h5>에러를 더 쉽게, 더 빠르게</h5>
+                        <h5>에러를 더 쉽게, 더 빠르게</h5> 
                     </div>    
                     <div>
                         <img style={{width:'60rem', height:'40rem'}} alt="babyImg" src={img} />
