@@ -1,0 +1,6 @@
+FROM node:16.17.0
+WORKDIR /var/jenkins_home/workspace/errorshift/frontend
+COPY package*.json /var/jenkins_home/workspace/errorshift/frontend/
+RUN npm install
+COPY ./ /var/jenkins_home/workspace/errorshift/frontend/
+CMD ["npm", "run", "start"]
