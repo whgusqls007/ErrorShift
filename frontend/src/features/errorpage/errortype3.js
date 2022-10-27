@@ -1,8 +1,8 @@
-import NavBar from "../../../common/navbar/NavBar"
-import Footer from "../../../common/footer/Footer"
-import SideBar from "../../../common/sidebar/SideBar"
+import NavBar from '../../common/navbar/NavBar'
+import Footer from '../../common/footer/Footer'
+import SideBar from '../../common/sidebar/SideBar'
 
-function FourZeroZero(){
+function FourZeroTwo(){
     return(
         <div>
             <NavBar></NavBar>
@@ -11,11 +11,11 @@ function FourZeroZero(){
                     <SideBar></SideBar>
                 </div>
                 <div style={{height:500, marginTop:80}}>
-                    <h1>400페이지입니다.</h1>
+                    <h1>에러타입3</h1>
                 </div>
             </div>
             <Footer></Footer>
         </div>
     )
 }
-export default FourZeroZero;
+export default FourZeroTwo;
