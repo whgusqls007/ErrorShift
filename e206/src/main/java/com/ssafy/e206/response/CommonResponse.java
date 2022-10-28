@@ -1,6 +1,8 @@
 package com.ssafy.e206.response;
 
+import org.springframework.http.HttpStatus;
+
 public interface CommonResponse {
 
-  public void aaaa();
+  public CommonResponse of(HttpStatus httpStatus, Exception exception);
 }

@@ -9,12 +9,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import com.ssafy.e206.configuration.TestAnnotationSelector;
+import com.ssafy.e206.configuration.TestAnnotationsConfig;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ComponentScan(basePackages = "com.ssafy.e206.logger")
-@Import(TestAnnotationSelector.class)
+@Import(TestAnnotationsConfig.class)
 @ControllerAdvice
 public @interface TestAnnotations {
   TestAnnotation[] value();
