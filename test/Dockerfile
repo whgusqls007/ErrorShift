@@ -1,10 +1,9 @@
-FROM node:16.17.0
+FROM node:16.17.1-alpine
 WORKDIR /var/jenkins_home/workspace/errorshift/frontend
 COPY package*.json /var/jenkins_home/workspace/errorshift/frontend/
 RUN npm install
 COPY ./ /var/jenkins_home/workspace/errorshift/frontend/
 RUN npm run build
 RUN npm install -g serve
-CMD ["serve", "-s", "build"]
-#ENTRYPOINT ["serve", "-s", "build"]
-#CMD ["npm", "run", "start"]
+ENTRYPOINT ["serve", "-s", "build"]
+
