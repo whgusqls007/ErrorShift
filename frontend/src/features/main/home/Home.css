@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&family=Raleway:wght@700&family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Quicksand:wght@700&family=Raleway:wght@700&family=Roboto+Condensed&display=swap');
 
 .main1 {
     margin-top: 120px;
+    height: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,4 +15,87 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+
+.more-easy {
+    font-family: 'Jua', sans-serif;
+    font-size: 20px;
+}
+
+.main2 {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main2_1{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Jua', sans-serif;
+    font-size: 30px;
+}
+
+.main2_2{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;
+    margin-left: 1rem;
+    font-family: 'Jua', sans-serif;
+    font-size: 20px;
+}
+
+.main2_3{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    font-family: 'Jua', sans-serif;
+    font-size: 20px;
+}
+
+.main2_4{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    font-family: 'Jua', sans-serif;
+    font-size: 20px;
+}
+
+.main3 {
+    height: 400px;
+    background-color: rgba(0, 0, 0, 0.04);
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.img-one {
+    margin-top: 30px;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-two {
+    margin-top: 30px;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-three {
+    margin-top: 30px;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main3-text {
+    font-family: 'Jua', sans-serif;
+    font-size: 20px;
 }
