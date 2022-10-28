@@ -9,3 +9,7 @@
 .navbar-brand{
     font-size: 24px;
 }
+
+Nav.Link:hover {
+    text-decoration: underline;
+}
