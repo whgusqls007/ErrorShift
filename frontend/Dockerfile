@@ -6,4 +6,3 @@ COPY ./ /var/jenkins_home/workspace/errorshift/frontend/
 RUN npm run build
 RUN npm install -g serve
 ENTRYPOINT ["serve", "-s", "build"]
-
