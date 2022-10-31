@@ -14,7 +14,7 @@ import com.ssafy.e206.configuration.CustomErrorAttributes;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ComponentScan(basePackages = "com.ssafy.e206.logger")
-@Import({ CustomErrorAttributes.class })
+@Import(CustomErrorAttributes.class)
 @ControllerAdvice
 public @interface TestAnnotations {
   TestAnnotation[] value();
