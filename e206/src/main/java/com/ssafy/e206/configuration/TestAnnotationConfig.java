@@ -38,8 +38,10 @@ public class TestAnnotationConfig implements ImportAware {
       } else {
         try {
           Object obj = Class.forName(this.basePackage).newInstance();
-          CommonResponse response = ((CommonResponse) obj).of(this.errorCode, exception);
-          return new ResponseEntity<>(response.of(this.errorCode, exception), this.errorCode);
+          CommonResponse response = ((CommonResponse) obj).of(this.errorCode,
+              exception);
+          return new ResponseEntity<>(response.of(this.errorCode, exception),
+              this.errorCode);
         } catch (ClassNotFoundException | SecurityException | IllegalAccessException
             | IllegalArgumentException | InstantiationException e) {
           e.printStackTrace();

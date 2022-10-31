@@ -44,10 +44,6 @@ public class GetController {
   public String getName(@PathVariable String name) {
     HelloDTO helloDTO = new HelloDTO();
     helloDTO.setName(name);
-    System.out.println(" helloDTO: " + helloDTO);
-    for (int i = 0; i < 50000; i++) {
-      System.out.println(i);
-    }
     return "Hello " + name + "!";
   }
 
