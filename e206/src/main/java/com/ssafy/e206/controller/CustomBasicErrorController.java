@@ -1,4 +1,4 @@
-package com.ssafy.e206.configuration;
+package com.ssafy.e206.controller;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,15 +23,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssafy.e206.configuration.CustomErrorAttributes;
+
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class CustomBasicErrorController extends CustomAbstractErrorController implements ImportAware {
   private ErrorProperties errorProperties;
 
+  public CustomBasicErrorController(CustomErrorAttributes errorAttributes, ErrorProperties errorProperties) {
+    this(errorAttributes, errorProperties, Collections.emptyList());
+  }
+
   public CustomBasicErrorController(CustomErrorAttributes errorAttributes, ErrorProperties errorProperties,
       List<ErrorViewResolver> errorViewResolvers) {
     super(errorAttributes, errorViewResolvers);
-    System.out.println(errorAttributes);
     Assert.notNull(errorProperties, "ErrorProperties must not be null");
     this.errorProperties = errorProperties;
   }
@@ -47,14 +52,12 @@ public class CustomBasicErrorController extends CustomAbstractErrorController im
   }
 
   @RequestMapping
-  public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
+  public ResponseEntity<Object> error(HttpServletRequest request) {
     HttpStatus status = getStatus(request);
     if (status == HttpStatus.NO_CONTENT) {
       return new ResponseEntity<>(status);
     }
     Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
-    System.out.println("1231231232");
-
     return new ResponseEntity<>(body, status);
   }
 

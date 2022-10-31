@@ -8,21 +8,36 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import com.ssafy.e206.configuration.TestAnnotationConfig;
+import com.ssafy.e206.configuration.CustomErrorAttributes;
 
 @Repeatable(TestAnnotations.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ComponentScan(basePackages = "com.ssafy.e206.logger")
-@Import(TestAnnotationConfig.class)
-@ControllerAdvice
+@Import(CustomErrorAttributes.class)
 public @interface TestAnnotation {
+  String[] value() default {};
+
+  String message()
+
+  default "";
+
   Class<? extends Throwable> exception();
 
-  HttpStatus errorCode() default HttpStatus.OK;
+  boolean field() default false;
 
-  String basePackage() default "";
+  boolean objName() default false;
+
+  boolean param() default false;
+
+  boolean errMessage() default false;
+
+  boolean requestURL() default false;
+
+  boolean method() default false;
+
+  boolean requestedMethod() default false;
+
+  boolean supportedMethod() default false;
 }

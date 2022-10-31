@@ -73,7 +73,6 @@ public class TestAnnotationConfig implements ImportAware {
 
   @Override
   public void setImportMetadata(AnnotationMetadata importMetadata) {
-    System.out.println("중복 선언 X");
     Class<? extends Throwable> exceptionClass = getExceptionClass(importMetadata);
     HttpStatus httpStatus = getHttpStatus(importMetadata);
     String basePackage = getBasePackage(importMetadata);

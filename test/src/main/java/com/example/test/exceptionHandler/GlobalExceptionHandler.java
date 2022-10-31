@@ -1,13 +1,21 @@
 package com.example.test.exceptionHandler;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.ssafy.e206.annotation.TestAnnotation;
 
-@TestAnnotation(exception = NoHandlerFoundException.class, errorCode = HttpStatus.NOT_FOUND, basePackage = "com.example.test.exceptionHandler.Error404Response")
-@TestAnnotation(exception = NullPointerException.class, errorCode = HttpStatus.INTERNAL_SERVER_ERROR)
+@TestAnnotation(exception = NullPointerException.class)
+@TestAnnotation(exception = NoHandlerFoundException.class)
+@TestAnnotation(exception = IllegalArgumentException.class)
+@TestAnnotation(exception = MethodArgumentNotValidException.class)
+@TestAnnotation(exception = HttpRequestMethodNotSupportedException.class)
+@TestAnnotation(exception = BindException.class)
+@TestAnnotation(exception = HttpMessageNotReadableException.class)
 @ControllerAdvice
 public class GlobalExceptionHandler {
 }

@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import com.ssafy.e206.configuration.CustomErrorAttributes;
 
@@ -15,7 +14,6 @@ import com.ssafy.e206.configuration.CustomErrorAttributes;
 @Retention(RetentionPolicy.RUNTIME)
 @ComponentScan(basePackages = "com.ssafy.e206.logger")
 @Import(CustomErrorAttributes.class)
-@ControllerAdvice
 public @interface TestAnnotations {
   TestAnnotation[] value();
 }
