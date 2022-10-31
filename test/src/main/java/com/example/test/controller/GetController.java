@@ -56,7 +56,7 @@ public class GetController {
   @ApiOperation(value = "get DTO 사용", notes = "DTO 객체 swagger 설정 테스트")
   @GetMapping("/hellodto")
   @Valid
-  public ResponseEntity<HelloDTO> getHelloDto(HelloDTO helloDto) {
+  public ResponseEntity<HelloDTO> getHelloDto(@Valid HelloDTO helloDto) {
     System.out.println("helloDto: " + helloDto);
     return ResponseEntity.ok(helloDto);
   }

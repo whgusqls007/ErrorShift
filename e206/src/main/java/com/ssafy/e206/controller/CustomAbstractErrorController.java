@@ -1,4 +1,4 @@
-package com.ssafy.e206.configuration;
+package com.ssafy.e206.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -17,6 +18,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.ssafy.e206.configuration.CustomErrorAttributes;
 
 public abstract class CustomAbstractErrorController implements ErrorController {
   private final CustomErrorAttributes errorAttributes;
