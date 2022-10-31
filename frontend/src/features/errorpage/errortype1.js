@@ -2,7 +2,7 @@ import NavBar from "../../common/navbar/NavBar"
 import Footer from "../../common/footer/Footer"
 import SideBar from "../../common/sidebar/SideBar"
 
-function FourZeroZero(){
+function ErrorType1(){
     return(
         <div>
             <NavBar></NavBar>
@@ -18,4 +18,4 @@ function FourZeroZero(){
         </div>
     )
 }
-export default FourZeroZero;
+export default ErrorType1;
