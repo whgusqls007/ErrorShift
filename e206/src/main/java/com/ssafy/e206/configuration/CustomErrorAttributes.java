@@ -40,8 +40,9 @@ public class CustomErrorAttributes extends DefaultErrorAttributes implements Imp
     Throwable error = super.getError(webRequest);
     if (this.annotationAttributes != null) {
       for (AnnotationAttributes annotationAttribute : this.annotationAttributes) {
-        if (annotationAttribute.getClass("exception").isInstance(error)) {
-          ResponseAttribute.getResponseAttribute(result, annotationAttribute, error);
+        Class<? extends Throwable> handleException = annotationAttribute.getClass("exception");
+        if (handleException.isInstance(error)) {
+          result = ResponseAttribute.getResponseAttribute(result, annotationAttribute, error, handleException);
         }
       }
     } else {

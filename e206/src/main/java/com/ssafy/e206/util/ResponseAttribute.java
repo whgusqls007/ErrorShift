@@ -1,25 +1,22 @@
 package com.ssafy.e206.util;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Map;
 
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
+@SuppressWarnings("unchecked")
 public class ResponseAttribute {
 
   public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
-      AnnotationAttributes annotationAttributes, Throwable exception) {
+      AnnotationAttributes annotationAttributes, Throwable exception, Class<? extends Throwable> handleException) {
     Map<String, Object> datas = GetAnnotationData.getAnnotationData(annotationAttributes);
-    Class<? extends Throwable> handleException = (Class<? extends Throwable>) datas.get("exception");
-    if (handleException.isInstance(exception)) {
-      System.out.println("234234234");
-    } else {
-      System.out.println("345345345");
+
+    if (datas.get("status") != null) {
+      result.put("status", ((HttpStatus) datas.get("httpStatus")).value());
     }
+
     return result;
   }
 
