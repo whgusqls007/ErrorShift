@@ -21,7 +21,7 @@ export default function Footer() {
                 ErrorShift 
               </h6>
               <p>
-                Open source to find errors easier and faster
+                Open source to find errors easier
               </p>
             </MDBCol>
 
