@@ -36,15 +36,15 @@ function Home(){
                     <div>
                         <div className="main2_2">
                             <img style={{width:'1.5rem', height:'1.5rem'}} alt="check" src={check} />
-                            <p style={{marginLeft:5}}>기본 에러 핸들러의 내용은 한눈에 파악하기 어렵다</p>
+                            <p style={{marginLeft:10}}>기본 에러 핸들러의 내용은 한눈에 파악하기 어렵다</p>
                         </div>
                         <div className="main2_3">
                             <img style={{width:'1.5rem', height:'1.5rem'}} alt="check" src={check} />
-                            <p style={{marginLeft:5}}>복잡하지만 해결 못할 정도는 아니기 때문에 굳이 핸들링하지 않는다</p>
+                            <p style={{marginLeft:10}}>복잡하지만 해결 못할 정도는 아니기 때문에 굳이 핸들링하지 않는다</p>
                         </div>
                         <div className="main2_4">
                             <img style={{width:'1.5rem', height:'1.5rem'}} alt="check" src={check} />
-                            <p style={{marginLeft:5}}>좀 더 보기 편하면 좋지만 이걸 만드는 시간, 비용이 아깝다</p>
+                            <p style={{marginLeft:10}}>좀 더 보기 편하면 좋지만 이걸 만드는 시간, 비용이 아깝다</p>
                         </div>
                     </div>
                 </div>

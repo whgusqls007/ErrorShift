@@ -1,5 +1,6 @@
 import React from 'react';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+import mail from '../../assets/img/mail.png'
 
 import './Footer.css'
 
@@ -8,7 +9,10 @@ export default function Footer() {
     <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
       <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
         <div className='me-5 d-none d-lg-block'>
-          <span style={{marginLeft:"7rem"}}>Contact : ssafy@ssafy.com</span>
+          <div style={{marginLeft:"8rem"}}>
+            <img style={{width:'1.5rem', height:'1.5rem'}} src={mail} alt="mail"></img>
+            <span style={{marginLeft:10}}>chul2@protein.health</span>
+          </div>
         </div>
       </section>
 
@@ -41,10 +45,7 @@ export default function Footer() {
       </section>
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2022 Copyright:
-        <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-          E206
-        </a>
+        © 2022 Copyright: E206
       </div>
     </MDBFooter>
   );
