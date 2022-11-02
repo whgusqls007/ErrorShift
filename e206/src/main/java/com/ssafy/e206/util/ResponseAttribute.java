@@ -17,6 +17,10 @@ public class ResponseAttribute {
       result.put("status", ((HttpStatus) datas.get("httpStatus")).value());
     }
 
+    if (datas.get("message").equals("")) {
+      result.put("userMessage", datas.get("message"));
+    }
+    
     return result;
   }
 

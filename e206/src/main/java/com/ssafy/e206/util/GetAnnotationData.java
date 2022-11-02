@@ -100,6 +100,7 @@ public class GetAnnotationData {
         put("requestedMethod", annotationAttributes.getBoolean("requestedMethod"));
         put("supportedMethod", annotationAttributes.getBoolean("supportedMethod"));
         put("httpStatus", annotationAttributes.getEnum("httpStatus"));
+        put("message", annotationAttributes.getString("message"));
       }
     };
   }
