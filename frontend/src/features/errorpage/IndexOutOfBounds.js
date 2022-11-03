@@ -1,8 +1,8 @@
-import NavBar from "../../common/navbar/NavBar"
-import Footer from "../../common/footer/Footer"
-import SideBar from "../../common/sidebar/SideBar"
+import NavBar from '../../common/navbar/NavBar'
+import Footer from '../../common/footer/Footer'
+import SideBar from '../../common/sidebar/SideBar'
 
-function ErrorType1(){
+function IndexOutOfBounds(){
     return(
         <div>
             <NavBar></NavBar>
@@ -11,11 +11,11 @@ function ErrorType1(){
                     <SideBar></SideBar>
                 </div>
                 <div style={{height:500, marginTop:80}}>
-                    <h1>에러타입1</h1>
+                    <h1>IndexOutOfBounds</h1>
                 </div>
             </div>
             <Footer></Footer>
         </div>
     )
 }
-export default ErrorType1;
+export default IndexOutOfBounds;
