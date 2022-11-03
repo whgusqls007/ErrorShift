@@ -27,6 +27,8 @@ public class ArithmeticExceptionResponse {
         map.put("ClassName", e.getStackTrace()[0].getClassName());
         map.put("LineNumber", e.getStackTrace()[0].getLineNumber());
         map.put("MethodName", e.getStackTrace()[0].getMethodName());
+
+        map.put("StackTrace", e.getStackTrace());
         System.out.println("map: "+map.toString());
         return new ArithmeticExceptionResponse(map);
     }

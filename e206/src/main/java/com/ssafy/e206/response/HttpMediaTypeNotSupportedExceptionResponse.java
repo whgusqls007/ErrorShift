@@ -23,15 +23,20 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("Message", e.getMessage());
-        map.put("contentType", e.getContentType().getType()+"/"+e.getContentType().getSubtype());
-//        map.put("contentTpye.toString()", e.getContentType().toString());
-        map.put("supportedMediaType", e.getSupportedMediaTypes());
-        map.put("supportedMediaType.toString()", e.getSupportedMediaTypes().toString());
+
+        if (e.getContentType()!=null) {
+            map.put("contentType", e.getContentType());
+//            map.put("contentType", e.getContentType().getType()+"/"+e.getContentType().getSubtype());
+        }
+        map.put("supportedMediaTypes", e.getSupportedMediaTypes());
+//        map.put("supportedMediaTypes", e.getSupportedMediaTypes().get(0).getType()+"/"+e.getSupportedMediaTypes().get(0).getSubtype());
 
         map.put("FileName", e.getStackTrace()[0].getFileName());
         map.put("ClassName", e.getStackTrace()[0].getClassName());
         map.put("LineNumber", e.getStackTrace()[0].getLineNumber());
         map.put("MethodName", e.getStackTrace()[0].getMethodName());
+
+        map.put("StackTrace", e.getStackTrace());
         System.out.println("map: "+map.toString());
         return new HttpMediaTypeNotSupportedExceptionResponse(map);
     }

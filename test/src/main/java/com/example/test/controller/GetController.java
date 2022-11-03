@@ -120,4 +120,9 @@ public class GetController {
     int n = 10/num;
 //    throw new ArithmeticException();
   }
+
+  @PostMapping(value = "/methodArgumentTypeMismatch/{num}")
+  public void getMethodArgumentTypeMismatchException(@PathVariable int num) {
+  }
+
 }
