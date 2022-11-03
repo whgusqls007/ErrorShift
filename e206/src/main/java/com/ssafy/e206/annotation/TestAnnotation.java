@@ -22,7 +22,9 @@ public @interface TestAnnotation {
 
   Class<? extends Throwable> exception();
 
-  HttpStatus httpStatus() default HttpStatus.INTERNAL_SERVER_ERROR;
+  HttpStatus httpStatus() default HttpStatus.OK;
+
+  boolean trace() default false;
 
   boolean field() default false;
 

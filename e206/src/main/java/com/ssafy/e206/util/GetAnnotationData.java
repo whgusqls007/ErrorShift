@@ -88,6 +88,12 @@ public class GetAnnotationData {
         .getBoolean("supportedMethod");
   }
 
+  public static Object getStackTrace(AnnotationMetadata importMetadata) {
+    return AnnotationAttributes
+        .fromMap(importMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
+        .getBoolean("trace");
+  }
+
   public static Map<String, Object> getAnnotationData(AnnotationAttributes annotationAttributes) {
     return new HashMap<String, Object>() {
       {
@@ -104,4 +110,5 @@ public class GetAnnotationData {
       }
     };
   }
+
 }
