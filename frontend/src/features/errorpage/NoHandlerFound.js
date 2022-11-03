@@ -2,7 +2,7 @@ import NavBar from '../../common/navbar/NavBar'
 import Footer from '../../common/footer/Footer'
 import SideBar from '../../common/sidebar/SideBar'
 
-function ErrorType2(){
+function NoHandlerFound(){
     return(
         <div>
             <NavBar></NavBar>
@@ -11,11 +11,11 @@ function ErrorType2(){
                     <SideBar></SideBar>
                 </div>
                 <div style={{height:500, marginTop:80}}>
-                    <h1>에러타입2.</h1>
+                    <h1>NoHandlerFound</h1>
                 </div>
             </div>
             <Footer></Footer>
         </div>
     )
 }
-export default ErrorType2;
+export default NoHandlerFound;

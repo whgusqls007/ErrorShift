@@ -1,8 +1,8 @@
-import NavBar from '../../common/navbar/NavBar'
-import Footer from '../../common/footer/Footer'
-import SideBar from '../../common/sidebar/SideBar'
+import NavBar from "../../common/navbar/NavBar"
+import Footer from "../../common/footer/Footer"
+import SideBar from "../../common/sidebar/SideBar"
 
-function ErrorType3(){
+function MethodArgumentNotValid(){
     return(
         <div>
             <NavBar></NavBar>
@@ -11,11 +11,11 @@ function ErrorType3(){
                     <SideBar></SideBar>
                 </div>
                 <div style={{height:500, marginTop:80}}>
-                    <h1>에러타입3</h1>
+                    <h1>MethodArgumentNotValid</h1>
                 </div>
             </div>
             <Footer></Footer>
         </div>
     )
 }
-export default ErrorType3;
+export default MethodArgumentNotValid;

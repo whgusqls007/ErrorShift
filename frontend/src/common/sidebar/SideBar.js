@@ -7,9 +7,16 @@ function SideBar(){
         <div>
             <Sidebar style={{marginTop:80}}>
                 <Menu>
-                    <MenuItem routerLink={<Link to="/errortype/errortype1"/>}> 에러타입1 </MenuItem>
-                    <MenuItem routerLink={<Link to="/errortype/errortype2"/>}> 에러타입2 </MenuItem>
-                    <MenuItem routerLink={<Link to="/errortype/errortype3"/>}> 에러타입3 </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/MethodArgumentNotValid"/>}> MethodArgumentNotValid </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/TypeMismatch"/>}> TypeMismatch </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/NoHandlerFound"/>}> NoHandlerFound </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/HttpRequestMethodNotSupported"/>}> HttpRequestMethodNotSupported </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/HttpMediaTypeNotSupported"/>}> HttpMediaTypeNotSupported </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/NullPointer"/>}> NullPointer </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/Arithmetic"/>}> Arithmetic </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/ArrayIndexOutOfBounds"/>}> ArrayIndexOutOfBounds </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/IndexOutOfBounds"/>}> IndexOutOfBounds </MenuItem>
+                    <MenuItem routerLink={<Link to="/errortype/IllegalArgument"/>}> IllegalArgument </MenuItem>
                 </Menu>
             </Sidebar>
         </div>
