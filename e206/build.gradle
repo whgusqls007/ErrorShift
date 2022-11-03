@@ -1,0 +1,43 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'maven-publish'
+	id 'java'
+}
+
+group = 'com.ssafy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            
+            // groupId, artifactId, version을 따로 지정하지 않으면 처음 생성할 때 지정한 기본설정으로 생성한다. (생략가능)
+            groupId = 'com.ssafy'
+            artifactId = 'e206'
+			version="1.0.0-beta"
+
+            from components.java
+        }
+    }
+}
+
+dependencies {
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.4'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
