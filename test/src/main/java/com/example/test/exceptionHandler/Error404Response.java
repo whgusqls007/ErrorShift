@@ -1,61 +1,61 @@
-package com.example.test.exceptionHandler;
+// package com.example.test.exceptionHandler;
 
-import java.util.HashMap;
-import java.util.Map;
+// import java.util.HashMap;
+// import java.util.Map;
 
-import org.springframework.http.HttpStatus;
+// import org.springframework.http.HttpStatus;
 
-import com.ssafy.e206.response.CommonResponse;
+// import com.ssafy.e206.response.CommonResponse;
 
-public class Error404Response implements CommonResponse {
+// public class Error404Response implements CommonResponse {
 
-  private String err;
-  private int code;
-  private Map<String, String> msg;
+//   private String err;
+//   private int code;
+//   private Map<String, String> msg;
 
-  public Error404Response(HttpStatus httpStatus, Exception exception) {
-    this.err = httpStatus.name();
-    this.code = httpStatus.value();
-    this.msg = getMsgFromException(exception);
-  }
+//   public Error404Response(HttpStatus httpStatus, Exception exception) {
+//     this.err = httpStatus.name();
+//     this.code = httpStatus.value();
+//     this.msg = getMsgFromException(exception);
+//   }
 
-  public Error404Response() {
-  }
+//   public Error404Response() {
+//   }
 
-  private Map<String, String> getMsgFromException(Exception exception) {
-    return new HashMap<String, String>() {
-      {
-        put("msg", exception.getMessage());
-      }
-    };
-  }
+//   private Map<String, String> getMsgFromException(Exception exception) {
+//     return new HashMap<String, String>() {
+//       {
+//         put("msg", exception.getMessage());
+//       }
+//     };
+//   }
 
-  public String getErr() {
-    return this.err;
-  }
+//   public String getErr() {
+//     return this.err;
+//   }
 
-  public void setErr(String err) {
-    this.err = err;
-  }
+//   public void setErr(String err) {
+//     this.err = err;
+//   }
 
-  public int getCode() {
-    return this.code;
-  }
+//   public int getCode() {
+//     return this.code;
+//   }
 
-  public void setCode(int code) {
-    this.code = code;
-  }
+//   public void setCode(int code) {
+//     this.code = code;
+//   }
 
-  public Map<String, String> getMsg() {
-    return this.msg;
-  }
+//   public Map<String, String> getMsg() {
+//     return this.msg;
+//   }
 
-  public void setMsg(Map<String, String> msg) {
-    this.msg = msg;
-  }
+//   public void setMsg(Map<String, String> msg) {
+//     this.msg = msg;
+//   }
 
-  @Override
-  public CommonResponse of(HttpStatus httpStatus, Exception exception) {
-    return new Error404Response(httpStatus, exception);
-  }
-}
+//   @Override
+//   public CommonResponse of(HttpStatus httpStatus, Exception exception) {
+//     return new Error404Response(httpStatus, exception);
+//   }
+// }

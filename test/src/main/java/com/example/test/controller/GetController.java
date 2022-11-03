@@ -96,4 +96,9 @@ public class GetController {
   public ResponseEntity<String> uriTooLong(@PathVariable String name) {
     return ResponseEntity.status(HttpStatus.URI_TOO_LONG).body("URI Too Long");
   }
+
+  @GetMapping("/Illegal")
+  public void Illegal(){
+    HelloService.IllegalError();
+  }
 }

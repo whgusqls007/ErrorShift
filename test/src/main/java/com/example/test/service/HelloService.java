@@ -22,4 +22,10 @@ public class HelloService {
     return "Hello World!";
   }
 
+  public static void IllegalError() throws IllegalArgumentException {
+  
+      throw new IllegalArgumentException();
+  }
+
+
 }

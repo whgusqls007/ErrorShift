@@ -26,6 +26,7 @@ public class GetAnnotationData {
     return AnnotationAttributes
         .fromMap(importMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
         .getClass("exception");
+
   }
 
   public static String[] getValue(AnnotationMetadata importMetadata) {
