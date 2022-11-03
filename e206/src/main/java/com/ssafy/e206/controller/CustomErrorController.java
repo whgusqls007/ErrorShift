@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -38,7 +39,7 @@ public class CustomErrorController extends BasicErrorController {
 
   @Override
   public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
-    
+
     Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
 
     HttpStatus status = body.get("status") != null ? HttpStatus.valueOf((Integer) body.get("status"))
@@ -50,4 +51,5 @@ public class CustomErrorController extends BasicErrorController {
 
     return new ResponseEntity<>(body, status);
   }
+
 }
