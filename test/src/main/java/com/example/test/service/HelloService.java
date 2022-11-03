@@ -16,4 +16,16 @@ public class HelloService {
     return "Hello " + name + "!";
   }
 
+  public String indexError() {
+    String[] arr = new String[3];
+    arr[-1] = "test";
+    return "Hello World!";
+  }
+
+  public static void IllegalError() throws IllegalArgumentException {
+  
+      throw new IllegalArgumentException();
+  }
+
+
 }
