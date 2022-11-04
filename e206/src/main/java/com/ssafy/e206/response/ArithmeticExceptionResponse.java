@@ -15,17 +15,17 @@ public class ArithmeticExceptionResponse {
     }
 
     public static ArithmeticExceptionResponse of(final ArithmeticException e) {
-        System.out.println("ArithmeticExceptionResponse of() called");
         HashMap<String, Object> map = new HashMap<>();
-        map.put("Message", e.getMessage());
-
-        map.put("FileName", e.getStackTrace()[0].getFileName());
-        map.put("ClassName", e.getStackTrace()[0].getClassName());
-        map.put("LineNumber", e.getStackTrace()[0].getLineNumber());
-        map.put("MethodName", e.getStackTrace()[0].getMethodName());
-
-        map.put("StackTrace", e.getStackTrace());
-        System.out.println("map: "+map.toString());
+        map.put("errorMessage", e.getMessage());
+        map.put("location", new HashMap<String, Object>() {
+            {
+                put("fileName", e.getStackTrace()[0].getFileName());
+                put("className", e.getStackTrace()[0].getClassName());
+                put("lineNumber", e.getStackTrace()[0].getLineNumber());
+                put("methodName", e.getStackTrace()[0].getMethodName());
+            }
+        });
+        map.put("stackTrace", e.getStackTrace());
         return new ArithmeticExceptionResponse(map);
     }
 }

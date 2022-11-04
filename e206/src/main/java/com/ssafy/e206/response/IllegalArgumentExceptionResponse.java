@@ -5,9 +5,7 @@ import java.util.Map;
 
 public class IllegalArgumentExceptionResponse {
 
-    // Map<String, String> error;
     String message;
-    // String status;
     Throwable[] supportedMethod;
 
     public IllegalArgumentExceptionResponse(String message, Throwable[] supportedMethod) {
@@ -24,13 +22,6 @@ public class IllegalArgumentExceptionResponse {
         map.put("localinitialize", e.getLocalizedMessage());
         map.put("Suppressed", e.getSuppressed());
         map.put("trace !!!", e.getStackTrace());
-        // map.put("rootCause", e.getRootCause());
-        // map.put("supportedHttpMethods", e.getSupportedHttpMethods());
-        // map.put("supportedMethods", e.getSupportedMethods());
-        // map.put("Method", e.getMethod());
-        // map.put
-        // map.put("trace", e.getStackTrace());
-        // e.get
 
         return map;
 

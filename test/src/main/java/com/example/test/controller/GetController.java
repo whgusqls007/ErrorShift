@@ -17,20 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.test.dto.HelloDTO;
 import com.example.test.service.HelloService;
-import com.ssafy.e206.annotation.TestAnnotation;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.*;
-
-import com.example.test.dto.HelloDTO;
-import com.example.test.service.HelloService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
-import java.util.LinkedList;
 
 @RestController
 @Api(tags = { "hello" })
@@ -129,7 +119,7 @@ public class GetController {
     throw new IndexOutOfBoundsException();
   }
 
-  @PostMapping(value = "/arithmetic/{num}")
+  @GetMapping(value = "/arithmetic/{num}")
   public void getArithmeticException(@PathVariable int num) {
     int n = 10 / num;
   }

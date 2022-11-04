@@ -4,8 +4,11 @@ import java.util.Map;
 
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 
-@SuppressWarnings("unchecked")
+import com.ssafy.e206.response.ArithmeticExceptionResponse;
+import com.ssafy.e206.response.HttpMediaTypeNotSupportedExceptionResponse;
+
 public class ResponseAttribute {
 
 	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
@@ -13,7 +16,7 @@ public class ResponseAttribute {
 			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
 		if (useCustomResponse) {
-			result = getCustomResponse(exception, result);
+			result = getCustomResponse(exception, result, annotationAttribute.getBoolean("trace"));
 		}
 
 		String message = annotationAttribute.getString("message");
@@ -31,7 +34,8 @@ public class ResponseAttribute {
 			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
 		if (useCustomResponse) {
-			result = getCustomResponse(exception, result);
+			result = getCustomResponse(exception, result,
+					(Boolean) annotationData.get("trace") != null ? (Boolean) annotationData.get("trace") : false);
 		}
 
 		String message = (String) annotationData.get("message");
@@ -60,7 +64,8 @@ public class ResponseAttribute {
 		return result;
 	}
 
-	private static Map<String, Object> getCustomResponse(Throwable exception, Map<String, Object> result) {
+	private static Map<String, Object> getCustomResponse(Throwable exception, Map<String, Object> result,
+			boolean showStackTrace) {
 		switch (getExceptionName(exception)) {
 			case "NullPointerException":
 				result.remove("path");
@@ -83,12 +88,21 @@ public class ResponseAttribute {
 				result.put("message", "NoHandlerFoundException");
 				break;
 			case "HttpMediaTypeNotSupportedException":
-				result.remove("path");
-				result.put("message", "HttpMediaTypeNotSupportedException");
+
+				HttpMediaTypeNotSupportedExceptionResponse res = HttpMediaTypeNotSupportedExceptionResponse
+						.of((HttpMediaTypeNotSupportedException) exception);
+
+				if (showStackTrace) {
+					result.put("trace", res.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+
+				result.putAll(res.getDetails());
 				break;
 			case "ArithmeticException":
-				result.remove("path");
-				result.put("message", "ArithmeticException");
+				result.remove("trace");
+				result.putAll(ArithmeticExceptionResponse.of((ArithmeticException) exception).getDetails());
 				break;
 			case "ArrayIndexOutOfBoundsException":
 				result.remove("path");
