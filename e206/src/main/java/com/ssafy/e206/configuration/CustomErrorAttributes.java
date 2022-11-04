@@ -75,26 +75,6 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
     request.setAttribute(ERROR_INTERNAL_ATTRIBUTE, ex);
   }
 
-  // @Override
-  // public Map<String, Object> getErrorAttributes(WebRequest webRequest,
-  // ErrorAttributeOptions options) {
-  // Map<String, Object> result = super.getErrorAttributes(webRequest, options);
-  // Throwable error = super.getError(webRequest);
-  // if (this.annotationAttributes != null) {
-  // for (AnnotationAttributes annotationAttribute : this.annotationAttributes) {
-  // Class<? extends Throwable> handleException =
-  // annotationAttribute.getClass("exception");
-  // if (handleException.isInstance(error)) {
-  // result = ResponseAttribute.getResponseAttribute(result, annotationAttribute,
-  // error, handleException);
-  // }
-  // }
-  // } else {
-  // System.out.println("나중에");
-  // }
-  // return result;
-  // }
-
   @Override
   public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
     Throwable exception = getError(webRequest);
@@ -111,14 +91,17 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
           errorAttributes = removeErrorAttributes(errorAttributes, annotationAttribute, options);
 
           errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, annotationAttribute, exception,
-              handleException);
+              handleException, annotationAttribute.getBoolean("prettyRes"));
 
         }
       }
     } else if (this.annotationAttributes == null && this.annotationData != null) {
-      System.out.println("나중에");
-    } else {
-      System.out.println("설정 안된 에러");
+      if (this.exception.isInstance(exception)) {
+        errorAttributes = removeErrorAttributes(errorAttributes, this.annotationData, options);
+        errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, this.annotationData, exception,
+            this.exception, (Boolean) this.annotationData.get("prettyRes") != null ? (Boolean) this.annotationData
+                .get("prettyRes") : true);
+      }
     }
 
     return errorAttributes;
@@ -139,6 +122,25 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
       errorAttributes.remove("exception");
     }
     if (!annotationAttribute.getBoolean("trace") || !options.isIncluded(Include.STACK_TRACE)) {
+      errorAttributes.remove("trace");
+    }
+    if (!options.isIncluded(Include.MESSAGE) && errorAttributes.get("message") != null) {
+      errorAttributes.remove("message");
+    }
+    if (!options.isIncluded(Include.BINDING_ERRORS)) {
+      errorAttributes.remove("errors");
+    }
+    return errorAttributes;
+  }
+
+  private Map<String, Object> removeErrorAttributes(Map<String, Object> errorAttributes,
+      Map<String, Object> annotationData, ErrorAttributeOptions options) {
+    if (!options.isIncluded(Include.EXCEPTION)) {
+      errorAttributes.remove("exception");
+    }
+
+    if (!((Boolean) annotationData.get("trace") != null ? (Boolean) annotationData.get("trace") : true)
+        || !options.isIncluded(Include.STACK_TRACE)) {
       errorAttributes.remove("trace");
     }
     if (!options.isIncluded(Include.MESSAGE) && errorAttributes.get("message") != null) {
@@ -185,7 +187,6 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
 
   private void addErrorDetails(Map<String, Object> errorAttributes, WebRequest webRequest,
       boolean includeStackTrace) {
-    // System.out.println(includeStackTrace);
     Throwable error = getError(webRequest);
     if (error != null) {
       while (error instanceof ServletException && error.getCause() != null) {
@@ -268,24 +269,12 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
   @Override
   public void setImportMetadata(AnnotationMetadata importMetadata) {
     AnnotationAttributes[] annotationAttributes = GetAnnotationData.getAnnotations(importMetadata);
-    if (annotationAttributes != null || annotationAttributes.length != 0) {
+    if (annotationAttributes != null) {
       setAnnotationAttributes(annotationAttributes);
     } else {
       setAnnotationAttributes(
           GetAnnotationData.getExceptionClass(importMetadata),
-          new HashMap<String, Object>() {
-            {
-              put("field", GetAnnotationData.getField(importMetadata));
-              put("objName", GetAnnotationData.getObjName(importMetadata));
-              put("param", GetAnnotationData.getParam(importMetadata));
-              put("errMessage", GetAnnotationData.getErrMessage(importMetadata));
-              put("requestURL", GetAnnotationData.getRequestURL(importMetadata));
-              put("method", GetAnnotationData.getMethod(importMetadata));
-              put("requestedMethod", GetAnnotationData.getRequestedMethod(importMetadata));
-              put("supportedMethod", GetAnnotationData.getSupportedMethod(importMetadata));
-              put("stackTrace", GetAnnotationData.getStackTrace(importMetadata));
-            }
-          });
+          GetAnnotationData.getAnnotationData(importMetadata));
     }
   }
 }

@@ -12,7 +12,7 @@ import com.ssafy.e206.controller.CustomErrorController;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ CustomErrorAttributes.class, CustomErrorController.class, NullPointerException.class })
+@Import({ CustomErrorAttributes.class, CustomErrorController.class })
 public @interface TestAnnotations {
   TestAnnotation[] value();
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.http.HttpStatus;
 
 import com.ssafy.e206.annotation.TestAnnotation;
 import com.ssafy.e206.annotation.TestAnnotations;
@@ -17,7 +18,8 @@ public class GetAnnotationData {
       return AnnotationAttributes
           .fromMap(importMetadata.getAnnotationAttributes(TestAnnotations.class.getName()))
           .getAnnotationArray("value");
-    } catch (NullPointerException e) {
+    } catch (Exception e) {
+      System.out.println("asdfsadf");
       return null;
     }
   }
@@ -95,20 +97,42 @@ public class GetAnnotationData {
         .getBoolean("trace");
   }
 
-  public static Map<String, Object> getAnnotationData(AnnotationAttributes annotationAttributes) {
+  public static boolean getUseCustomResponse(AnnotationMetadata importMetadata) {
+    return AnnotationAttributes
+        .fromMap(importMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
+        .getBoolean("prettyRes");
+  }
+
+  public static HttpStatus getHttpStatus(AnnotationMetadata importMetadata) {
+    return AnnotationAttributes
+        .fromMap(importMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
+        .getEnum("httpStatus");
+  }
+
+  private static boolean getLogging(AnnotationMetadata importMetadata) {
+    return AnnotationAttributes
+        .fromMap(importMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
+        .getBoolean("logging");
+  }
+
+  public static Map<String, Object> getAnnotationData(AnnotationMetadata importMetadata) {
     return new HashMap<String, Object>() {
       {
-        put("field", annotationAttributes.getBoolean("field"));
-        put("objName", annotationAttributes.getBoolean("objName"));
-        put("param", annotationAttributes.getBoolean("param"));
-        put("errMessage", annotationAttributes.getBoolean("errMessage"));
-        put("requestURL", annotationAttributes.getBoolean("requestURL"));
-        put("method", annotationAttributes.getBoolean("method"));
-        put("requestedMethod", annotationAttributes.getBoolean("requestedMethod"));
-        put("supportedMethod", annotationAttributes.getBoolean("supportedMethod"));
-        put("httpStatus", annotationAttributes.getEnum("httpStatus"));
-        put("message", annotationAttributes.getString("message"));
+        put("field", getField(importMetadata));
+        put("objName", getObjName(importMetadata));
+        put("param", getParam(importMetadata));
+        put("errMessage", getErrMessage(importMetadata));
+        put("requestURL", getRequestURL(importMetadata));
+        put("method", getMethod(importMetadata));
+        put("requestedMethod", getRequestedMethod(importMetadata));
+        put("supportedMethod", getSupportedMethod(importMetadata));
+        put("trace", getStackTrace(importMetadata));
+        put("useCustomResponse", getUseCustomResponse(importMetadata));
+        put("httpStatus", getHttpStatus(importMetadata));
+        put("message", getMessage(importMetadata));
+        put("logging", getLogging(importMetadata));
       }
+
     };
   }
 

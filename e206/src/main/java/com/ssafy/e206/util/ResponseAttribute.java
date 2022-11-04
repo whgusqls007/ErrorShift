@@ -9,11 +9,58 @@ import org.springframework.http.HttpStatus;
 public class ResponseAttribute {
 
 	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
-			AnnotationAttributes annotationAttributes, Throwable exception,
-			Class<? extends Throwable> handleException) {
+			AnnotationAttributes annotationAttribute, Throwable exception,
+			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
-		Map<String, Object> datas = GetAnnotationData.getAnnotationData(annotationAttributes);
+		if (useCustomResponse) {
+			result = getCustomResponse(exception, result);
+		}
 
+		String message = annotationAttribute.getString("message");
+		if (!message.equals("")) {
+			result.put("message", message);
+		}
+
+		result = setHttpStatus(result, annotationAttribute);
+
+		return result;
+	}
+
+	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
+			Map<String, Object> annotationData, Throwable exception,
+			Class<? extends Throwable> handleException, boolean useCustomResponse) {
+
+		if (useCustomResponse) {
+			result = getCustomResponse(exception, result);
+		}
+
+		String message = (String) annotationData.get("message");
+		if (message != null && !message.equals("")) {
+			result.put("message", message);
+		}
+
+		result = setHttpStatus(result, annotationData);
+
+		return result;
+	}
+
+	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
+			AnnotationAttributes annotationAttribute) {
+		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
+
+		if (status != 200) {
+			result.put("status", status);
+			try {
+				result.put("error", HttpStatus.valueOf(status).getReasonPhrase());
+			} catch (Exception ex) {
+				result.put("error", "Http Status " + status);
+			}
+		}
+
+		return result;
+	}
+
+	private static Map<String, Object> getCustomResponse(Throwable exception, Map<String, Object> result) {
 		switch (getExceptionName(exception)) {
 			case "NullPointerException":
 				result.remove("path");
@@ -47,32 +94,25 @@ public class ResponseAttribute {
 				result.remove("path");
 				result.put("message", "ArrayIndexOutOfBoundsException");
 				break;
+			case "IndexOutOfBoundsException":
+				result.remove("path");
+				result.put("message", "IndexOutofBoundsException");
+				break;
 			case "IllegalArgumentException":
 				result.remove("path");
 				result.put("message", "IllegalArgumentException");
 				break;
 			default:
 		}
-
-		if (!datas.get("message").equals("")) {
-			result.put("message", datas.get("message"));
-		}
-
-		result = setHttpStatus(result, annotationAttributes);
-
-		return result;
-	}
-
-	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
-			Class<? extends Throwable> exception,
-			Map<String, Object> annotationData) {
-
 		return result;
 	}
 
 	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
-			AnnotationAttributes annotationAttribute) {
-		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
+			Map<String, Object> annotationData) {
+		HttpStatus httpStatus = (HttpStatus) annotationData.get("httpStatus") != null
+				? (HttpStatus) annotationData.get("httpStatus")
+				: HttpStatus.OK;
+		Integer status = httpStatus.value();
 
 		if (status != 200) {
 			result.put("status", status);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.test.dto.HelloDTO;
 import com.example.test.service.HelloService;
+import com.ssafy.e206.annotation.TestAnnotation;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -78,6 +79,9 @@ public class GetController {
   @GetMapping("/test")
   @ResponseBody
   public ResponseEntity<String> test() {
+    System.out.println("asfasf");
+    String a = null;
+    a.length();
     return ResponseEntity.ok(helloService.getName("test"));
   }
 
@@ -89,7 +93,8 @@ public class GetController {
 
   @GetMapping("/indexOutOfBoundsException")
   public ResponseEntity<String> indexOutOfBoundsException() {
-    return ResponseEntity.ok(helloService.indexError());
+    throw new IndexOutOfBoundsException();
+    // return ResponseEntity.ok(helloService.indexError());
   }
 
   @GetMapping("/URI-Too-Long/{name}")
@@ -97,11 +102,8 @@ public class GetController {
     return ResponseEntity.status(HttpStatus.URI_TOO_LONG).body("URI Too Long");
   }
 
-<<<<<<< HEAD
-=======
   @GetMapping("/Illegal")
-  public void Illegal(){
+  public void Illegal() {
     HelloService.IllegalError();
   }
->>>>>>> d45634bc07a032cbcfe8e8989dcce60fb850d826
 }
