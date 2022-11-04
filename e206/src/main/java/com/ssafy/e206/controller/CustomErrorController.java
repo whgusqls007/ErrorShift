@@ -15,10 +15,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("${server.error.path:${error.path:/error}}")
 public class CustomErrorController extends BasicErrorController {
 
   public CustomErrorController(ErrorAttributes errorAttributes,
@@ -29,6 +30,7 @@ public class CustomErrorController extends BasicErrorController {
 
   @Override
   public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
+    System.out.println("e206 CustomErrorController errorHtml() called");
     HttpStatus status = getStatus(request);
     Map<String, Object> model = Collections
         .unmodifiableMap(getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.TEXT_HTML)));
@@ -39,13 +41,15 @@ public class CustomErrorController extends BasicErrorController {
 
   @Override
   public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
-    HttpStatus status = getStatus(request);
-    // System.out.println("123123123");
+    Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
+
+    HttpStatus status = body.get("status") != null ? HttpStatus.valueOf((Integer) body.get("status"))
+        : getStatus(request);
+
     if (status == HttpStatus.NO_CONTENT) {
       return new ResponseEntity<>(status);
     }
-    Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
+
     return new ResponseEntity<>(body, status);
   }
-
 }

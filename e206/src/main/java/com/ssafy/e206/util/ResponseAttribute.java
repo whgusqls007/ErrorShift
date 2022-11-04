@@ -4,75 +4,145 @@ import java.util.Map;
 
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 
-import com.ssafy.e206.response.HttpRequestMethodNotSupportedExceptionResponse;
-import com.ssafy.e206.response.IllegalArgumentExceptionResponse;
+import com.ssafy.e206.response.ArithmeticExceptionResponse;
+import com.ssafy.e206.response.HttpMediaTypeNotSupportedExceptionResponse;
 
-@SuppressWarnings("unchecked")
 public class ResponseAttribute {
 
-  public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
-      AnnotationAttributes annotationAttributes, Throwable exception, Class<? extends Throwable> handleException) {
-    Map<String, Object> datas = GetAnnotationData.getAnnotationData(annotationAttributes);
-        System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
-    if (datas.get("status") != null) {
-        
+	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
+			AnnotationAttributes annotationAttribute, Throwable exception,
+			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
-      result.put("status", ((HttpStatus) datas.get("httpStatus")).value());
-    }
-    
-    System.out.println("TTT@2222222222222222222222222222222222222222222222222222222222");
-    if (datas.get("message").equals("")) {
-      System.out.println("IF 시작");
-      result.put("userMessage", datas.get("message"));
-      System.out.println("IF 끝나기 전");
-    }
-    
-    String str = splitLastString(exception.getClass().toString(), '.');
-    System.out.println(str);
-    // System.out.println(splitLastString(exception.getClass().toString(), '.') + " 겟클래스 겟 네임");
-    if(str.equals("HttpRequestMethodNotSupportedException")){
-      System.out.println(result.get("path") + "PATH 입니다");
-      System.out.println(" 들어왔나");
-      HttpRequestMethodNotSupportedException e = (HttpRequestMethodNotSupportedException) exception;
-      System.out.println("여긴가");
-      // result.clear();
-      result.put("Test",HttpRequestMethodNotSupportedExceptionResponse.of(e));
-      System.out.println("마지막줄");
-    }
+		if (useCustomResponse) {
+			result = getCustomResponse(exception, result, annotationAttribute.getBoolean("trace"));
+		}
 
-    else if(str.equals("IllegalArgumentException")){
-      System.out.println("Illegal 들어옴");
-      IllegalArgumentException e = (IllegalArgumentException)exception;
-      System.out.println("result 전");
-      result.put("Illegal", IllegalArgumentExceptionResponse.of(e));
-      System.out.println(" else if ");
-      
-    }
+		String message = annotationAttribute.getString("message");
+		if (!message.equals("")) {
+			result.put("message", message);
+		}
 
-  
-    else {
-      System.out.println("ELSE 시작" + result.toString());
-      result.put("userMessage@@@@", datas.get("message"));
-    }
-    
-    
-    System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrr" + result.toString());
-    return result;
-  }
+		result = setHttpStatus(result, annotationAttribute);
 
-  public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
-      Class<? extends Throwable> exception,
-      Map<String, Object> annotationData) {
+		return result;
+	}
 
-    return result;
-  }
+	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
+			Map<String, Object> annotationData, Throwable exception,
+			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
-  private static String splitLastString(String target, char deliminator) {
-    int x = target.lastIndexOf(deliminator);
-    if (x > 0) return target.substring(x + 1);
-    return target;
-}
+		if (useCustomResponse) {
+			result = getCustomResponse(exception, result,
+					(Boolean) annotationData.get("trace") != null ? (Boolean) annotationData.get("trace") : false);
+		}
+
+		String message = (String) annotationData.get("message");
+		if (message != null && !message.equals("")) {
+			result.put("message", message);
+		}
+
+		result = setHttpStatus(result, annotationData);
+
+		return result;
+	}
+
+	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
+			AnnotationAttributes annotationAttribute) {
+		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
+
+		if (status != 200) {
+			result.put("status", status);
+			try {
+				result.put("error", HttpStatus.valueOf(status).getReasonPhrase());
+			} catch (Exception ex) {
+				result.put("error", "Http Status " + status);
+			}
+		}
+
+		return result;
+	}
+
+	private static Map<String, Object> getCustomResponse(Throwable exception, Map<String, Object> result,
+			boolean showStackTrace) {
+		switch (getExceptionName(exception)) {
+			case "NullPointerException":
+				result.remove("path");
+				result.put("message", "NullPointerException");
+				break;
+			case "HttpRequestMethodNotSupportedException":
+				result.remove("path");
+				result.put("message", "HttpRequestMethodNotSupportedException");
+				break;
+			case "MethodArgumentNotValidException":
+				result.remove("path");
+				result.put("message", "MethodArgumentNotValidException");
+				break;
+			case "TypeMismatchException":
+				result.remove("path");
+				result.put("message", "TypeMismatchException");
+				break;
+			case "NoHandlerFoundException":
+				result.remove("path");
+				result.put("message", "NoHandlerFoundException");
+				break;
+			case "HttpMediaTypeNotSupportedException":
+
+				HttpMediaTypeNotSupportedExceptionResponse res = HttpMediaTypeNotSupportedExceptionResponse
+						.of((HttpMediaTypeNotSupportedException) exception);
+
+				if (showStackTrace) {
+					result.put("trace", res.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+
+				result.putAll(res.getDetails());
+				break;
+			case "ArithmeticException":
+				result.remove("trace");
+				result.putAll(ArithmeticExceptionResponse.of((ArithmeticException) exception).getDetails());
+				break;
+			case "ArrayIndexOutOfBoundsException":
+				result.remove("path");
+				result.put("message", "ArrayIndexOutOfBoundsException");
+				break;
+			case "IndexOutOfBoundsException":
+				result.remove("path");
+				result.put("message", "IndexOutofBoundsException");
+				break;
+			case "IllegalArgumentException":
+				result.remove("path");
+				result.put("message", "IllegalArgumentException");
+				break;
+			default:
+		}
+		return result;
+	}
+
+	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
+			Map<String, Object> annotationData) {
+		HttpStatus httpStatus = (HttpStatus) annotationData.get("httpStatus") != null
+				? (HttpStatus) annotationData.get("httpStatus")
+				: HttpStatus.OK;
+		Integer status = httpStatus.value();
+
+		if (status != 200) {
+			result.put("status", status);
+			try {
+				result.put("error", HttpStatus.valueOf(status).getReasonPhrase());
+			} catch (Exception ex) {
+				result.put("error", "Http Status " + status);
+			}
+		}
+
+		return result;
+	}
+
+	private static String getExceptionName(Throwable exception) {
+		String[] exceptionNameArray = exception.getClass().getName().split("\\.");
+		String exceptionName = exceptionNameArray[exceptionNameArray.length - 1];
+		return exceptionName;
+	}
 }

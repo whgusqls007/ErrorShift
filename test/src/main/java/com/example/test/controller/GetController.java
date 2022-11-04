@@ -78,6 +78,9 @@ public class GetController {
   @GetMapping("/test")
   @ResponseBody
   public ResponseEntity<String> test() {
+    System.out.println("asfasf");
+    String a = null;
+    a.length();
     return ResponseEntity.ok(helloService.getName("test"));
   }
 
@@ -89,7 +92,7 @@ public class GetController {
 
   @GetMapping("/indexOutOfBoundsException")
   public ResponseEntity<String> indexOutOfBoundsException() {
-    return ResponseEntity.ok(helloService.indexError());
+    throw new IndexOutOfBoundsException();
   }
 
   @GetMapping("/URI-Too-Long/{name}")
@@ -98,7 +101,31 @@ public class GetController {
   }
 
   @GetMapping("/Illegal")
-  public void Illegal(){
+  public void Illegal() {
     HelloService.IllegalError();
   }
+
+  @PostMapping(value = "/httpMediaTypeNotSupported", consumes = { "application/xml" })
+  public void getHttpMediaTypeNotSupportedException(@RequestBody HelloDTO helloDTO) {
+  }
+
+  @GetMapping(value = "/arrayIndexOutOfBounds")
+  public void getArrayIndexOutOfBoundsException() {
+    throw new ArrayIndexOutOfBoundsException();
+  }
+
+  @GetMapping(value = "/indexOutOfBounds")
+  public void getIndexOutOfBoundsException() {
+    throw new IndexOutOfBoundsException();
+  }
+
+  @GetMapping(value = "/arithmetic/{num}")
+  public void getArithmeticException(@PathVariable int num) {
+    int n = 10 / num;
+  }
+
+  @PostMapping(value = "/methodArgumentTypeMismatch/{num}")
+  public void getMethodArgumentTypeMismatchException(@PathVariable int num) {
+  }
+
 }
