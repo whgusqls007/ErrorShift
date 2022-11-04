@@ -3,8 +3,6 @@ package com.ssafy.e206.response;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.omg.CORBA.OBJECT_NOT_EXIST;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 public class HttpRequestMethodNotSupportedExceptionResponse {

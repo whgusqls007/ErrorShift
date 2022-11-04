@@ -18,8 +18,7 @@ public class GetAnnotationData {
       return AnnotationAttributes
           .fromMap(importMetadata.getAnnotationAttributes(TestAnnotations.class.getName()))
           .getAnnotationArray("value");
-    } catch (Exception e) {
-      System.out.println("asdfsadf");
+    } catch (NullPointerException e) {
       return null;
     }
   }
@@ -28,7 +27,6 @@ public class GetAnnotationData {
     return AnnotationAttributes
         .fromMap(importMetadata.getAnnotationAttributes(TestAnnotation.class.getName()))
         .getClass("exception");
-
   }
 
   public static String[] getValue(AnnotationMetadata importMetadata) {

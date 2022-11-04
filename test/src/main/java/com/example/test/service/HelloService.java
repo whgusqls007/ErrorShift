@@ -23,9 +23,8 @@ public class HelloService {
   }
 
   public static void IllegalError() throws IllegalArgumentException {
-  
-      throw new IllegalArgumentException();
-  }
 
+    throw new IllegalArgumentException();
+  }
 
 }

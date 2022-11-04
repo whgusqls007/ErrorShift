@@ -18,10 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.test.dto.HelloDTO;
 import com.example.test.service.HelloService;
 import com.ssafy.e206.annotation.TestAnnotation;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.test.dto.HelloDTO;
+import com.example.test.service.HelloService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
+import java.util.LinkedList;
 
 @RestController
 @Api(tags = { "hello" })
@@ -94,7 +103,6 @@ public class GetController {
   @GetMapping("/indexOutOfBoundsException")
   public ResponseEntity<String> indexOutOfBoundsException() {
     throw new IndexOutOfBoundsException();
-    // return ResponseEntity.ok(helloService.indexError());
   }
 
   @GetMapping("/URI-Too-Long/{name}")
@@ -106,4 +114,28 @@ public class GetController {
   public void Illegal() {
     HelloService.IllegalError();
   }
+
+  @PostMapping(value = "/httpMediaTypeNotSupported", consumes = { "application/xml" })
+  public void getHttpMediaTypeNotSupportedException(@RequestBody HelloDTO helloDTO) {
+  }
+
+  @GetMapping(value = "/arrayIndexOutOfBounds")
+  public void getArrayIndexOutOfBoundsException() {
+    throw new ArrayIndexOutOfBoundsException();
+  }
+
+  @GetMapping(value = "/indexOutOfBounds")
+  public void getIndexOutOfBoundsException() {
+    throw new IndexOutOfBoundsException();
+  }
+
+  @PostMapping(value = "/arithmetic/{num}")
+  public void getArithmeticException(@PathVariable int num) {
+    int n = 10 / num;
+  }
+
+  @PostMapping(value = "/methodArgumentTypeMismatch/{num}")
+  public void getMethodArgumentTypeMismatchException(@PathVariable int num) {
+  }
+
 }

@@ -2,10 +2,7 @@ package com.ssafy.e206.configuration;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -14,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -25,7 +21,6 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -99,9 +94,10 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
       if (this.exception.isInstance(exception)) {
         errorAttributes = removeErrorAttributes(errorAttributes, this.annotationData, options);
         errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, this.annotationData, exception,
-            this.exception, (Boolean) this.annotationData.get("prettyRes") != null ? (Boolean) this.annotationData
-                .get("prettyRes") : true);
+            this.exception, (Boolean) this.annotationData.get("prettyRes"));
       }
+    } else {
+      removeErrorAttributes(errorAttributes, webRequest, options);
     }
 
     return errorAttributes;
@@ -138,9 +134,7 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
     if (!options.isIncluded(Include.EXCEPTION)) {
       errorAttributes.remove("exception");
     }
-
-    if (!((Boolean) annotationData.get("trace") != null ? (Boolean) annotationData.get("trace") : true)
-        || !options.isIncluded(Include.STACK_TRACE)) {
+    if (!(Boolean) annotationData.get("trace") || !options.isIncluded(Include.STACK_TRACE)) {
       errorAttributes.remove("trace");
     }
     if (!options.isIncluded(Include.MESSAGE) && errorAttributes.get("message") != null) {
@@ -187,6 +181,7 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
 
   private void addErrorDetails(Map<String, Object> errorAttributes, WebRequest webRequest,
       boolean includeStackTrace) {
+    // System.out.println(includeStackTrace);
     Throwable error = getError(webRequest);
     if (error != null) {
       while (error instanceof ServletException && error.getCause() != null) {
@@ -269,7 +264,7 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
   @Override
   public void setImportMetadata(AnnotationMetadata importMetadata) {
     AnnotationAttributes[] annotationAttributes = GetAnnotationData.getAnnotations(importMetadata);
-    if (annotationAttributes != null) {
+    if (annotationAttributes != null || annotationAttributes.length != 0) {
       setAnnotationAttributes(annotationAttributes);
     } else {
       setAnnotationAttributes(
