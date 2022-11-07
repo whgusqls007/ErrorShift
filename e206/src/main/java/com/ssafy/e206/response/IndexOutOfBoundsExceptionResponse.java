@@ -6,9 +6,18 @@ import java.util.Map;
 public class IndexOutOfBoundsExceptionResponse{
 
     private final Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
+    }
+
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        IndexOutOfBoundsExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return this.stackTrace;
     }
 
     private IndexOutOfBoundsExceptionResponse(final Map<String, Object> map) {
@@ -17,7 +26,7 @@ public class IndexOutOfBoundsExceptionResponse{
 
 
     public static IndexOutOfBoundsExceptionResponse of(final IndexOutOfBoundsException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("errorMessage", e.getMessage());
         map.put("location", new HashMap<String, Object>() {
             {
@@ -28,7 +37,7 @@ public class IndexOutOfBoundsExceptionResponse{
             }
         });
 
-        map.put("stackTrace", e.getStackTrace());
+        setStackTraceElement(e.getStackTrace());
         return new IndexOutOfBoundsExceptionResponse(map);
     }
 

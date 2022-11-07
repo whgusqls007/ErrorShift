@@ -5,8 +5,7 @@ import java.util.Map;
 
 public class IllegalArgumentExceptionResponse {
 
-    
-       private Map<String, Object> details;
+    private Map<String, Object> details;
     private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
@@ -25,7 +24,7 @@ public class IllegalArgumentExceptionResponse {
         this.details = map;
     }
 
-    public static Map<String, Object> of(final IllegalArgumentException e) {
+    public static IllegalArgumentExceptionResponse of(final IllegalArgumentException e) {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
@@ -33,7 +32,6 @@ public class IllegalArgumentExceptionResponse {
         map.put("supMetod", e.getSuppressed());
         map.put("localinitialize", e.getLocalizedMessage());
         map.put("Suppressed", e.getSuppressed());
-        map.put("trace !!!", e.getStackTrace());
         map.put("location", new HashMap<String, Object>(){
             {
                 put("fileName", e.getStackTrace()[0].getFileName());
@@ -43,7 +41,9 @@ public class IllegalArgumentExceptionResponse {
             }
             
         });
-        return map;
+
+        setStackTraceElement(e.getStackTrace());
+        return new IllegalArgumentExceptionResponse(map);
 
     }
 

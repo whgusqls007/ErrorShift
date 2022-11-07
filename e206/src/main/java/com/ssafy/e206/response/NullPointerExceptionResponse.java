@@ -5,9 +5,18 @@ import java.util.Map;
 
 public class NullPointerExceptionResponse {
     private Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
+    }
+
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        NullPointerExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return this.stackTrace;
     }
 
     private NullPointerExceptionResponse(final Map<String, Object> map) {
@@ -15,7 +24,7 @@ public class NullPointerExceptionResponse {
     }
 
     public static NullPointerExceptionResponse of(final NullPointerException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("errorMessage", e.getMessage());
         map.put("location", new HashMap<String, Object>() {
             {
@@ -25,7 +34,8 @@ public class NullPointerExceptionResponse {
                 put("methodName", e.getStackTrace()[0].getMethodName());
             }
         });
-        map.put("stackTrace", e.getStackTrace());
+
+        setStackTraceElement(e.getStackTrace());
         return new NullPointerExceptionResponse(map);
     }
 }

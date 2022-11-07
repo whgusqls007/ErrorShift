@@ -5,11 +5,19 @@ import java.util.Map;
 
 public class NumberFormatExceptionResponse {
     private Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
     }
 
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        NumberFormatExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return this.stackTrace;
+    }
     private NumberFormatExceptionResponse(final Map<String, Object> map) {
         this.details = map;
     }
@@ -25,7 +33,8 @@ public class NumberFormatExceptionResponse {
                 put("methodName", e.getStackTrace()[0].getMethodName());
             }
         });
-        map.put("stackTrace", e.getStackTrace());
+
+        setStackTraceElement(e.getStackTrace());
         return new NumberFormatExceptionResponse(map);
     }
 }

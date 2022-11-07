@@ -5,18 +5,26 @@ import java.util.Map;
 
 public class ArrayIndexOutOfBoundsExceptionResponse {
     private final Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
     }
 
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        ArrayIndexOutOfBoundsExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return this.stackTrace;
+    }
     private ArrayIndexOutOfBoundsExceptionResponse(final Map<String, Object> map) {
         this.details = map;
     }
 
 
     public static ArrayIndexOutOfBoundsExceptionResponse of(final ArrayIndexOutOfBoundsException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("errorMessage", e.getMessage());
         map.put("location", new HashMap<String, Object>() {
             {
@@ -27,7 +35,7 @@ public class ArrayIndexOutOfBoundsExceptionResponse {
             }
         });
 
-        map.put("stackTrace", e.getStackTrace());
+        setStackTraceElement(e.getStackTrace());
         return new ArrayIndexOutOfBoundsExceptionResponse(map);
     }
 }

@@ -27,7 +27,7 @@ public class NoHandlerFoundExceptionResponse {
     }
     
 
-    public static Map<String, Object> of(final NoHandlerFoundException e){
+    public static NoHandlerFoundExceptionResponse of(final NoHandlerFoundException e){
         
         Map<String, Object> map = new HashMap<String, Object>();
 
@@ -35,7 +35,6 @@ public class NoHandlerFoundExceptionResponse {
         map.put("HttpMethod", e.getHttpMethod());
         map.put("Message", e.getMessage());
         map.put("Header", e.getHeaders());
-        map.put("starTrace", e.getStackTrace());
         map.put("location", new HashMap<String, Object>(){
             {
                 put("fileName", e.getStackTrace()[0].getFileName());
@@ -45,7 +44,8 @@ public class NoHandlerFoundExceptionResponse {
             }
             
         });
-        return map;
+        setStackTraceElement(e.getStackTrace());
+        return new NoHandlerFoundExceptionResponse(map);
         
     }
 }
