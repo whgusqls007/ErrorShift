@@ -42,6 +42,5 @@ public class NoHandlerFoundExceptionResponse {
         });
         setStackTraceElement(e.getStackTrace());
         return new NoHandlerFoundExceptionResponse(map);
-
     }
 }

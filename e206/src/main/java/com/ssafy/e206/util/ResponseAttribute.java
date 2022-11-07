@@ -13,12 +13,14 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import com.ssafy.e206.logger.LoggerService;
 import com.ssafy.e206.response.ArithmeticExceptionResponse;
 import com.ssafy.e206.response.ArrayIndexOutOfBoundsExceptionResponse;
+import com.ssafy.e206.response.ClassCastExceptionResponse;
 import com.ssafy.e206.response.HttpMediaTypeNotSupportedExceptionResponse;
 import com.ssafy.e206.response.HttpRequestMethodNotSupportedExceptionResponse;
 import com.ssafy.e206.response.IllegalArgumentExceptionResponse;
 import com.ssafy.e206.response.IndexOutOfBoundsExceptionResponse;
 import com.ssafy.e206.response.NoHandlerFoundExceptionResponse;
 import com.ssafy.e206.response.NullPointerExceptionResponse;
+import com.ssafy.e206.response.NumberFormatExceptionResponse;
 import com.ssafy.e206.response.TypeMismatchExceptionResponse;
 
 public class ResponseAttribute {
@@ -86,15 +88,6 @@ public class ResponseAttribute {
 				result.putAll(httpRequestMethodNotSupportedExceptionResponse.getDetails());
 				break;
 
-			case "MethodArgumentNotValidException":
-				// MethodArgumentNotValidExceptionResponse
-				// methodArgumentNotValidExceptionResponse =
-				// MethodArgumentNotValidExceptionResponse
-				// .of((MethodArgumentNotValidException) exception);
-				// result.remove("path");
-				// result.put("message", "MethodArgumentNotValidException");
-				break;
-
 			case "TypeMismatchException":
 				TypeMismatchExceptionResponse typeMismatchExceptionResponse = TypeMismatchExceptionResponse
 						.of((TypeMismatchException) exception);
@@ -103,18 +96,6 @@ public class ResponseAttribute {
 				} else {
 					result.remove("trace");
 				}
-				result.putAll(typeMismatchExceptionResponse.getDetails());
-				break;
-
-			case "NoHandlerFoundException":
-				NoHandlerFoundExceptionResponse noHandlerFoundExceptionResponse = NoHandlerFoundExceptionResponse
-						.of((NoHandlerFoundException) exception);
-				if (showStackTrace) {
-					result.put("trace", noHandlerFoundExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
-				}
-				result.putAll(noHandlerFoundExceptionResponse.getDetails());
 				break;
 
 			case "HttpMediaTypeNotSupportedException":
@@ -126,6 +107,26 @@ public class ResponseAttribute {
 					result.remove("trace");
 				}
 				result.putAll(httpMediaTypeNotSupportedExceptionResponse.getDetails());
+				break;
+
+			case "MethodArgumentNotValidException":
+				// MethodArgumentNotValidExceptionResponse
+				// methodArgumentNotValidExceptionResponse =
+				// MethodArgumentNotValidExceptionResponse
+				// .of((MethodArgumentNotValidException) exception);
+				// result.remove("path");
+				// result.put("message", "MethodArgumentNotValidException");
+				break;
+
+			case "NoHandlerFoundException":
+				NoHandlerFoundExceptionResponse noHandlerFoundExceptionResponse = NoHandlerFoundExceptionResponse
+						.of((NoHandlerFoundException) exception);
+				if (showStackTrace) {
+					result.put("trace", noHandlerFoundExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(noHandlerFoundExceptionResponse.getDetails());
 				break;
 
 			case "ArithmeticException":
@@ -170,6 +171,24 @@ public class ResponseAttribute {
 					result.remove("trace");
 				}
 				result.putAll(illegalArgumentExceptionResponse.getDetails());
+				break;
+			case "ClassCastException":
+				ClassCastExceptionResponse classCastExceptionResponse = ClassCastExceptionResponse
+						.of((ClassCastException) exception);
+				if (showStackTrace) {
+					result.put("trace", classCastExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				break;
+			case "NumberFormatException":
+				NumberFormatExceptionResponse numberFormatExceptionResponse = NumberFormatExceptionResponse
+						.of((NumberFormatException) exception);
+				if (showStackTrace) {
+					result.put("trace", numberFormatExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
 				break;
 
 			default:
