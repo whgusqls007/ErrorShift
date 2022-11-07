@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class MethodArgumentNotValidExceptionResponse {
     private Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
@@ -16,9 +17,17 @@ public class MethodArgumentNotValidExceptionResponse {
         this.details = map;
     }
 
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        MethodArgumentNotValidExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return MethodArgumentNotValidExceptionResponse.stackTrace;
+    }
+
     public static MethodArgumentNotValidExceptionResponse of(final MethodArgumentNotValidException e) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("errorMessage", e.getMessage());
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "MethodArgumentNotValidException");
         map.put("parameter", e.getParameter());
         map.put("location", new HashMap<String, Object>() {
             {
@@ -28,7 +37,7 @@ public class MethodArgumentNotValidExceptionResponse {
                 put("methodName", e.getStackTrace()[0].getMethodName());
             }
         });
-        map.put("stackTrace", e.getStackTrace());
+        setStackTraceElement(e.getStackTrace());
         return new MethodArgumentNotValidExceptionResponse(map);
     }
 }

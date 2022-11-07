@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class TypeMismatchExceptionResponse {
     private Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
@@ -16,9 +17,17 @@ public class TypeMismatchExceptionResponse {
         this.details = map;
     }
 
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        TypeMismatchExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return TypeMismatchExceptionResponse.stackTrace;
+    }
+
     public static TypeMismatchExceptionResponse of(final TypeMismatchException e) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("errorMessage", e.getMessage());
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "TypeMismatchException");
         map.put("requiredType", e.getRequiredType());
         map.put("value", e.getValue());
         map.put("propertyName", e.getPropertyName());
@@ -31,7 +40,7 @@ public class TypeMismatchExceptionResponse {
                 put("methodName", e.getStackTrace()[0].getMethodName());
             }
         });
-        map.put("stackTrace", e.getStackTrace());
+        setStackTraceElement(e.getStackTrace());
         return new TypeMismatchExceptionResponse(map);
     }
 }

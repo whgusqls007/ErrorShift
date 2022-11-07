@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 public class NoHandlerFoundExceptionResponse {
-    
+
     private Map<String, Object> details;
     private static StackTraceElement[] stackTrace;
 
@@ -19,33 +19,29 @@ public class NoHandlerFoundExceptionResponse {
     }
 
     public StackTraceElement[] getStackTrace() {
-        return this.stackTrace;
+        return NoHandlerFoundExceptionResponse.stackTrace;
     }
 
     private NoHandlerFoundExceptionResponse(final Map<String, Object> map) {
         this.details = map;
     }
-    
 
-    public static Map<String, Object> of(final NoHandlerFoundException e){
-        
-        Map<String, Object> map = new HashMap<String, Object>();
-
+    public static NoHandlerFoundExceptionResponse of(final NoHandlerFoundException e) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "NoHandlerFoundException");
         map.put("RequestURL", e.getRequestURL());
         map.put("HttpMethod", e.getHttpMethod());
-        map.put("Message", e.getMessage());
         map.put("Header", e.getHeaders());
-        map.put("starTrace", e.getStackTrace());
-        map.put("location", new HashMap<String, Object>(){
+        map.put("location", new HashMap<String, Object>() {
             {
                 put("fileName", e.getStackTrace()[0].getFileName());
                 put("className", e.getStackTrace()[0].getClassName());
                 put("lineNumber", e.getStackTrace()[0].getLineNumber());
                 put("methodName", e.getStackTrace()[0].getMethodName());
             }
-            
         });
-        return map;
-        
+        setStackTraceElement(e.getStackTrace());
+        return new NoHandlerFoundExceptionResponse(map);
+
     }
 }

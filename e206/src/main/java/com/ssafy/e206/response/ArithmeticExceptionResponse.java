@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class ArithmeticExceptionResponse {
     private Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
@@ -14,9 +15,17 @@ public class ArithmeticExceptionResponse {
         this.details = map;
     }
 
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        ArithmeticExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return ArithmeticExceptionResponse.stackTrace;
+    }
+
     public static ArithmeticExceptionResponse of(final ArithmeticException e) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("errorMessage", e.getMessage());
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "ArithmeticException");
         map.put("location", new HashMap<String, Object>() {
             {
                 put("fileName", e.getStackTrace()[0].getFileName());
@@ -25,7 +34,7 @@ public class ArithmeticExceptionResponse {
                 put("methodName", e.getStackTrace()[0].getMethodName());
             }
         });
-        map.put("stackTrace", e.getStackTrace());
+        setStackTraceElement(e.getStackTrace());
         return new ArithmeticExceptionResponse(map);
     }
 }

@@ -17,8 +17,6 @@ import com.ssafy.e206.controller.CustomErrorController;
 @Retention(RetentionPolicy.RUNTIME)
 @Import({ CustomErrorAttributes.class, CustomErrorController.class })
 public @interface TestAnnotation {
-  String[] value() default {};
-
   String message() default "";
 
   Class<? extends Throwable> exception();
@@ -30,20 +28,4 @@ public @interface TestAnnotation {
   boolean trace() default false;
 
   HttpStatus httpStatus() default HttpStatus.INTERNAL_SERVER_ERROR;
-
-  boolean field() default false;
-
-  boolean objName() default false;
-
-  boolean param() default false;
-
-  boolean errMessage() default false;
-
-  boolean requestURL() default false;
-
-  boolean method() default false;
-
-  boolean requestedMethod() default false;
-
-  boolean supportedMethod() default false;
 }

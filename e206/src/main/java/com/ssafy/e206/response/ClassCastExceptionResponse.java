@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class ClassCastExceptionResponse {
     private Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
@@ -14,9 +15,17 @@ public class ClassCastExceptionResponse {
         this.details = map;
     }
 
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        ClassCastExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return ClassCastExceptionResponse.stackTrace;
+    }
+
     public static ClassCastExceptionResponse of(final ClassCastException e) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("errorMessage", e.getMessage());
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "ClassCastException");
         map.put("location", new HashMap<String, Object>() {
             {
                 put("fileName", e.getStackTrace()[0].getFileName());
@@ -25,7 +34,7 @@ public class ClassCastExceptionResponse {
                 put("methodName", e.getStackTrace()[0].getMethodName());
             }
         });
-        map.put("stackTrace", e.getStackTrace());
+        setStackTraceElement(e.getStackTrace());
         return new ClassCastExceptionResponse(map);
     }
 }
