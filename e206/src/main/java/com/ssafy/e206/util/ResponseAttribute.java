@@ -3,13 +3,14 @@ package com.ssafy.e206.util;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import com.ssafy.e206.response.NoHandlerFoundExceptionResponse;
+import com.ssafy.e206.response.*;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 
-import com.ssafy.e206.response.ArithmeticExceptionResponse;
-import com.ssafy.e206.response.HttpMediaTypeNotSupportedExceptionResponse;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 public class ResponseAttribute {
@@ -82,26 +83,56 @@ public class ResponseAttribute {
 //		}
 		switch (getExceptionName(exception)) {
 			case "NullPointerException":
-				result.remove("path");
-				result.put("message", "NullPointerException");
+				NullPointerExceptionResponse nullPointerExceptionResponse = NullPointerExceptionResponse
+						.of((NullPointerException) exception);
+				if (showStackTrace) {
+					result.put("trace", nullPointerExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "NullPointerException");
 				break;
 			case "HttpRequestMethodNotSupportedException":
-				result.remove("path");
-				result.put("message", "HttpRequestMethodNotSupportedException");
+				HttpRequestMethodNotSupportedExceptionResponse httpRequestMethodNotSupportedExceptionResponse = HttpRequestMethodNotSupportedExceptionResponse
+						.of((HttpRequestMethodNotSupportedException) exception);
+				if (showStackTrace) {
+					result.put("trace", httpRequestMethodNotSupportedExceptionResponse.getStackTrace());
+				}else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "HttpRequestMethodNotSupportedException");
 				break;
 			case "MethodArgumentNotValidException":
-				result.remove("path");
-				result.put("message", "MethodArgumentNotValidException");
+				MethodArgumentNotValidExceptionResponse methodArgumentNotValidExceptionResponse = MethodArgumentNotValidExceptionResponse
+						.of((MethodArgumentNotValidException) exception);
+				if (showStackTrace) {
+					result.put("trace", methodArgumentNotValidExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "MethodArgumentNotValidException");
 				break;
 			case "TypeMismatchException":
-				result.remove("path");
-				result.put("message", "TypeMismatchException");
+				TypeMismatchExceptionResponse typeMismatchExceptionResponse = TypeMismatchExceptionResponse
+						.of((TypeMismatchException) exception);
+				if (showStackTrace) {
+					result.put("trace", typeMismatchExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "TypeMismatchException");
 				break;
 			case "NoHandlerFoundException":
 				NoHandlerFoundExceptionResponse noHandlerFoundExceptionResponse = NoHandlerFoundExceptionResponse
 						.of((NoHandlerFoundException) exception);
 				if (showStackTrace) {
-
+					result.put("trace", noHandlerFoundExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
 				}
 //				result.remove("path");
 //				result.put("message", "NoHandlerFoundException");
@@ -128,24 +159,59 @@ public class ResponseAttribute {
 //				result.putAll(ArithmeticExceptionResponse.of((ArithmeticException) exception).getDetails());
 				break;
 			case "ArrayIndexOutOfBoundsException":
-				result.remove("path");
-				result.put("message", "ArrayIndexOutOfBoundsException");
+				ArrayIndexOutOfBoundsExceptionResponse arrayIndexOutOfBoundsExceptionResponse = ArrayIndexOutOfBoundsExceptionResponse
+						.of((ArrayIndexOutOfBoundsException) exception);
+				if (showStackTrace) {
+					result.put("trace", arrayIndexOutOfBoundsExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "ArrayIndexOutOfBoundsException");
 				break;
 			case "IndexOutOfBoundsException":
-				result.remove("path");
-				result.put("message", "IndexOutofBoundsException");
+				IndexOutOfBoundsExceptionResponse indexOutOfBoundsExceptionResponse = IndexOutOfBoundsExceptionResponse
+						.of((IndexOutOfBoundsException) exception);
+				if (showStackTrace) {
+					result.put("trace", indexOutOfBoundsExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "IndexOutofBoundsException");
 				break;
 			case "IllegalArgumentException":
-				result.remove("path");
-				result.put("message", "IllegalArgumentException");
+				IllegalArgumentExceptionResponse illegalArgumentExceptionResponse = IllegalArgumentExceptionResponse
+						.of((IllegalArgumentException) exception);
+				if (showStackTrace) {
+					result.put("trace", illegalArgumentExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "IllegalArgumentException");
 				break;
 			case "ClassCastException":
-				result.remove("path");
-				result.put("message", "ClassCastException");
+				ClassCastExceptionResponse classCastExceptionResponse = ClassCastExceptionResponse
+						.of((ClassCastException) exception);
+				if (showStackTrace) {
+					result.put("trace", classCastExceptionResponse.getStackTrace());
+				}else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "ClassCastException");
 				break;
 			case "NumberFormatException":
-				result.remove("path");
-				result.put("message", "NumberFormatException");
+				NumberFormatExceptionResponse numberFormatExceptionResponse = NumberFormatExceptionResponse
+						.of((NumberFormatException) exception);
+				if (showStackTrace) {
+					result.put("trace", numberFormatExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+//				result.remove("path");
+//				result.put("message", "NumberFormatException");
 				break;
 			default:
 		}
