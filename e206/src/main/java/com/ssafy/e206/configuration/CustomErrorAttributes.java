@@ -3,7 +3,6 @@ package com.ssafy.e206.configuration;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -274,7 +273,6 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
     return exception;
   }
 
-  @SuppressWarnings("unchecked")
   private <T> T getAttribute(RequestAttributes requestAttributes, String name) {
     return (T) requestAttributes.getAttribute(name, RequestAttributes.SCOPE_REQUEST);
   }
