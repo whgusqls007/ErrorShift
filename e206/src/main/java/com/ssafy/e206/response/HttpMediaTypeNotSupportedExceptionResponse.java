@@ -18,7 +18,7 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
     }
 
     public StackTraceElement[] getStackTrace() {
-        return this.stackTrace;
+        return HttpMediaTypeNotSupportedExceptionResponse.stackTrace;
     }
 
     private HttpMediaTypeNotSupportedExceptionResponse(final Map<String, Object> map) {
@@ -27,8 +27,7 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
 
     public static HttpMediaTypeNotSupportedExceptionResponse of(final HttpMediaTypeNotSupportedException e) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("errorMessage", e.getMessage());
-
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "HttpMediaTypeNotSupportedException");
         if (e.getContentType() != null) {
             map.put("contentType", e.getContentType());
         }
@@ -43,5 +42,10 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
         });
         setStackTraceElement(e.getStackTrace());
         return new HttpMediaTypeNotSupportedExceptionResponse(map);
+    }
+
+    @Override
+    public String toString() {
+        return "HttpMediaTypeNotSupportedException [ " + details + " ]";
     }
 }

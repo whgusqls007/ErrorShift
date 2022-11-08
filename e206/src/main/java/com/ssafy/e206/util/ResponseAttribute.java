@@ -2,20 +2,35 @@ package com.ssafy.e206.util;
 
 import java.util.Map;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.ssafy.e206.response.ArithmeticExceptionResponse;
+import com.ssafy.e206.response.ArrayIndexOutOfBoundsExceptionResponse;
+import com.ssafy.e206.response.ClassCastExceptionResponse;
+import com.ssafy.e206.response.CommonResponse;
 import com.ssafy.e206.response.HttpMediaTypeNotSupportedExceptionResponse;
+import com.ssafy.e206.response.HttpRequestMethodNotSupportedExceptionResponse;
+import com.ssafy.e206.response.IllegalArgumentExceptionResponse;
+import com.ssafy.e206.response.IndexOutOfBoundsExceptionResponse;
+import com.ssafy.e206.response.NoHandlerFoundExceptionResponse;
+import com.ssafy.e206.response.NullPointerExceptionResponse;
+import com.ssafy.e206.response.NumberFormatExceptionResponse;
+import com.ssafy.e206.response.TypeMismatchExceptionResponse;
 
 public class ResponseAttribute {
-
 	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
 			AnnotationAttributes annotationAttribute, Throwable exception,
 			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
-		if (useCustomResponse) {
+		String userResPackage = annotationAttribute.getString("userResPackage");
+		if (!userResPackage.equals("")) {
+			result = getUserResponse(userResPackage, exception, result, annotationAttribute.getBoolean("trace"));
+		} else if (useCustomResponse) {
 			result = getCustomResponse(exception, result, annotationAttribute.getBoolean("trace"));
 		}
 
@@ -25,25 +40,6 @@ public class ResponseAttribute {
 		}
 
 		result = setHttpStatus(result, annotationAttribute);
-
-		return result;
-	}
-
-	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
-			Map<String, Object> annotationData, Throwable exception,
-			Class<? extends Throwable> handleException, boolean useCustomResponse) {
-
-		if (useCustomResponse) {
-			result = getCustomResponse(exception, result,
-					(Boolean) annotationData.get("trace") != null ? (Boolean) annotationData.get("trace") : false);
-		}
-
-		String message = (String) annotationData.get("message");
-		if (message != null && !message.equals("")) {
-			result.put("message", message);
-		}
-
-		result = setHttpStatus(result, annotationData);
 
 		return result;
 	}
@@ -64,79 +60,152 @@ public class ResponseAttribute {
 		return result;
 	}
 
-	private static Map<String, Object> getCustomResponse(Throwable exception, Map<String, Object> result,
-			boolean showStackTrace) {
-		switch (getExceptionName(exception)) {
-			case "NullPointerException":
-				result.remove("path");
-				result.put("message", "NullPointerException");
-				break;
-			case "HttpRequestMethodNotSupportedException":
-				result.remove("path");
-				result.put("message", "HttpRequestMethodNotSupportedException");
-				break;
-			case "MethodArgumentNotValidException":
-				result.remove("path");
-				result.put("message", "MethodArgumentNotValidException");
-				break;
-			case "TypeMismatchException":
-				result.remove("path");
-				result.put("message", "TypeMismatchException");
-				break;
-			case "NoHandlerFoundException":
-				result.remove("path");
-				result.put("message", "NoHandlerFoundException");
-				break;
-			case "HttpMediaTypeNotSupportedException":
-
-				HttpMediaTypeNotSupportedExceptionResponse res = HttpMediaTypeNotSupportedExceptionResponse
-						.of((HttpMediaTypeNotSupportedException) exception);
-
-				if (showStackTrace) {
-					result.put("trace", res.getStackTrace());
-				} else {
-					result.remove("trace");
-				}
-
-				result.putAll(res.getDetails());
-				break;
-			case "ArithmeticException":
-				result.remove("trace");
-				result.putAll(ArithmeticExceptionResponse.of((ArithmeticException) exception).getDetails());
-				break;
-			case "ArrayIndexOutOfBoundsException":
-				result.remove("path");
-				result.put("message", "ArrayIndexOutOfBoundsException");
-				break;
-			case "IndexOutOfBoundsException":
-				result.remove("path");
-				result.put("message", "IndexOutofBoundsException");
-				break;
-			case "IllegalArgumentException":
-				result.remove("path");
-				result.put("message", "IllegalArgumentException");
-				break;
-			default:
+	private static Map<String, Object> getUserResponse(String userResPackage, Throwable exception,
+			Map<String, Object> result, boolean showStackTrace) {
+		try {
+			Class<?> clazz = Class.forName(userResPackage);
+			CommonResponse commonResponse = ((CommonResponse) clazz.newInstance()).of((Exception) exception);
+			result.putAll(commonResponse.getDetails());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return result;
 	}
 
-	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
-			Map<String, Object> annotationData) {
-		HttpStatus httpStatus = (HttpStatus) annotationData.get("httpStatus") != null
-				? (HttpStatus) annotationData.get("httpStatus")
-				: HttpStatus.OK;
-		Integer status = httpStatus.value();
+	private static Map<String, Object> getCustomResponse(Throwable exception, Map<String, Object> result,
+			boolean showStackTrace) {
+		switch (getExceptionName(exception)) {
 
-		if (status != 200) {
-			result.put("status", status);
-			try {
-				result.put("error", HttpStatus.valueOf(status).getReasonPhrase());
-			} catch (Exception ex) {
-				result.put("error", "Http Status " + status);
-			}
+			case "NullPointerException":
+				NullPointerExceptionResponse nullPointerExceptionResponse = NullPointerExceptionResponse
+						.of((NullPointerException) exception);
+				if (showStackTrace) {
+					result.put("trace", nullPointerExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(nullPointerExceptionResponse.getDetails());
+				break;
+
+			case "HttpRequestMethodNotSupportedException":
+				HttpRequestMethodNotSupportedExceptionResponse httpRequestMethodNotSupportedExceptionResponse = HttpRequestMethodNotSupportedExceptionResponse
+						.of((HttpRequestMethodNotSupportedException) exception);
+				if (showStackTrace) {
+					result.put("trace", httpRequestMethodNotSupportedExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(httpRequestMethodNotSupportedExceptionResponse.getDetails());
+				break;
+
+			case "TypeMismatchException":
+				TypeMismatchExceptionResponse typeMismatchExceptionResponse = TypeMismatchExceptionResponse
+						.of((TypeMismatchException) exception);
+				if (showStackTrace) {
+					result.put("trace", typeMismatchExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(typeMismatchExceptionResponse.getDetails());
+				break;
+
+			case "HttpMediaTypeNotSupportedException":
+				HttpMediaTypeNotSupportedExceptionResponse httpMediaTypeNotSupportedExceptionResponse = HttpMediaTypeNotSupportedExceptionResponse
+						.of((HttpMediaTypeNotSupportedException) exception);
+				if (showStackTrace) {
+					result.put("trace", httpMediaTypeNotSupportedExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(httpMediaTypeNotSupportedExceptionResponse.getDetails());
+				break;
+
+			case "MethodArgumentNotValidException":
+				// MethodArgumentNotValidExceptionResponse
+				// methodArgumentNotValidExceptionResponse =
+				// MethodArgumentNotValidExceptionResponse
+				// .of((MethodArgumentNotValidException) exception);
+				// result.remove("path");
+				// result.put("message", "MethodArgumentNotValidException");
+				break;
+
+			case "NoHandlerFoundException":
+				NoHandlerFoundExceptionResponse noHandlerFoundExceptionResponse = NoHandlerFoundExceptionResponse
+						.of((NoHandlerFoundException) exception);
+				if (showStackTrace) {
+					result.put("trace", noHandlerFoundExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(noHandlerFoundExceptionResponse.getDetails());
+				break;
+
+			case "ArithmeticException":
+				ArithmeticExceptionResponse arithmeticExceptionResponse = ArithmeticExceptionResponse
+						.of((ArithmeticException) exception);
+				if (showStackTrace) {
+					result.put("trace", arithmeticExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(arithmeticExceptionResponse.getDetails());
+				break;
+
+			case "ArrayIndexOutOfBoundsException":
+				ArrayIndexOutOfBoundsExceptionResponse arrayIndexOutOfBoundsExceptionResponse = ArrayIndexOutOfBoundsExceptionResponse
+						.of((ArrayIndexOutOfBoundsException) exception);
+				if (showStackTrace) {
+					result.put("trace", arrayIndexOutOfBoundsExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(arrayIndexOutOfBoundsExceptionResponse.getDetails());
+				break;
+
+			case "IndexOutOfBoundsException":
+				IndexOutOfBoundsExceptionResponse indexOutOfBoundsExceptionResponse = IndexOutOfBoundsExceptionResponse
+						.of((IndexOutOfBoundsException) exception);
+				if (showStackTrace) {
+					result.put("trace", indexOutOfBoundsExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(indexOutOfBoundsExceptionResponse.getDetails());
+				break;
+
+			case "IllegalArgumentException":
+				IllegalArgumentExceptionResponse illegalArgumentExceptionResponse = IllegalArgumentExceptionResponse
+						.of((IllegalArgumentException) exception);
+				if (showStackTrace) {
+					result.put("trace", illegalArgumentExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(illegalArgumentExceptionResponse.getDetails());
+				break;
+			case "ClassCastException":
+				ClassCastExceptionResponse classCastExceptionResponse = ClassCastExceptionResponse
+						.of((ClassCastException) exception);
+				if (showStackTrace) {
+					result.put("trace", classCastExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(classCastExceptionResponse.getDetails());
+				break;
+			case "NumberFormatException":
+				NumberFormatExceptionResponse numberFormatExceptionResponse = NumberFormatExceptionResponse
+						.of((NumberFormatException) exception);
+				if (showStackTrace) {
+					result.put("trace", numberFormatExceptionResponse.getStackTrace());
+				} else {
+					result.remove("trace");
+				}
+				result.putAll(numberFormatExceptionResponse.getDetails());
+				break;
+
+			default:
 		}
-
 		return result;
 	}
 

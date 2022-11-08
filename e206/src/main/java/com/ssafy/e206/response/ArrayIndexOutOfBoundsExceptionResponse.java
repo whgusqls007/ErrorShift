@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class ArrayIndexOutOfBoundsExceptionResponse {
     private final Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
     public Map<String, Object> getDetails() {
         return details;
@@ -14,10 +15,17 @@ public class ArrayIndexOutOfBoundsExceptionResponse {
         this.details = map;
     }
 
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        ArrayIndexOutOfBoundsExceptionResponse.stackTrace = stackTrace;
+    }
+
+    public StackTraceElement[] getStackTrace() {
+        return ArrayIndexOutOfBoundsExceptionResponse.stackTrace;
+    }
 
     public static ArrayIndexOutOfBoundsExceptionResponse of(final ArrayIndexOutOfBoundsException e) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("errorMessage", e.getMessage());
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "ArrayIndexOutOfBoundsException");
         map.put("location", new HashMap<String, Object>() {
             {
                 put("fileName", e.getStackTrace()[0].getFileName());
@@ -26,8 +34,12 @@ public class ArrayIndexOutOfBoundsExceptionResponse {
                 put("methodName", e.getStackTrace()[0].getMethodName());
             }
         });
-
-        map.put("stackTrace", e.getStackTrace());
+        setStackTraceElement(e.getStackTrace());
         return new ArrayIndexOutOfBoundsExceptionResponse(map);
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayIndexOutOfBoundsException [ " + details + " ]";
     }
 }

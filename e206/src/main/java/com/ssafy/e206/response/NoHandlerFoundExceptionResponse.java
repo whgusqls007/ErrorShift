@@ -3,7 +3,9 @@ package com.ssafy.e206.response;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IllegalArgumentExceptionResponse {
+import org.springframework.web.servlet.NoHandlerFoundException;
+
+public class NoHandlerFoundExceptionResponse {
 
     private Map<String, Object> details;
     private static StackTraceElement[] stackTrace;
@@ -13,23 +15,23 @@ public class IllegalArgumentExceptionResponse {
     }
 
     private static void setStackTraceElement(StackTraceElement[] stackTrace) {
-        IllegalArgumentExceptionResponse.stackTrace = stackTrace;
+        NoHandlerFoundExceptionResponse.stackTrace = stackTrace;
     }
 
     public StackTraceElement[] getStackTrace() {
-        return IllegalArgumentExceptionResponse.stackTrace;
+        return NoHandlerFoundExceptionResponse.stackTrace;
     }
 
-    private IllegalArgumentExceptionResponse(final Map<String, Object> map) {
+    private NoHandlerFoundExceptionResponse(final Map<String, Object> map) {
         this.details = map;
     }
 
-    public static IllegalArgumentExceptionResponse of(final IllegalArgumentException e) {
+    public static NoHandlerFoundExceptionResponse of(final NoHandlerFoundException e) {
         Map<String, Object> map = new HashMap<>();
-        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "IllegalArgumentException");
-        map.put("supMetod", e.getSuppressed());
-        map.put("localinitialize", e.getLocalizedMessage());
-        map.put("Suppressed", e.getSuppressed());
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "NoHandlerFoundException");
+        map.put("RequestURL", e.getRequestURL());
+        map.put("HttpMethod", e.getHttpMethod());
+        map.put("Header", e.getHeaders());
         map.put("location", new HashMap<String, Object>() {
             {
                 put("fileName", e.getStackTrace()[0].getFileName());
@@ -39,11 +41,11 @@ public class IllegalArgumentExceptionResponse {
             }
         });
         setStackTraceElement(e.getStackTrace());
-        return new IllegalArgumentExceptionResponse(map);
+        return new NoHandlerFoundExceptionResponse(map);
     }
 
     @Override
     public String toString() {
-        return "IllegalArgumentNotSupportedException [ " + details + " ]";
+        return "NoHandlerFoundException [ " + details + " ]";
     }
 }

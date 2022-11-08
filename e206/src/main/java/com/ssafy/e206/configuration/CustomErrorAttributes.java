@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -34,24 +36,21 @@ import com.ssafy.e206.util.GetAnnotationData;
 import com.ssafy.e206.util.ResponseAttribute;
 
 @Component
-@SuppressWarnings("null")
+@SuppressWarnings({ "null", "unchecked" })
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CustomErrorAttributes implements ImportAware, ErrorAttributes, HandlerExceptionResolver, Ordered {
   private static final String ERROR_INTERNAL_ATTRIBUTE = DefaultErrorAttributes.class.getName() + ".ERROR";
   private AnnotationAttributes[] annotationAttributes;
-  private Class<? extends Throwable> exception;
-  private Map<String, Object> annotationData;
+  private AnnotationAttributes annotationAttribute;
 
   private void setAnnotationAttributes(AnnotationAttributes[] annotationAttributes) {
+    this.annotationAttribute = null;
     this.annotationAttributes = annotationAttributes;
-    this.exception = null;
-    this.annotationData = null;
   }
 
-  private void setAnnotationAttributes(Class<? extends Throwable> exception, Map<String, Object> annotationData) {
+  private void setAnnotationAttributes(AnnotationAttributes annotationAttribute) {
+    this.annotationAttribute = annotationAttribute;
     this.annotationAttributes = null;
-    this.exception = exception;
-    this.annotationData = annotationData;
   }
 
   @Override
@@ -76,31 +75,72 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
     Map<String, Object> errorAttributes = getErrorAttributes(webRequest,
         options.isIncluded(Include.STACK_TRACE));
 
-    if (this.annotationAttributes != null && this.annotationData == null) {
+    AnnotationAttributes myAnnotationAttributes = null;
+    Class<? extends Throwable> myHandleException = null;
+
+    if (this.annotationAttributes != null && this.annotationAttribute == null) {
       for (AnnotationAttributes annotationAttribute : this.annotationAttributes) {
-
-        Class<? extends Throwable> handleException = annotationAttribute.getClass("exception");
-
-        if (handleException.isInstance(exception)) {
-
-          errorAttributes = removeErrorAttributes(errorAttributes, annotationAttribute, options);
-
-          errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, annotationAttribute, exception,
-              handleException, annotationAttribute.getBoolean("prettyRes"));
-
+        if (annotationAttribute.getClass("exception").isInstance(exception)) {
+          myHandleException = annotationAttribute.getClass("exception");
+          myAnnotationAttributes = annotationAttribute;
+          break;
         }
       }
-    } else if (this.annotationAttributes == null && this.annotationData != null) {
-      if (this.exception.isInstance(exception)) {
-        errorAttributes = removeErrorAttributes(errorAttributes, this.annotationData, options);
-        errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, this.annotationData, exception,
-            this.exception, (Boolean) this.annotationData.get("prettyRes"));
+    } else if (this.annotationAttributes == null && this.annotationAttribute != null) {
+      myHandleException = this.annotationAttribute.getClass("exception");
+      myAnnotationAttributes = this.annotationAttribute;
+    }
+
+    if (myHandleException == null || myAnnotationAttributes == null) {
+      return errorAttributes;
+    }
+
+    boolean prettyRes = myAnnotationAttributes.getBoolean("prettyRes");
+    boolean logging = myAnnotationAttributes.getBoolean("logging");
+
+    if (myHandleException.isInstance(exception)) {
+
+      errorAttributes = removeErrorAttributes(errorAttributes, myAnnotationAttributes, options);
+      errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, myAnnotationAttributes, exception,
+          myHandleException, prettyRes);
+
+      if (logging) {
+        errorLogging(errorAttributes, myAnnotationAttributes, myHandleException);
       }
+
     } else {
       removeErrorAttributes(errorAttributes, webRequest, options);
     }
-
     return errorAttributes;
+  }
+
+  private void errorLogging(Map<String, Object> errorAttributes, AnnotationAttributes myAnnotationAttributes,
+      Class<? extends Throwable> myHandleException) {
+    Map<String, Object> location = errorAttributes.get("location") == null ? null
+        : (Map<String, Object>) errorAttributes.get("location");
+    String myMessage = myAnnotationAttributes.getString("message");
+
+    Logger logger = LoggerFactory.getLogger(myHandleException);
+    logger.error(
+        "\nstatus \t\t------>\t "
+            + errorAttributes.get("status")
+            + "\nerror \t\t------>\t "
+            + errorAttributes.get("error")
+            + (!myMessage.equals("") ? "\nmessage \t------>\t "
+                + errorAttributes.get("message") : "")
+            + "\npath \t\t------>\t "
+            + errorAttributes.get("path")
+            + "\nerrorMessage \t------>\t "
+            + errorAttributes.get("errorMessage")
+            + (location != null ? "\nlocation { \n\tclassName \t------>\t "
+                + location.get("className")
+                + "\n\tmethodName \t------>\t "
+                + location.get("methodName")
+                + "\n\tlineNumber \t------>\t "
+                + location.get("lineNumber")
+                + "\n\tfileName \t------>\t "
+                + location.get("fileName")
+                + "\n}" : ""));
   }
 
   private Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
@@ -118,23 +158,6 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
       errorAttributes.remove("exception");
     }
     if (!annotationAttribute.getBoolean("trace") || !options.isIncluded(Include.STACK_TRACE)) {
-      errorAttributes.remove("trace");
-    }
-    if (!options.isIncluded(Include.MESSAGE) && errorAttributes.get("message") != null) {
-      errorAttributes.remove("message");
-    }
-    if (!options.isIncluded(Include.BINDING_ERRORS)) {
-      errorAttributes.remove("errors");
-    }
-    return errorAttributes;
-  }
-
-  private Map<String, Object> removeErrorAttributes(Map<String, Object> errorAttributes,
-      Map<String, Object> annotationData, ErrorAttributeOptions options) {
-    if (!options.isIncluded(Include.EXCEPTION)) {
-      errorAttributes.remove("exception");
-    }
-    if (!(Boolean) annotationData.get("trace") || !options.isIncluded(Include.STACK_TRACE)) {
       errorAttributes.remove("trace");
     }
     if (!options.isIncluded(Include.MESSAGE) && errorAttributes.get("message") != null) {
@@ -181,7 +204,6 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
 
   private void addErrorDetails(Map<String, Object> errorAttributes, WebRequest webRequest,
       boolean includeStackTrace) {
-    // System.out.println(includeStackTrace);
     Throwable error = getError(webRequest);
     if (error != null) {
       while (error instanceof ServletException && error.getCause() != null) {
@@ -256,7 +278,6 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
     return exception;
   }
 
-  @SuppressWarnings("unchecked")
   private <T> T getAttribute(RequestAttributes requestAttributes, String name) {
     return (T) requestAttributes.getAttribute(name, RequestAttributes.SCOPE_REQUEST);
   }
@@ -264,12 +285,10 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
   @Override
   public void setImportMetadata(AnnotationMetadata importMetadata) {
     AnnotationAttributes[] annotationAttributes = GetAnnotationData.getAnnotations(importMetadata);
-    if (annotationAttributes != null || annotationAttributes.length != 0) {
-      setAnnotationAttributes(annotationAttributes);
+    if (annotationAttributes == null) {
+      setAnnotationAttributes(GetAnnotationData.getAnnotation(importMetadata));
     } else {
-      setAnnotationAttributes(
-          GetAnnotationData.getExceptionClass(importMetadata),
-          GetAnnotationData.getAnnotationData(importMetadata));
+      setAnnotationAttributes(annotationAttributes);
     }
   }
 }

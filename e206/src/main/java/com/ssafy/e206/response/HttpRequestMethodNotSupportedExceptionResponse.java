@@ -7,25 +7,47 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 public class HttpRequestMethodNotSupportedExceptionResponse {
 
-    String message;
-    Throwable[] supportedMethod;
+    private Map<String, Object> details;
+    private static StackTraceElement[] stackTrace;
 
-    public HttpRequestMethodNotSupportedExceptionResponse(String message, Throwable[] supportedMethod) {
-        this.message = message;
-        this.supportedMethod = supportedMethod;
+    public Map<String, Object> getDetails() {
+        return details;
     }
 
-    public static Map<String, Object> of(final HttpRequestMethodNotSupportedException e) {
+    private HttpRequestMethodNotSupportedExceptionResponse(final Map<String, Object> map) {
+        this.details = map;
+    }
 
-        Map<String, Object> map = new HashMap<String, Object>();
+    private static void setStackTraceElement(StackTraceElement[] stackTrace) {
+        HttpRequestMethodNotSupportedExceptionResponse.stackTrace = stackTrace;
+    }
 
-        map.put("errorMessage", e.getMessage());
+    public StackTraceElement[] getStackTrace() {
+        return HttpRequestMethodNotSupportedExceptionResponse.stackTrace;
+    }
+
+    public static HttpRequestMethodNotSupportedExceptionResponse of(final HttpRequestMethodNotSupportedException e) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "HttpRequestMethodNotSupportedException");
         map.put("supMetod", e.getSuppressed());
         map.put("rootCause", e.getRootCause());
         map.put("supportedHttpMethods", e.getSupportedHttpMethods());
         map.put("supportedMethods", e.getSupportedMethods());
         map.put("method", e.getMethod());
+        map.put("location", new HashMap<String, Object>() {
+            {
+                put("fileName", e.getStackTrace()[0].getFileName());
+                put("className", e.getStackTrace()[0].getClassName());
+                put("lineNumber", e.getStackTrace()[0].getLineNumber());
+                put("methodName", e.getStackTrace()[0].getMethodName());
+            }
+        });
+        setStackTraceElement(e.getStackTrace());
+        return new HttpRequestMethodNotSupportedExceptionResponse(map);
+    }
 
-        return map;
+    @Override
+    public String toString() {
+        return "HttpRequestMethodNotSupportedException [ " + details + " ]";
     }
 }

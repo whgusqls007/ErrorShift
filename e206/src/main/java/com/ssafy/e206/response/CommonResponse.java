@@ -1,7 +1,11 @@
 package com.ssafy.e206.response;
 
-import org.springframework.http.HttpStatus;
+import java.util.Map;
 
 public interface CommonResponse {
-    public CommonResponse of(HttpStatus httpStatus, Exception exception);
+    public CommonResponse of(Exception e);
+
+    public Map<String, Object> getDetails();
+
+    public StackTraceElement[] getStackTrace();
 }

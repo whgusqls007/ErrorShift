@@ -42,14 +42,11 @@ public class CustomErrorController extends BasicErrorController {
   @Override
   public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
     Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
-
     HttpStatus status = body.get("status") != null ? HttpStatus.valueOf((Integer) body.get("status"))
         : getStatus(request);
-
     if (status == HttpStatus.NO_CONTENT) {
       return new ResponseEntity<>(status);
     }
-
     return new ResponseEntity<>(body, status);
   }
 }

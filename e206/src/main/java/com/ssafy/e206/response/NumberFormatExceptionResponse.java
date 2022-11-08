@@ -3,7 +3,7 @@ package com.ssafy.e206.response;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ArithmeticExceptionResponse {
+public class NumberFormatExceptionResponse {
     private Map<String, Object> details;
     private static StackTraceElement[] stackTrace;
 
@@ -11,21 +11,21 @@ public class ArithmeticExceptionResponse {
         return details;
     }
 
-    private ArithmeticExceptionResponse(final Map<String, Object> map) {
+    private NumberFormatExceptionResponse(final Map<String, Object> map) {
         this.details = map;
     }
 
     private static void setStackTraceElement(StackTraceElement[] stackTrace) {
-        ArithmeticExceptionResponse.stackTrace = stackTrace;
+        NumberFormatExceptionResponse.stackTrace = stackTrace;
     }
 
     public StackTraceElement[] getStackTrace() {
-        return ArithmeticExceptionResponse.stackTrace;
+        return NumberFormatExceptionResponse.stackTrace;
     }
 
-    public static ArithmeticExceptionResponse of(final ArithmeticException e) {
+    public static NumberFormatExceptionResponse of(final NumberFormatException e) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "ArithmeticException");
+        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "NumberFormatException");
         map.put("location", new HashMap<String, Object>() {
             {
                 put("fileName", e.getStackTrace()[0].getFileName());
@@ -35,11 +35,11 @@ public class ArithmeticExceptionResponse {
             }
         });
         setStackTraceElement(e.getStackTrace());
-        return new ArithmeticExceptionResponse(map);
+        return new NumberFormatExceptionResponse(map);
     }
 
     @Override
     public String toString() {
-        return "ArithmeticException [ " + details + " ]";
+        return "NumberFormatException [ " + details + " ]";
     }
 }
