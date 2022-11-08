@@ -25,6 +25,7 @@ public class HttpRequestMethodNotSupportedExceptionResponse {
     public StackTraceElement[] getStackTrace() {
         return HttpRequestMethodNotSupportedExceptionResponse.stackTrace;
     }
+
     public static HttpRequestMethodNotSupportedExceptionResponse of(final HttpRequestMethodNotSupportedException e) {
         Map<String, Object> map = new HashMap<>();
         map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "HttpRequestMethodNotSupportedException");
@@ -43,5 +44,10 @@ public class HttpRequestMethodNotSupportedExceptionResponse {
         });
         setStackTraceElement(e.getStackTrace());
         return new HttpRequestMethodNotSupportedExceptionResponse(map);
+    }
+
+    @Override
+    public String toString() {
+        return "HttpRequestMethodNotSupportedException [ " + details + " ]";
     }
 }

@@ -37,4 +37,9 @@ public class ArithmeticExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new ArithmeticExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "ArithmeticException [ " + details + " ]";
+    }
 }

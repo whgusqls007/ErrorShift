@@ -37,4 +37,9 @@ public class ArrayIndexOutOfBoundsExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new ArrayIndexOutOfBoundsExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "ArrayIndexOutOfBoundsException [ " + details + " ]";
+    }
 }

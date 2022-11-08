@@ -3,6 +3,7 @@ package com.ssafy.e206.configuration;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -34,7 +37,7 @@ import com.ssafy.e206.util.GetAnnotationData;
 import com.ssafy.e206.util.ResponseAttribute;
 
 @Component
-@SuppressWarnings("null")
+@SuppressWarnings({ "null", "unchecked" })
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CustomErrorAttributes implements ImportAware, ErrorAttributes, HandlerExceptionResolver, Ordered {
   private static final String ERROR_INTERNAL_ATTRIBUTE = DefaultErrorAttributes.class.getName() + ".ERROR";
@@ -70,30 +73,69 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
   @Override
   public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
     Throwable exception = getError(webRequest);
-
     Map<String, Object> errorAttributes = getErrorAttributes(webRequest,
         options.isIncluded(Include.STACK_TRACE));
 
+    AnnotationAttributes myAnnotationAttributes = null;
+    Class<? extends Throwable> myHandleException = null;
+
     if (this.annotationAttributes != null && this.annotationAttribute == null) {
       for (AnnotationAttributes annotationAttribute : this.annotationAttributes) {
-        Class<? extends Throwable> handleException = annotationAttribute.getClass("exception");
-        if (handleException.isInstance(exception)) {
-          errorAttributes = removeErrorAttributes(errorAttributes, annotationAttribute, options);
-          errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, annotationAttribute, exception,
-              handleException, annotationAttribute.getBoolean("prettyRes"));
+        if (annotationAttribute.getClass("exception").isInstance(exception)) {
+          myHandleException = annotationAttribute.getClass("exception");
+          myAnnotationAttributes = annotationAttribute;
+          break;
         }
       }
     } else if (this.annotationAttributes == null && this.annotationAttribute != null) {
-      Class<? extends Throwable> handleException = this.annotationAttribute.getClass("exception");
-      if (handleException.isInstance(exception)) {
-        errorAttributes = removeErrorAttributes(errorAttributes, this.annotationAttribute, options);
-        errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, annotationAttribute, exception,
-            handleException, this.annotationAttribute.getBoolean("prettyRes"));
+      myHandleException = this.annotationAttribute.getClass("exception");
+      myAnnotationAttributes = this.annotationAttribute;
+    }
+
+    if (myHandleException == null || myAnnotationAttributes == null) {
+      return errorAttributes;
+    }
+
+    boolean prettyRes = myAnnotationAttributes.getBoolean("prettyRes");
+    boolean logging = myAnnotationAttributes.getBoolean("logging");
+
+    if (myHandleException.isInstance(exception)) {
+
+      errorAttributes = removeErrorAttributes(errorAttributes, myAnnotationAttributes, options);
+      errorAttributes = ResponseAttribute.getResponseAttribute(errorAttributes, myAnnotationAttributes, exception,
+          myHandleException, prettyRes);
+
+      if (logging) {
+        Map<String, Object> location = errorAttributes.get("location") == null ? null
+            : (Map<String, Object>) errorAttributes.get("location");
+        String myMessage = myAnnotationAttributes.getString("message");
+
+        Logger logger = LoggerFactory.getLogger(myHandleException);
+        logger.error(
+            "\nstatus \t\t------>\t "
+                + errorAttributes.get("status")
+                + "\nerror \t\t------>\t "
+                + errorAttributes.get("error")
+                + (!myMessage.equals("") ? "\nmessage \t------>\t "
+                    + errorAttributes.get("message") : "")
+                + "\npath \t\t------>\t "
+                + errorAttributes.get("path")
+                + "\nerrorMessage \t------>\t "
+                + errorAttributes.get("errorMessage")
+                + (location != null ? "\nlocation { \n\tclassName \t------>\t "
+                    + location.get("className")
+                    + "\n\tmethodName \t------>\t "
+                    + location.get("methodName")
+                    + "\n\tlineNumber \t------>\t "
+                    + location.get("lineNumber")
+                    + "\n\tfileName \t------>\t "
+                    + location.get("fileName")
+                    + "\n}" : ""));
       }
+
     } else {
       removeErrorAttributes(errorAttributes, webRequest, options);
     }
-
     return errorAttributes;
   }
 

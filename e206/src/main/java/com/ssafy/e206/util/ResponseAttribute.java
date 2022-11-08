@@ -3,14 +3,12 @@ package com.ssafy.e206.util;
 import java.util.Map;
 
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.ssafy.e206.logger.LoggerService;
 import com.ssafy.e206.response.ArithmeticExceptionResponse;
 import com.ssafy.e206.response.ArrayIndexOutOfBoundsExceptionResponse;
 import com.ssafy.e206.response.ClassCastExceptionResponse;
@@ -24,10 +22,6 @@ import com.ssafy.e206.response.NumberFormatExceptionResponse;
 import com.ssafy.e206.response.TypeMismatchExceptionResponse;
 
 public class ResponseAttribute {
-
-	@Autowired
-	static LoggerService loggerService;
-
 	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
 			AnnotationAttributes annotationAttribute, Throwable exception,
 			Class<? extends Throwable> handleException, boolean useCustomResponse) {
@@ -96,6 +90,7 @@ public class ResponseAttribute {
 				} else {
 					result.remove("trace");
 				}
+				result.putAll(typeMismatchExceptionResponse.getDetails());
 				break;
 
 			case "HttpMediaTypeNotSupportedException":
@@ -180,6 +175,7 @@ public class ResponseAttribute {
 				} else {
 					result.remove("trace");
 				}
+				result.putAll(classCastExceptionResponse.getDetails());
 				break;
 			case "NumberFormatException":
 				NumberFormatExceptionResponse numberFormatExceptionResponse = NumberFormatExceptionResponse
@@ -189,6 +185,7 @@ public class ResponseAttribute {
 				} else {
 					result.remove("trace");
 				}
+				result.putAll(numberFormatExceptionResponse.getDetails());
 				break;
 
 			default:

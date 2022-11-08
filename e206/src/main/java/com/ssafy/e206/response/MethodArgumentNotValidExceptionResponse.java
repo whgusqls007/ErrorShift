@@ -40,4 +40,9 @@ public class MethodArgumentNotValidExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new MethodArgumentNotValidExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "MethodArgumentNotValidException [ " + details + " ]";
+    }
 }

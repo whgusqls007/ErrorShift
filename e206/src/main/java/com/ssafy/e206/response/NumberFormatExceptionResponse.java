@@ -37,4 +37,9 @@ public class NumberFormatExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new NumberFormatExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "NumberFormatException [ " + details + " ]";
+    }
 }

@@ -43,4 +43,9 @@ public class NoHandlerFoundExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new NoHandlerFoundExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "NoHandlerFoundException [ " + details + " ]";
+    }
 }

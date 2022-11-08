@@ -23,11 +23,6 @@ public class NullPointerExceptionResponse {
         return NullPointerExceptionResponse.stackTrace;
     }
 
-    @Override
-    public String toString() {
-        return "NullPointerExceptionResponse [ " + details + " ]";
-    }
-
     public static NullPointerExceptionResponse of(final NullPointerException e) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "NullPointerException");
@@ -42,4 +37,10 @@ public class NullPointerExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new NullPointerExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "NullPointerException [ " + details + " ]";
+    }
+
 }

@@ -43,4 +43,9 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new HttpMediaTypeNotSupportedExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "HttpMediaTypeNotSupportedException [ " + details + " ]";
+    }
 }

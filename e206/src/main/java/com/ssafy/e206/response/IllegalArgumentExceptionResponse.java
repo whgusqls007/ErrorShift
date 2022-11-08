@@ -40,7 +40,10 @@ public class IllegalArgumentExceptionResponse {
         });
         setStackTraceElement(e.getStackTrace());
         return new IllegalArgumentExceptionResponse(map);
-
     }
 
+    @Override
+    public String toString() {
+        return "IllegalArgumentNotSupportedException [ " + details + " ]";
+    }
 }

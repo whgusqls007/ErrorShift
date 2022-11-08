@@ -37,4 +37,9 @@ public class ClassCastExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new ClassCastExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "ClassCastException [ " + details + " ]";
+    }
 }

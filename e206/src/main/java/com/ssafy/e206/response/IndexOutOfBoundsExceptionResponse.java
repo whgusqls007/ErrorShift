@@ -39,4 +39,8 @@ public class IndexOutOfBoundsExceptionResponse {
         return new IndexOutOfBoundsExceptionResponse(map);
     }
 
+    @Override
+    public String toString() {
+        return "IndexOutOfBoundsException [ " + details + " ]";
+    }
 }

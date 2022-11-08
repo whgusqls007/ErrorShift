@@ -43,4 +43,9 @@ public class TypeMismatchExceptionResponse {
         setStackTraceElement(e.getStackTrace());
         return new TypeMismatchExceptionResponse(map);
     }
+
+    @Override
+    public String toString() {
+        return "TypeMismatchException [ " + details + " ]";
+    }
 }
