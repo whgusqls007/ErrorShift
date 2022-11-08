@@ -105,37 +105,42 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
           myHandleException, prettyRes);
 
       if (logging) {
-        Map<String, Object> location = errorAttributes.get("location") == null ? null
-            : (Map<String, Object>) errorAttributes.get("location");
-        String myMessage = myAnnotationAttributes.getString("message");
-
-        Logger logger = LoggerFactory.getLogger(myHandleException);
-        logger.error(
-            "\nstatus \t\t------>\t "
-                + errorAttributes.get("status")
-                + "\nerror \t\t------>\t "
-                + errorAttributes.get("error")
-                + (!myMessage.equals("") ? "\nmessage \t------>\t "
-                    + errorAttributes.get("message") : "")
-                + "\npath \t\t------>\t "
-                + errorAttributes.get("path")
-                + "\nerrorMessage \t------>\t "
-                + errorAttributes.get("errorMessage")
-                + (location != null ? "\nlocation { \n\tclassName \t------>\t "
-                    + location.get("className")
-                    + "\n\tmethodName \t------>\t "
-                    + location.get("methodName")
-                    + "\n\tlineNumber \t------>\t "
-                    + location.get("lineNumber")
-                    + "\n\tfileName \t------>\t "
-                    + location.get("fileName")
-                    + "\n}" : ""));
+        errorLogging(errorAttributes, myAnnotationAttributes, myHandleException);
       }
 
     } else {
       removeErrorAttributes(errorAttributes, webRequest, options);
     }
     return errorAttributes;
+  }
+
+  private void errorLogging(Map<String, Object> errorAttributes, AnnotationAttributes myAnnotationAttributes,
+      Class<? extends Throwable> myHandleException) {
+    Map<String, Object> location = errorAttributes.get("location") == null ? null
+        : (Map<String, Object>) errorAttributes.get("location");
+    String myMessage = myAnnotationAttributes.getString("message");
+
+    Logger logger = LoggerFactory.getLogger(myHandleException);
+    logger.error(
+        "\nstatus \t\t------>\t "
+            + errorAttributes.get("status")
+            + "\nerror \t\t------>\t "
+            + errorAttributes.get("error")
+            + (!myMessage.equals("") ? "\nmessage \t------>\t "
+                + errorAttributes.get("message") : "")
+            + "\npath \t\t------>\t "
+            + errorAttributes.get("path")
+            + "\nerrorMessage \t------>\t "
+            + errorAttributes.get("errorMessage")
+            + (location != null ? "\nlocation { \n\tclassName \t------>\t "
+                + location.get("className")
+                + "\n\tmethodName \t------>\t "
+                + location.get("methodName")
+                + "\n\tlineNumber \t------>\t "
+                + location.get("lineNumber")
+                + "\n\tfileName \t------>\t "
+                + location.get("fileName")
+                + "\n}" : ""));
   }
 
   private Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
