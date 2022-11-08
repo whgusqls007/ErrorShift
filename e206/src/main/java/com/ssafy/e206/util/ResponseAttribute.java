@@ -12,6 +12,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import com.ssafy.e206.response.ArithmeticExceptionResponse;
 import com.ssafy.e206.response.ArrayIndexOutOfBoundsExceptionResponse;
 import com.ssafy.e206.response.ClassCastExceptionResponse;
+import com.ssafy.e206.response.CommonResponse;
 import com.ssafy.e206.response.HttpMediaTypeNotSupportedExceptionResponse;
 import com.ssafy.e206.response.HttpRequestMethodNotSupportedExceptionResponse;
 import com.ssafy.e206.response.IllegalArgumentExceptionResponse;
@@ -26,7 +27,10 @@ public class ResponseAttribute {
 			AnnotationAttributes annotationAttribute, Throwable exception,
 			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
-		if (useCustomResponse) {
+		String userResPackage = annotationAttribute.getString("userResPackage");
+		if (!userResPackage.equals("")) {
+			result = getUserResponse(userResPackage, exception, result, annotationAttribute.getBoolean("trace"));
+		} else if (useCustomResponse) {
 			result = getCustomResponse(exception, result, annotationAttribute.getBoolean("trace"));
 		}
 
@@ -53,6 +57,18 @@ public class ResponseAttribute {
 			}
 		}
 
+		return result;
+	}
+
+	private static Map<String, Object> getUserResponse(String userResPackage, Throwable exception,
+			Map<String, Object> result, boolean showStackTrace) {
+		try {
+			Class<?> clazz = Class.forName(userResPackage);
+			CommonResponse commonResponse = ((CommonResponse) clazz.newInstance()).of((Exception) exception);
+			result.putAll(commonResponse.getDetails());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 

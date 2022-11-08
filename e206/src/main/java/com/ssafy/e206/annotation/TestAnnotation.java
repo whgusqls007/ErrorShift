@@ -19,6 +19,8 @@ import com.ssafy.e206.controller.CustomErrorController;
 public @interface TestAnnotation {
   String message() default "";
 
+  String userResPackage() default "";
+
   Class<? extends Throwable> exception();
 
   boolean logging() default false;
