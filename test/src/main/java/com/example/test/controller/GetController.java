@@ -3,8 +3,10 @@ package com.example.test.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,10 +42,8 @@ public class GetController {
   @ApiOperation(value = "닫혔을 때 설명", notes = "열었을 때 설명")
   @GetMapping("/{name}")
   public String getName(@PathVariable String name) {
-    System.out.println(" name: " + name);
     HelloDTO helloDTO = new HelloDTO();
     helloDTO.setName(name);
-    System.out.println(" helloDTO: " + helloDTO);
     return "Hello " + name + "!";
   }
 
@@ -56,7 +56,7 @@ public class GetController {
   @ApiOperation(value = "get DTO 사용", notes = "DTO 객체 swagger 설정 테스트")
   @GetMapping("/hellodto")
   @Valid
-  public ResponseEntity<HelloDTO> getHelloDto(HelloDTO helloDto) {
+  public ResponseEntity<HelloDTO> getHelloDto(@Valid HelloDTO helloDto) {
     System.out.println("helloDto: " + helloDto);
     return ResponseEntity.ok(helloDto);
   }
@@ -78,7 +78,54 @@ public class GetController {
   @GetMapping("/test")
   @ResponseBody
   public ResponseEntity<String> test() {
+    System.out.println("asfasf");
+    String a = null;
+    a.length();
     return ResponseEntity.ok(helloService.getName("test"));
+  }
+
+  @DeleteMapping("/test")
+  @ResponseBody
+  public ResponseEntity<String> testDelete() {
+    return ResponseEntity.ok(helloService.getName("test"));
+  }
+
+  @GetMapping("/indexOutOfBoundsException")
+  public ResponseEntity<String> indexOutOfBoundsException() {
+    throw new IndexOutOfBoundsException();
+  }
+
+  @GetMapping("/URI-Too-Long/{name}")
+  public ResponseEntity<String> uriTooLong(@PathVariable String name) {
+    return ResponseEntity.status(HttpStatus.URI_TOO_LONG).body("URI Too Long");
+  }
+
+  @GetMapping("/Illegal")
+  public void Illegal() {
+    HelloService.IllegalError();
+  }
+
+  @PostMapping(value = "/httpMediaTypeNotSupported", consumes = { "application/xml" })
+  public void getHttpMediaTypeNotSupportedException(@RequestBody HelloDTO helloDTO) {
+  }
+
+  @GetMapping(value = "/arrayIndexOutOfBounds")
+  public void getArrayIndexOutOfBoundsException() {
+    throw new ArrayIndexOutOfBoundsException();
+  }
+
+  @GetMapping(value = "/indexOutOfBounds")
+  public void getIndexOutOfBoundsException() {
+    throw new IndexOutOfBoundsException();
+  }
+
+  @GetMapping(value = "/arithmetic/{num}")
+  public void getArithmeticException(@PathVariable int num) {
+    int n = 10 / num;
+  }
+
+  @PostMapping(value = "/methodArgumentTypeMismatch/{num}")
+  public void getMethodArgumentTypeMismatchException(@PathVariable int num) {
   }
 
 }
