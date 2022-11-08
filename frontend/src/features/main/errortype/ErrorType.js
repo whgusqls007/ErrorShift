@@ -13,7 +13,6 @@ function ErrorType(){
                     <SideBar></SideBar>
                 </div>
                 <div className="content" style={{height:500}}>
-
                 </div>
             </div>
             <Footer></Footer>
