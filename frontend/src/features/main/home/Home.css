@@ -70,8 +70,8 @@
 }
 
 .main2_2:hover #first_sentence{
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
     content: url(
         "../../../assets/img/check_hover.png"
     );
@@ -95,8 +95,8 @@
 }
 
 .main2_3:hover #second_sentence{
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
     content: url(
         "../../../assets/img/check_hover.png"
     );
@@ -120,8 +120,8 @@
 }
 
 .main2_4:hover #third_sentence{
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
     content: url(
         "../../../assets/img/check_hover.png"
     );
@@ -163,8 +163,8 @@
 }
 
 .img-one:hover #image1{
-    width: 10rem;
-    height: 10rem;
+    width: 11rem;
+    height: 11rem;
     content: url(
         "../../../assets/img/easy_hover.png"
     );
@@ -198,8 +198,8 @@
 }
 
 .img-two:hover #image2{
-    width: 10rem;
-    height: 10rem;
+    width: 11rem;
+    height: 11rem;
     content: url(
         "../../../assets/img/contribute_hover.png"
     );
@@ -233,8 +233,8 @@
 }
 
 .img-three:hover #image3{
-    width: 10rem;
-    height: 10rem;
+    width: 11rem;
+    height: 11rem;
     content: url(
         "../../../assets/img/customize_hover.png"
     );
