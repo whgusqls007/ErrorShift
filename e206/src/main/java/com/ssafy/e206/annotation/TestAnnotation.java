@@ -30,4 +30,6 @@ public @interface TestAnnotation {
   boolean trace() default false;
 
   HttpStatus httpStatus() default HttpStatus.INTERNAL_SERVER_ERROR;
+
+  String language() default "en"; //en ko
 }
