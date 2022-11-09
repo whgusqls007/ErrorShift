@@ -24,9 +24,6 @@ export default function Footer() {
                 <MDBIcon icon="gem" className="me-3" />
                 ErrorShift 
               </h6>
-              <p>
-                Open source to find errors easier
-              </p>
             </MDBCol>
 
             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
