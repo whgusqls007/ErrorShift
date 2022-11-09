@@ -1,22 +1,20 @@
-import NavBar from "../../../common/navbar/NavBar"
-import Footer from "../../../common/footer/Footer"
-import SideBar from "../../../common/sidebar/SideBar"
+import NavBar from "../../../common/navbar/NavBar";
+import Footer from "../../../common/footer/Footer";
+import SideBar from "../../../common/sidebar/SideBar";
 
-import './ErrorType.css'
+import "./ErrorType.css";
 
-function ErrorType(){
-    return(
+function ErrorType() {
+  return (
+    <div>
+      <div className="overall-screen">
         <div>
-            <NavBar></NavBar>
-            <div className="overall-screen">
-                <div>
-                    <SideBar></SideBar>
-                </div>
-                <div className="content" style={{height:500}}>
-                </div>
-            </div>
-            <Footer></Footer>
+          <SideBar></SideBar>
         </div>
-    )
+        <div className="content"></div>
+      </div>
+      <Footer></Footer>
+    </div>
+  );
 }
 export default ErrorType;
