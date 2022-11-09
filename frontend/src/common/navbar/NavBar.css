@@ -10,6 +10,31 @@
     font-size: 24px;
 }
 
-Nav.Link:hover {
-    text-decoration: underline;
+.gnb-menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.gnb-menu .nav-link {
+    font-size: 20px;
+    text-decoration: none;
+    position: relative;
+    padding: 6px 12px;
+}
+
+.gnb-menu .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 4px;
+    background: #f1c40f;
+    transition: all .3s ease-out;
+}
+
+.gnb-menu .nav-link:hover::after{
+    width: 100%
 }

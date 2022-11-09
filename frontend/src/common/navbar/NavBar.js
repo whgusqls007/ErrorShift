@@ -17,10 +17,10 @@ function NavBar(){
                 </NavLink>                
                 <Navbar.Brand className="item-name" href="/" style={{fontSize:28, marginLeft:8}} >ErrorShift</Navbar.Brand>
                 </div>
-                <Nav>
-                    <Nav.Link href="/adv" style={{marginRight:"3rem"}}>홍보 및 시연</Nav.Link>
-                    <Nav.Link href="/errortype" style={{marginRight:"3rem"}}>에러 분류</Nav.Link>
-                    <Nav.Link href="#pricing">깃허브</Nav.Link>
+                <Nav className="gnb-menu">
+                    <Nav.Link className="nav-link" href="/adv" style={{marginRight:"3rem"}}>홍보 및 시연</Nav.Link>
+                    <Nav.Link className="nav-link" href="/errortype" style={{marginRight:"3rem"}}>에러 분류</Nav.Link>
+                    <Nav.Link className="nav-link" href="#pricing">깃허브</Nav.Link>
                 </Nav>
                 </Container>
             </Navbar>
