@@ -12,8 +12,10 @@ function Home(){
             <NavBar></NavBar>
             <div className="Home">
                 <div className="main1">
-                    <div className="word">
+                    <div className="title-word">
                         <h1>ErrorShift</h1>
+                    </div>   
+                    <div className="catchphrase">
                         <p className="more-easy" style={{marginTop:15}}>에러를 더 쉽게, 더 빠르게</p> 
                     </div>    
                     <div>
