@@ -17,8 +17,8 @@ function Arithmetic() {
         <div>
           <SideBar></SideBar>
         </div>
-        <div className="code-box">
-          <Code codeString={code} language="java" />;
+        <div className="content">
+          <Code codeString={code} language="java" />
         </div>
       </div>
       <Footer></Footer>
