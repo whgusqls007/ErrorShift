@@ -41,7 +41,7 @@ function NavBar() {
               href="/errortype"
               style={{ marginRight: "3rem" }}
             >
-              에러 분류
+              문서
             </Nav.Link>
             <Nav.Link className="nav-link" href="#pricing">
               깃허브
