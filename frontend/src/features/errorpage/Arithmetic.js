@@ -1,21 +1,28 @@
-import NavBar from '../../common/navbar/NavBar'
-import Footer from '../../common/footer/Footer'
-import SideBar from '../../common/sidebar/SideBar'
+import Footer from "../../common/footer/Footer";
+import SideBar from "../../common/sidebar/SideBar";
+import Code from "react-code-prettify";
+import "./ErrorPage.css";
 
-function Arithmetic(){
-    return(
+function Arithmetic() {
+  const code = `
+  @TestAnnotation(exception = ArithmeticException.class, logging = true, httpStatus = HttpStatus.NOT_FOUND, trace = true)
+  @ControllerAdvice
+  public class GlobalExceptionHandler {
+  }
+  `;
+
+  return (
+    <div>
+      <div className="overall-screen">
         <div>
-            <NavBar></NavBar>
-            <div className="overall-screen">
-                <div>
-                    <SideBar></SideBar>
-                </div>
-                <div style={{height:500, marginTop:80}}>
-                    <h1>Arithmetic</h1>
-                </div>
-            </div>
-            <Footer></Footer>
+          <SideBar></SideBar>
         </div>
-    )
+        <div className="code-box">
+          <Code codeString={code} language="java" />;
+        </div>
+      </div>
+      <Footer></Footer>
+    </div>
+  );
 }
 export default Arithmetic;

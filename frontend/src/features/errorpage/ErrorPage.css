@@ -1,0 +1,45 @@
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.orange {
+  color: orange;
+}
+
+.lightblue {
+  color: lightblue;
+}
+
+.white {
+  color: white;
+}
+
+.grey {
+  color: grey;
+}
+
+.black {
+  color: black;
+}
+
+.lightblack {
+  color: #333;
+}
+
+.code-box {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 80px 10% 0 10%;
+  width: 80%;
+  height: 300px;
+}
+
+.code-box p {
+  margin: 0;
+  padding: 0;
+}

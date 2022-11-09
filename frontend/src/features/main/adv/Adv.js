@@ -7,7 +7,6 @@ import "./Adv.css"
 function Adv(){
     return(
         <div>
-            <NavBar></NavBar>
             <div style={{height:700}}>
                 <div className="adv-main">
                     <p className="adv-title">ErrorShift 영상</p>

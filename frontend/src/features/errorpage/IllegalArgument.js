@@ -5,7 +5,7 @@ import SideBar from '../../common/sidebar/SideBar'
 function IllegalArgument(){
     return(
         <div>
-            <NavBar></NavBar>
+
             <div className="overall-screen">
                 <div>
                     <SideBar></SideBar>

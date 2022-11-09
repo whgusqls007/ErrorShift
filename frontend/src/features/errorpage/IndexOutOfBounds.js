@@ -5,7 +5,7 @@ import SideBar from '../../common/sidebar/SideBar'
 function IndexOutOfBounds(){
     return(
         <div>
-            <NavBar></NavBar>
+
             <div className="overall-screen">
                 <div>
                     <SideBar></SideBar>
