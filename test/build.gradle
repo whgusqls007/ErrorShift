@@ -29,8 +29,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-	implementation 'com.ssafy:e206:1.0.0-beta'
-	testImplementation 'com.ssafy:e206:1.0.0-beta'
+	implementation 'com.ssafy:e206:1.0.0'
+	testImplementation 'com.ssafy:e206:1.0.0'
+	// implementation files("./e206-1.0.0.jar")
 
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	// swagger annotations 1.5.21
