@@ -23,17 +23,22 @@ public class NullPointerExceptionResponse {
         return NullPointerExceptionResponse.stackTrace;
     }
 
+    public static void enof() {
+
+    }
+
     public static NullPointerExceptionResponse of(final NullPointerException e) {
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("errorMessage", e.getMessage() != null ? e.getMessage() : "NullPointerException");
-//        map.put("location", new HashMap<String, Object>() {
-//            {
-//                put("fileName", e.getStackTrace()[0].getFileName());
-//                put("className", e.getStackTrace()[0].getClassName());
-//                put("lineNumber", e.getStackTrace()[0].getLineNumber());
-//                put("methodName", e.getStackTrace()[0].getMethodName());
-//            }
-//        });
+        // map.put("errorMessage", e.getMessage() != null ? e.getMessage() :
+        // "NullPointerException");
+        // map.put("location", new HashMap<String, Object>() {
+        // {
+        // put("fileName", e.getStackTrace()[0].getFileName());
+        // put("className", e.getStackTrace()[0].getClassName());
+        // put("lineNumber", e.getStackTrace()[0].getLineNumber());
+        // put("methodName", e.getStackTrace()[0].getMethodName());
+        // }
+        // });
 
         StringBuilder sb = new StringBuilder();
         sb.append(e.getStackTrace()[0].getClassName()).append("클래스의 ");
@@ -43,7 +48,7 @@ public class NullPointerExceptionResponse {
         map.put("요약", sb);
         map.put("상세", new HashMap<String, Object>() {
             {
-                put("에러 메시지", e.getMessage() !=null?e.getMessage():"NullPointerException");
+                put("에러 메시지", e.getMessage() != null ? e.getMessage() : "NullPointerException");
                 put("에러 발생 위치", new HashMap<String, Object>() {
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());

@@ -1,5 +1,6 @@
 package com.ssafy.e206.util;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.TypeMismatchException;
@@ -41,12 +42,26 @@ public class ResponseAttribute {
 			// result.put("message", message);
 			result.put("사용자 메시지", message);
 		}
+		Object resPath = result.get("path");
+		Object resTimestamp = result.get("timestamp");
+		Object resMessage = result.get("message");
 
-		result.put("요청 URL", result.get("path"));
+		Map<String, Object> temp = new HashMap<>();
+		temp.put("추가 정보", new HashMap<String, Object>(){
+			{
+				put("요청 URL", resPath);
+				put("발생 시각", resTimestamp);
+				put("메시지", resMessage);
+			}
+		});
+
+		result.putAll(temp);
+
+		// result.put("요청 URL", result.get("path"));
 		result.remove("path");
-		result.put("타임스탬프", result.get("timestamp"));
+		// result.put("타임스탬프", result.get("timestamp"));
 		result.remove("timestamp");
-		result.put("메시지", result.get("message"));
+		// result.put("메시지", result.get("message"));
 		result.remove("message");
 
 		result = setHttpStatus(result, annotationAttribute);
