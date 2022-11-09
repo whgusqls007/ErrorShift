@@ -27,6 +27,8 @@ public class ResponseAttribute {
 			AnnotationAttributes annotationAttribute, Throwable exception,
 			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
+		String language = getLanguage(result, annotationAttribute);
+
 		String userResPackage = annotationAttribute.getString("userResPackage");
 		if (!userResPackage.equals("")) {
 			result = getUserResponse(userResPackage, exception, result, annotationAttribute.getBoolean("trace"));
@@ -36,12 +38,26 @@ public class ResponseAttribute {
 
 		String message = annotationAttribute.getString("message");
 		if (!message.equals("")) {
-			result.put("message", message);
+			// result.put("message", message);
+			result.put("사용자 메시지", message);
 		}
+
+		result.put("요청 URL", result.get("path"));
+		result.remove("path");
+		result.put("타임스탬프", result.get("timestamp"));
+		result.remove("timestamp");
+		result.put("메시지", result.get("message"));
+		result.remove("message");
 
 		result = setHttpStatus(result, annotationAttribute);
 
 		return result;
+	}
+
+	private static String getLanguage(Map<String, Object> result,
+			AnnotationAttributes annotationAttributes) {
+		String language = annotationAttributes.getString("language");
+		return language;
 	}
 
 	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
@@ -49,11 +65,17 @@ public class ResponseAttribute {
 		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
 
 		if (status != 200) {
-			result.put("status", status);
+			// result.put("status", status);
+			result.remove("status");
+			result.put("HTTP 상태 코드", status);
+
+			result.remove("error");
 			try {
-				result.put("error", HttpStatus.valueOf(status).getReasonPhrase());
+				// result.put("error", HttpStatus.valueOf(status).getReasonPhrase());
+				result.put("에러 종류", HttpStatus.valueOf(status).getReasonPhrase());
 			} catch (Exception ex) {
-				result.put("error", "Http Status " + status);
+				// result.put("error", "Http Status " + status);
+				result.put("에러 종류", "Http Status " + status);
 			}
 		}
 
@@ -79,11 +101,14 @@ public class ResponseAttribute {
 			case "NullPointerException":
 				NullPointerExceptionResponse nullPointerExceptionResponse = NullPointerExceptionResponse
 						.of((NullPointerException) exception);
+				result.remove("trace");
 				if (showStackTrace) {
-					result.put("trace", nullPointerExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					// result.put("trace", nullPointerExceptionResponse.getStackTrace());
+					result.put("Stack Trace", nullPointerExceptionResponse.getStackTrace());
 				}
+				// } else {
+				// result.remove("trace");
+				// }
 				result.putAll(nullPointerExceptionResponse.getDetails());
 				break;
 
@@ -214,4 +239,5 @@ public class ResponseAttribute {
 		String exceptionName = exceptionNameArray[exceptionNameArray.length - 1];
 		return exceptionName;
 	}
+
 }
