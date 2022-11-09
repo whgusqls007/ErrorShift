@@ -15,7 +15,7 @@ function ErrorType() {
         <div className="content">
           <h1>시작하기</h1>
           <p>ErrorShift는 빠르게 원하는 에러를 핸들링 할 수 있습니다.</p>
-          <a href="http://localhost:3001/download" download>
+          <a href="http://errorshift.com:3001/file/download" download>
             aa
           </a>
         </div>
