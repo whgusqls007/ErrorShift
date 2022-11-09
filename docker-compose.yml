@@ -11,6 +11,7 @@ services:
       - /home/ubuntu/jenkins_compose/jenkins_home/workspace/errorshift/config/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - front
+      - file_server
   front:
     build: /home/ubuntu/jenkins_compose/jenkins_home/workspace/errorshift/frontend
     container_name: front
@@ -23,3 +24,5 @@ services:
     container_name: file_server
     expose:
       - "3001"
+    environment:
+      - TZ=Asia/Seoul
