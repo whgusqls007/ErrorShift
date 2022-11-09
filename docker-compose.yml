@@ -19,7 +19,7 @@ services:
     environment:
       - TZ=Asia/Seoul
   file_server:
-    build: /home/ubuntu/jenkins_compose/jenkins_home/workspace/environment/file_server
+    build: /home/ubuntu/jenkins_compose/jenkins_home/workspace/environment/fileServer
     container_name: file_server
     expose:
       - "3001"
