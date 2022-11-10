@@ -6,6 +6,10 @@ function SideBar() {
     <div>
       <Sidebar style={{ marginTop: 80 }}>
         <Menu>
+          <MenuItem routerLink={<Link to="/errortype" />}> 시작하기 </MenuItem>
+          <MenuItem routerLink={<Link to="/errortype/annotation" />}>
+            ErrorShift
+          </MenuItem>
           <MenuItem
             routerLink={<Link to="/errortype/MethodArgumentNotValid" />}
           >

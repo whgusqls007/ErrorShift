@@ -1,4 +1,3 @@
-import Footer from "../../../common/footer/Footer";
 import YoutubeEmbed from "./YoutubeEmbed";
 
 import "./Adv.css";

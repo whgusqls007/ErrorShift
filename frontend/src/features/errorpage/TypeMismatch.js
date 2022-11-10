@@ -1,4 +1,3 @@
-import Footer from "../../common/footer/Footer";
 import SideBar from "../../common/sidebar/SideBar";
 
 function TypeMismatch() {

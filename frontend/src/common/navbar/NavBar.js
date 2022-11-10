@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../../assets/img/logo.png";
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./NavBar.css";
 
@@ -29,23 +30,27 @@ function NavBar() {
             </Navbar.Brand>
           </div>
           <Nav className="gnb-menu">
-            <Nav.Link
-              className="nav-link"
-              href="/adv"
+            <Link
+              className="nav-link link"
+              to={"/adv"}
               style={{ marginRight: "3rem" }}
             >
               홍보 및 시연
-            </Nav.Link>
-            <Nav.Link
-              className="nav-link"
-              href="/errortype"
+            </Link>
+            <Link
+              className="nav-link link"
+              to={"/errortype"}
               style={{ marginRight: "3rem" }}
             >
               문서
-            </Nav.Link>
-            <Nav.Link className="nav-link" href="#pricing">
+            </Link>
+            <Link
+              className="nav-link link"
+              to={"#github"}
+              style={{ marginRight: "3rem" }}
+            >
               깃허브
-            </Nav.Link>
+            </Link>
           </Nav>
         </Container>
       </Navbar>
