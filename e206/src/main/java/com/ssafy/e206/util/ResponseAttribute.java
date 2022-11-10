@@ -64,7 +64,29 @@ public class ResponseAttribute {
 		// result.put("메시지", result.get("message"));
 		result.remove("message");
 
-		result = setHttpStatus(result, annotationAttribute);
+		result = setHttpStatus(result, annotationAttribute, language);
+
+		return result;
+	}
+
+	private static Map<String, Object> setDetails(Map<String, Object> result, 
+			AnnotationAttributes annotationAttribute, Throwable exception, String language) {
+		switch (language) {
+			case "ko":
+
+				break;
+			case "en":
+
+				break;
+			default:
+
+				break;
+		}
+		return result;
+	}
+
+	private static Map<String, Object> koDetail(Map<String, Object> result,
+			AnnotationAttributes annotationAttribute, Throwable exception, String language) {
 
 		return result;
 	}
@@ -76,21 +98,32 @@ public class ResponseAttribute {
 	}
 
 	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
-			AnnotationAttributes annotationAttribute) {
+			AnnotationAttributes annotationAttribute, String language) {
 		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
 
 		if (status != 200) {
-			// result.put("status", status);
-			result.remove("status");
-			result.put("HTTP 상태 코드", status);
-
-			result.remove("error");
-			try {
-				// result.put("error", HttpStatus.valueOf(status).getReasonPhrase());
-				result.put("에러 종류", HttpStatus.valueOf(status).getReasonPhrase());
-			} catch (Exception ex) {
-				// result.put("error", "Http Status " + status);
-				result.put("에러 종류", "Http Status " + status);
+			switch (language) {
+				case "ko":
+					result.remove("status");
+					result.put("HTTP 상태 코드", status);
+					result.remove("error");
+					try {
+						result.put("에러 종류", HttpStatus.valueOf(status).getReasonPhrase());
+					} catch (Exception ex) {
+						result.put("에러 종류", "Http Status " + status);
+					}
+					break;
+				case "en":
+					result.put("Http Status", status);
+					result.remove("error");
+					try {
+						 result.put("Error", HttpStatus.valueOf(status).getReasonPhrase());
+					} catch (Exception ex) {
+						 result.put("Error", "Http Status " + status);
+					}
+					break;
+				default:
+					break;
 			}
 		}
 
