@@ -1,13 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@700&family=Raleway:wght@700&family=Roboto+Condensed&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Jua&family=Quicksand:wght@700&family=Raleway:wght@700&family=Roboto+Condensed&display=swap");
 
+
 .main1 {
-  margin-top: 120px;
+  margin-top: 85px;
   height: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: "Raleway", sans-serif;
+  background: url("../../../assets/img/back22.jpg") fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .word {
@@ -15,6 +19,8 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  top: 150px;
 }
 
 .more-easy {
@@ -24,6 +30,7 @@
 
 .main2 {
   height: 300px;
+  padding-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
