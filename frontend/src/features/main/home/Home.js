@@ -9,19 +9,19 @@ function Home() {
     <div>
       <div className="Home">
         <div className="main1">
-          <div className="word">
+          {/* <div className="word" style={{color:"black"}}>
             <h1>ErrorShift</h1>
             <p className="more-easy" style={{ marginTop: 15 }}>
               에러를 더 쉽게, 더 빠르게
             </p>
-          </div>
-          <div>
-            <img
-              style={{ width: "60rem", height: "40rem" }}
-              alt="babyImg"
-              src={img}
-            />
-          </div>
+          </div> */}
+            {/* <div className="imgBox">
+              <img
+                style={{ width: "60rem", height: "40rem" }}
+                alt="babyImg"
+                src={img}
+              />
+            </div> */}
         </div>
         <div className="main2">
           <div>
