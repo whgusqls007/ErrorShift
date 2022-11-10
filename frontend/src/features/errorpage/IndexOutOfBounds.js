@@ -13,7 +13,6 @@ function IndexOutOfBounds(){
                     <h1>IndexOutOfBounds</h1>
                 </div>
             </div>
-            <Footer></Footer>
         </div>
     )
 }

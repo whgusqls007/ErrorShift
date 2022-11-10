@@ -12,7 +12,6 @@ function NullPointer(){
                     <h1>NullPointer</h1>
                 </div>
             </div>
-            <Footer></Footer>
         </div>
     )
 }

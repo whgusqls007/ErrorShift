@@ -12,7 +12,6 @@ function ArrayIndexOutOfBounds(){
                     <h1>ArrayIndexOutOfBounds</h1>
                 </div>
             </div>
-            <Footer></Footer>
         </div>
     )
 }
