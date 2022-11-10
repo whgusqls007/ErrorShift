@@ -7,6 +7,12 @@ function SideBar() {
       <Sidebar style={{ marginTop: 80 }}>
         <Menu>
           <MenuItem
+            routerLink={<Link to="/errortype" />}
+          >
+            {" "}
+            Home{" "}
+          </MenuItem>
+          <MenuItem
             routerLink={<Link to="/errortype/MethodArgumentNotValid" />}
           >
             {" "}

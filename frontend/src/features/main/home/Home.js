@@ -1,4 +1,3 @@
-import Footer from "../../../common/footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import img from "../../../assets/img/img1.jpg";
@@ -20,7 +19,7 @@ function Home() {
             <img
               style={{ width: "60rem", height: "40rem" }}
               alt="babyImg"
-              // src={img}
+              src={img}
             />
           </div>
         </div>
