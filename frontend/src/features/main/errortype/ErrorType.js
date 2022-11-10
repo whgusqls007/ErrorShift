@@ -48,7 +48,7 @@ function ErrorType() {
         <p>3. 외부 Jar 파일</p>
         <div className="sub-content">
           <p>
-            <a href="http://localhost:3001/download" download>
+            <a href="https://errorshift.com/file/downloadd" download>
               여기
             </a>
             를 눌러 jar 파일을 다운 받을 수 있습니다.
