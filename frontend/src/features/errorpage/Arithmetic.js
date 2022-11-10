@@ -21,7 +21,6 @@ function Arithmetic() {
           <Code codeString={code} language="java" />
         </div>
       </div>
-      <Footer></Footer>
     </div>
   );
 }

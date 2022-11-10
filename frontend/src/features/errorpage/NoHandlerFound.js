@@ -12,7 +12,6 @@ function NoHandlerFound(){
                     <h1>NoHandlerFound</h1>
                 </div>
             </div>
-            <Footer></Footer>
         </div>
     )
 }

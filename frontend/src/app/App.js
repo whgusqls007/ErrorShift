@@ -15,6 +15,7 @@ import ArrayIndexOutOfBounds from "../features/errorpage/ArrayIndexOutOfBounds";
 import IndexOutOfBounds from "../features/errorpage/IndexOutOfBounds";
 import IllegalArgument from "../features/errorpage/IllegalArgument";
 import NavBar from "../common/navbar/NavBar";
+import Footer from "../common/footer/Footer";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
           element={<IllegalArgument />}
         />
       </Routes>
+      <Footer></Footer>
     </Router>
   );
 }

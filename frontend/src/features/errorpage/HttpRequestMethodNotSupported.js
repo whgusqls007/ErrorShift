@@ -12,7 +12,6 @@ function HttpRequestMethodNotSupported(){
                     <h1>HttpRequestMethodNotSupported.</h1>
                 </div>
             </div>
-            <Footer></Footer>
         </div>
     )
 }
