@@ -7,7 +7,7 @@ import "./Home.css";
 
 function Home() {
   return (
-    <div>
+    <div className="body">
       <div className="Home">
         <div className="main1">
           <div className="word">
@@ -16,11 +16,11 @@ function Home() {
               에러를 더 쉽게, 더 빠르게
             </p>
           </div>
-          <div>
+          <div className="imgBox">
             <img
               style={{ width: "60rem", height: "40rem" }}
               alt="babyImg"
-              src={img}
+              // src={img}
             />
           </div>
         </div>
@@ -85,7 +85,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
     </div>
   );
 }

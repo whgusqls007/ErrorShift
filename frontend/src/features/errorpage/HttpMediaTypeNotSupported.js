@@ -13,7 +13,6 @@ function HttpMediaTypeNotSupported(){
                     <h1>HttpMediaTypeNotSupported</h1>
                 </div>
             </div>
-            <Footer></Footer>
         </div>
     )
 }

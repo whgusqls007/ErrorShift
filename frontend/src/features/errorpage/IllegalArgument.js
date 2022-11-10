@@ -13,7 +13,6 @@ function IllegalArgument(){
                     <h1>IllegalArgument</h1>
                 </div>
             </div>
-            <Footer></Footer>
         </div>
     )
 }

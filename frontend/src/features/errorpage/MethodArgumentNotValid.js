@@ -12,7 +12,6 @@ function MethodArgumentNotValid(){
                     <h1>MethodArgumentNotValid</h1>
                 </div>
             </div>
-            <Footer></Footer>
         </div>
     )
 }

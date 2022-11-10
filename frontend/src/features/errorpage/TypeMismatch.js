@@ -12,7 +12,6 @@ function TypeMismatch() {
           <h1>TypeMismatch</h1>
         </div>
       </div>
-      <Footer></Footer>
     </div>
   );
 }

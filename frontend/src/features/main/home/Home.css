@@ -11,10 +11,15 @@
 }
 
 .word {
-    display: flex;
-    justify-content: center;
+    display: left;
+    justify-content: left;
     flex-direction: column;
     align-items: center;
+}
+
+.imgBox {
+    display: right;
+
 }
 
 .more-easy {
@@ -24,6 +29,7 @@
 
 .main2 {
     height: 300px;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
