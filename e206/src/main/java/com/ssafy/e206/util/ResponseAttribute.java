@@ -34,12 +34,43 @@ public class ResponseAttribute {
 		if (!userResPackage.equals("")) {
 			result = getUserResponse(userResPackage, exception, result, annotationAttribute.getBoolean("trace"));
 		} else if (useCustomResponse) {
-			result = getCustomResponse(exception, result, annotationAttribute.getBoolean("trace"));
+			result = getCustomResponse(exception, result, annotationAttribute.getBoolean("trace"), language);
 		}
 
 		String message = annotationAttribute.getString("message");
+
+		switch (language) {
+			case "ko":
+				result = koInfo(result, message);
+				break;
+			case "en":
+				result = enInfo(result, message);
+				break;
+		}
+
+		result = setHttpStatus(result, annotationAttribute, language);
+
+		return result;
+	}
+
+	private static Map<String, Object> setInfo(Map<String, Object> result,
+			AnnotationAttributes annotationAttribute, Throwable exception, String language, String message) {
+		switch (language) {
+			case "ko":
+				koInfo(result, message);
+				break;
+			case "en":
+				enInfo(result, message);
+				break;
+			default:
+
+				break;
+		}
+		return result;
+	}
+
+	private static Map<String, Object> koInfo(Map<String, Object> result, String message) {
 		if (!message.equals("")) {
-			// result.put("message", message);
 			result.put("사용자 메시지", message);
 		}
 		Object resPath = result.get("path");
@@ -54,40 +85,33 @@ public class ResponseAttribute {
 				put("메시지", resMessage);
 			}
 		});
-
 		result.putAll(temp);
-
-		// result.put("요청 URL", result.get("path"));
 		result.remove("path");
-		// result.put("타임스탬프", result.get("timestamp"));
 		result.remove("timestamp");
-		// result.put("메시지", result.get("message"));
 		result.remove("message");
-
-		result = setHttpStatus(result, annotationAttribute, language);
-
 		return result;
 	}
 
-	private static Map<String, Object> setDetails(Map<String, Object> result, 
-			AnnotationAttributes annotationAttribute, Throwable exception, String language) {
-		switch (language) {
-			case "ko":
-
-				break;
-			case "en":
-
-				break;
-			default:
-
-				break;
+	private static Map<String, Object> enInfo(Map<String, Object> result, String message) {
+		if (!message.equals("")) {
+			 result.put("User Message", message);
 		}
-		return result;
-	}
+		Object resPath = result.get("path");
+		Object resTimestamp = result.get("timestamp");
+		Object resMessage = result.get("message");
 
-	private static Map<String, Object> koDetail(Map<String, Object> result,
-			AnnotationAttributes annotationAttribute, Throwable exception, String language) {
-
+		Map<String, Object> temp = new HashMap<>();
+		temp.put("More Info", new HashMap<String, Object>(){
+			{
+				put("Request URL", resPath);
+				put("Timestamp", resTimestamp);
+				put("Message", resMessage);
+			}
+		});
+		result.putAll(temp);
+		result.remove("path");
+		result.remove("timestamp");
+		result.remove("message");
 		return result;
 	}
 
@@ -100,33 +124,37 @@ public class ResponseAttribute {
 	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
 			AnnotationAttributes annotationAttribute, String language) {
 		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
-
 		if (status != 200) {
-			switch (language) {
-				case "ko":
-					result.remove("status");
-					result.put("HTTP 상태 코드", status);
-					result.remove("error");
-					try {
-						result.put("에러 종류", HttpStatus.valueOf(status).getReasonPhrase());
-					} catch (Exception ex) {
-						result.put("에러 종류", "Http Status " + status);
-					}
-					break;
-				case "en":
-					result.put("Http Status", status);
-					result.remove("error");
-					try {
-						 result.put("Error", HttpStatus.valueOf(status).getReasonPhrase());
-					} catch (Exception ex) {
-						 result.put("Error", "Http Status " + status);
-					}
-					break;
-				default:
-					break;
-			}
-		}
+			Map<String, Object> temp = new HashMap<>();
+			result.remove("status");
+			result.remove("error");
+			temp.put("HTTP", new HashMap<String, Object>(){
+				{
+					switch (language) {
+						case "ko":
+							put("HTTP 상태 코드", status);
+							try {
+								put("에러 종류", HttpStatus.valueOf(status).getReasonPhrase());
+							} catch (Exception ex) {
+								put("에러 종류", "Http Status " + status);
+							}
+							break;
+						case "en":
+							put("Http Status", status);
+							try {
+								put("Error", HttpStatus.valueOf(status).getReasonPhrase());
+							} catch (Exception ex) {
+								put("Error", "Http Status " + status);
+							}
+							break;
+						default:
+							break;
 
+					}
+				}
+			});
+			result.putAll(temp);
+		}
 		return result;
 	}
 
@@ -143,12 +171,12 @@ public class ResponseAttribute {
 	}
 
 	private static Map<String, Object> getCustomResponse(Throwable exception, Map<String, Object> result,
-			boolean showStackTrace) {
+			boolean showStackTrace, String language) {
 		switch (getExceptionName(exception)) {
 
 			case "NullPointerException":
 				NullPointerExceptionResponse nullPointerExceptionResponse = NullPointerExceptionResponse
-						.of((NullPointerException) exception);
+						.of((NullPointerException) exception, language);
 				result.remove("trace");
 				if (showStackTrace) {
 					// result.put("trace", nullPointerExceptionResponse.getStackTrace());

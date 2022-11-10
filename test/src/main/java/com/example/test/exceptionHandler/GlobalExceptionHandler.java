@@ -11,7 +11,8 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import com.ssafy.e206.annotation.TestAnnotation;
 
 //@TestAnnotation(exception = NullPointerException.class, message = "안녕 ! ^^", trace = true)
-@TestAnnotation(exception = NullPointerException.class, message = "배곺ㅍ팡ㅇㅇㅇ", language = "ko")
+//@TestAnnotation(exception = NullPointerException.class, message = "배곺ㅍ팡ㅇㅇㅇ", language = "ko")
+@TestAnnotation(exception = NullPointerException.class, message = "배곺ㅍ팡ㅇㅇㅇ")
 @TestAnnotation(exception = NoHandlerFoundException.class, httpStatus = HttpStatus.INTERNAL_SERVER_ERROR)
 @TestAnnotation(exception = IllegalArgumentException.class)
 @TestAnnotation(exception = MethodArgumentNotValidException.class)
