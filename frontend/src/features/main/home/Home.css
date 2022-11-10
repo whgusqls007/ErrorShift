@@ -1,253 +1,218 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&family=Raleway:wght@700&family=Roboto+Condensed&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Quicksand:wght@700&family=Raleway:wght@700&family=Roboto+Condensed&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@700&family=Raleway:wght@700&family=Roboto+Condensed&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jua&family=Quicksand:wght@700&family=Raleway:wght@700&family=Roboto+Condensed&display=swap");
 
 .main1 {
-    margin-top: 120px;
-    height: 800px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Raleway', sans-serif;
+  margin-top: 120px;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Raleway", sans-serif;
 }
 
 .word {
-    display: left;
-    justify-content: left;
-    flex-direction: column;
-    align-items: center;
-}
-
-.imgBox {
-    display: right;
-
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .more-easy {
-    font-family: 'Jua', sans-serif;
-    font-size: 20px;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
 }
 
 .main2 {
-    height: 300px;
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.main2 .main2_1 #title_sentence{
-    width: 2rem;
-    height: 2rem;
-    content: url(
-        "../../../assets/img/lamp_hover.png"
-    );
+.main2 .main2_1 #title_sentence {
+  width: 2rem;
+  height: 2rem;
+  content: url("../../../assets/img/lamp_hover.png");
 }
 
-.main2:hover .main2_1 #title_sentence{
-    width: 2rem;
-    height: 2rem;
-    content: url(
-        "../../../assets/img/lamp.png"
-    );
+.main2:hover .main2_1 #title_sentence {
+  width: 2rem;
+  height: 2rem;
+  content: url("../../../assets/img/lamp.png");
 }
 
-.main2_1{
-    display: flex;
-    flex-direction: row;
-    font-family: 'Jua', sans-serif;
-    font-size: 30px;
+.main2_1 {
+  display: flex;
+  flex-direction: row;
+  font-family: "Jua", sans-serif;
+  font-size: 30px;
 }
 
-.main2_2{
-    display: flex;
-    flex-direction: row;
-    margin-top: 3rem;
-    margin-left: 1rem;
-    font-family: 'Jua', sans-serif;
-    font-size: 20px;
+.main2_2 {
+  display: flex;
+  flex-direction: row;
+  margin-top: 3rem;
+  margin-left: 1rem;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
 }
 
-.main2_2 #first_sentence{
-    width: 1.5rem;
-    height: 1.5rem;
-    content: url(
-        "../../../assets/img/check.png"
-    );
+.main2_2 #first_sentence {
+  width: 1.5rem;
+  height: 1.5rem;
+  content: url("../../../assets/img/check.png");
 }
 
-.main2_2:hover #first_sentence{
-    width: 1.8rem;
-    height: 1.8rem;
-    content: url(
-        "../../../assets/img/check_hover.png"
-    );
+.main2_2:hover #first_sentence {
+  width: 1.8rem;
+  height: 1.8rem;
+  content: url("../../../assets/img/check_hover.png");
 }
 
-.main2_3{
-    display: flex;
-    flex-direction: row;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    font-family: 'Jua', sans-serif;
-    font-size: 20px;
+.main2_3 {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
 }
 
-.main2_3 #second_sentence{
-    width: 1.5rem;
-    height: 1.5rem;
-    content: url(
-        "../../../assets/img/check.png"
-    );
+.main2_3 #second_sentence {
+  width: 1.5rem;
+  height: 1.5rem;
+  content: url("../../../assets/img/check.png");
 }
 
-.main2_3:hover #second_sentence{
-    width: 1.8rem;
-    height: 1.8rem;
-    content: url(
-        "../../../assets/img/check_hover.png"
-    );
+.main2_3:hover #second_sentence {
+  width: 1.8rem;
+  height: 1.8rem;
+  content: url("../../../assets/img/check_hover.png");
 }
 
-.main2_4{
-    display: flex;
-    flex-direction: row;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    font-family: 'Jua', sans-serif;
-    font-size: 20px;
+.main2_4 {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
 }
 
-.main2_4 #third_sentence{
-    width: 1.5rem;
-    height: 1.5rem;
-    content: url(
-        "../../../assets/img/check.png"
-    );
+.main2_4 #third_sentence {
+  width: 1.5rem;
+  height: 1.5rem;
+  content: url("../../../assets/img/check.png");
 }
 
-.main2_4:hover #third_sentence{
-    width: 1.8rem;
-    height: 1.8rem;
-    content: url(
-        "../../../assets/img/check_hover.png"
-    );
+.main2_4:hover #third_sentence {
+  width: 1.8rem;
+  height: 1.8rem;
+  content: url("../../../assets/img/check_hover.png");
 }
 
 .main3 {
-    height: 400px;
-    background-color: rgba(0, 0, 0, 0.04);
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
+  height: 400px;
+  background-color: rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .img-one {
-    margin-top: 30px;
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.5s;
+  margin-top: 30px;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.5s;
 }
 
-
-.img-one:hover{
-    margin-top: 30px;
-    width: 27%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.img-one:hover {
+  margin-top: 30px;
+  width: 27%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.img-one #image1{
-    width: 10rem;
-    height: 10rem;
-    content: url(
-        "../../../assets/img/easy.png"
-    );
-    transition: opacity 1s;
+.img-one #image1 {
+  width: 10rem;
+  height: 10rem;
+  content: url("../../../assets/img/easy.png");
+  transition: opacity 1s;
 }
 
-.img-one:hover #image1{
-    width: 11rem;
-    height: 11rem;
-    content: url(
-        "../../../assets/img/easy_hover.png"
-    );
-    transition: opacity 1s;
+.img-one:hover #image1 {
+  width: 11rem;
+  height: 11rem;
+  content: url("../../../assets/img/easy_hover.png");
+  transition: opacity 1s;
 }
 
 .img-two {
-    margin-top: 30px;
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.5s;
+  margin-top: 30px;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.5s;
 }
 
-.img-two:hover{
-    margin-top: 30px;
-    width: 27%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.img-two:hover {
+  margin-top: 30px;
+  width: 27%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.img-two #image2{
-    width: 10rem;
-    height: 10rem;
-    content: url(
-        "../../../assets/img/contribute.png"
-    );
-    transition: opacity 1s;
+.img-two #image2 {
+  width: 10rem;
+  height: 10rem;
+  content: url("../../../assets/img/contribute.png");
+  transition: opacity 1s;
 }
 
-.img-two:hover #image2{
-    width: 11rem;
-    height: 11rem;
-    content: url(
-        "../../../assets/img/contribute_hover.png"
-    );
-    transition: opacity 1s;
+.img-two:hover #image2 {
+  width: 11rem;
+  height: 11rem;
+  content: url("../../../assets/img/contribute_hover.png");
+  transition: opacity 1s;
 }
 
 .img-three {
-    margin-top: 30px;
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.5s;
+  margin-top: 30px;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.5s;
 }
 
-.img-three:hover{
-    margin-top: 30px;
-    width: 27%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.img-three:hover {
+  margin-top: 30px;
+  width: 27%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.img-three #image3{
-    width: 10rem;
-    height: 10rem;
-    content: url(
-        "../../../assets/img/customize.png"
-    );
-    transition: opacity 1s;
+.img-three #image3 {
+  width: 10rem;
+  height: 10rem;
+  content: url("../../../assets/img/customize.png");
+  transition: opacity 1s;
 }
 
-.img-three:hover #image3{
-    width: 11rem;
-    height: 11rem;
-    content: url(
-        "../../../assets/img/customize_hover.png"
-    );
-    transition: opacity 1s;
+.img-three:hover #image3 {
+  width: 11rem;
+  height: 11rem;
+  content: url("../../../assets/img/customize_hover.png");
+  transition: opacity 1s;
 }
 
 .main3-text {
-    font-family: 'Jua', sans-serif;
-    font-size: 20px;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
 }

@@ -1,8 +1,8 @@
 a {
-    text-decoration: none;
-  }
+  text-decoration: none;
+}
 
-  MDBFooter{
-    position : relative;
-    transform : translateY(-100%);
-  }
+MDBFooter {
+  position: relative;
+  transform: translateY(-100%);
+}
