@@ -18,7 +18,7 @@ import com.ssafy.e206.annotation.TestAnnotation;
 @TestAnnotation(exception = MethodArgumentNotValidException.class)
 @TestAnnotation(exception = HttpRequestMethodNotSupportedException.class)
 @TestAnnotation(exception = HttpMessageNotReadableException.class)
-@TestAnnotation(exception = HttpMediaTypeNotSupportedException.class, message = "시발")
+@TestAnnotation(exception = HttpMediaTypeNotSupportedException.class, message = "시발", language = "ko")
 @TestAnnotation(exception = ArithmeticException.class, httpStatus = HttpStatus.BAD_GATEWAY, message = "수문제", trace = true)
 @ControllerAdvice
 public class GlobalExceptionHandler {
