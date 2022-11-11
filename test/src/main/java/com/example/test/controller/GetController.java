@@ -1,10 +1,13 @@
 package com.example.test.controller;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,6 +87,16 @@ public class GetController {
     return ResponseEntity.ok(helloService.getName("test"));
   }
 
+//  @GetMapping(value = "/requestnot")
+//  public void requestnot() throws HttpRequestMethodNotSupportedException {
+//    throw new  HttpRequestMethodNotSupportedException(null);
+//  }
+
+  @GetMapping(value = "/requestnot")
+  public void requestnot() {
+    System.out.println("requestnot() called");
+  }
+
   @DeleteMapping("/test")
   @ResponseBody
   public ResponseEntity<String> testDelete() {
@@ -124,8 +137,9 @@ public class GetController {
     int n = 10 / num;
   }
 
-  @PostMapping(value = "/methodArgumentTypeMismatch/{num}")
-  public void getMethodArgumentTypeMismatchException(@PathVariable int num) {
+  @GetMapping(value = "/typemismatch/{num}")
+  public void getTypeMismatchException(@PathVariable int num) {
+    throw new TypeMismatchException(new int[]{1,2,3}, String.class);
   }
 
 }
