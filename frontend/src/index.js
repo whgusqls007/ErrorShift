@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import { ProSidebarProvider } from "react-pro-sidebar";
-import Footer from "./common/footer/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
