@@ -1,6 +1,7 @@
 package com.ssafy.e206.response;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -27,16 +28,16 @@ public class NoHandlerFoundExceptionResponse {
     }
 
     public static NoHandlerFoundExceptionResponse koOf(final NoHandlerFoundException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스");
+        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스 ");
         sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서");
-        sb.append("NoHandlerFoundException 발생했습니다.");
+        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
+        sb.append("NoHandlerFoundException이 발생했습니다.");
         map.put("요약", sb);
-        map.put("상세", new HashMap<String, Object>(){
+        map.put("상세", new LinkedHashMap<String, Object>(){
             {
-                put("에러 메시지", "NoHandlerFoundException");
+                put("에러 메시지",  e.getMessage() != null ? e.getMessage() : "NoHandlerFoundException");
                 put("에러 발생 위치", new HashMap<String, Object>(){
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
@@ -45,9 +46,8 @@ public class NoHandlerFoundExceptionResponse {
                         put("메소드 이름", e.getStackTrace()[0].getMethodName());
                     }
                 });
-                put("HTTP", new HashMap<String, Object>(){
+                put("HTTP", new LinkedHashMap<String, Object>(){
                     {
-                        put("헤더", e.getHeaders());
                         put("HTTP 메소드", e.getHttpMethod());
                         put("요청 URL", e.getRequestURL());
                     }
@@ -59,7 +59,7 @@ public class NoHandlerFoundExceptionResponse {
     }
 
     public static NoHandlerFoundExceptionResponse enOf(final NoHandlerFoundException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
         sb.append("NoHandlerFoundException is occurred at ");
         sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
@@ -67,10 +67,10 @@ public class NoHandlerFoundExceptionResponse {
         sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
 
         map.put("Summary", sb);
-        map.put("Details", new HashMap<String , Object>(){
+        map.put("Details", new LinkedHashMap<String , Object>(){
             {
-                put("Error Message", "NoHandlerFoundException");
-                put("Location", new HashMap<String, Object>() {
+                put("Error Message", e.getMessage() != null ? e.getMessage() : "NoHandlerFoundException");
+                put("Location", new LinkedHashMap<String, Object>() {
                     {
                         put("File Name", e.getStackTrace()[0].getFileName());
                         put("Class Name", e.getStackTrace()[0].getClassName());
@@ -78,9 +78,8 @@ public class NoHandlerFoundExceptionResponse {
                         put("Method Name", e.getStackTrace()[0].getMethodName());
                     }
                 });
-                put("HTTP", new HashMap<String, Object>(){
+                put("HTTP", new LinkedHashMap<String, Object>(){
                     {
-                        put("Headers", e.getHeaders());
                         put("HTTP Method", e.getHttpMethod());
                         put("Request URL", e.getRequestURL());
                     }

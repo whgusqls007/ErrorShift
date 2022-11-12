@@ -1,6 +1,7 @@
 package com.ssafy.e206.response;
 
 import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 public class NumberFormatExceptionResponse {
@@ -26,14 +27,14 @@ public class NumberFormatExceptionResponse {
     public static NumberFormatExceptionResponse koOf(final NumberFormatException e) {
         HashMap<String, Object> map = new HashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스");
+        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스 ");
         sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서");
-        sb.append("NumberFormatException 발생했습니다.");
+        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
+        sb.append("NumberFormatException이 발생했습니다.");
         map.put("요약", sb);
         map.put("상세", new HashMap<String, Object>(){
             {
-                put("에러 메시지", "NumberFormatException");
+                put("에러 메시지", e.getMessage() != null ? e.getMessage() : "NumberFormatException");
                 put("에러 발생 위치", new HashMap<String, Object>(){
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
@@ -59,7 +60,7 @@ public class NumberFormatExceptionResponse {
         map.put("Summary", sb);
         map.put("Details", new HashMap<String , Object>(){
             {
-                put("Error Message", "NumberFormatException");
+                put("Error Message", e.getMessage() != null ? e.getMessage() : "NumberFormatException");
                 put("Location", new HashMap<String, Object>() {
                     {
                         put("File Name", e.getStackTrace()[0].getFileName());

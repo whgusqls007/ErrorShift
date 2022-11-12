@@ -3,6 +3,7 @@ package com.ssafy.e206.response;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MethodArgumentNotValidExceptionResponse {
@@ -25,18 +26,18 @@ public class MethodArgumentNotValidExceptionResponse {
         return MethodArgumentNotValidExceptionResponse.stackTrace;
     }
     public static MethodArgumentNotValidExceptionResponse koOf(final MethodArgumentNotValidException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스");
+        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스 ");
         sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서");
-        sb.append("MethodArgumentNotValidException 발생했습니다.");
+        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
+        sb.append("MethodArgumentNotValidException이 발생했습니다.");
         map.put("요약", sb);
         map.put("상세", new HashMap<String, Object>(){
             {
                 put("파라미터", e.getParameter());
                 put("메시지", e.getMessage());
-                put("에러 메시지", "MethodArgumentNotValidException");
+                put("에러 메시지", e.getMessage() != null ? e.getMessage() : "MethodArgumentNotValidException");
                 put("에러 발생 위치", new HashMap<String, Object>(){
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
@@ -52,7 +53,7 @@ public class MethodArgumentNotValidExceptionResponse {
     }
 
     public static MethodArgumentNotValidExceptionResponse enOf(final MethodArgumentNotValidException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
         sb.append("MethodArgumentNotValidException is occurred at ");
         sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
@@ -64,7 +65,7 @@ public class MethodArgumentNotValidExceptionResponse {
             {
                 put("Parameter", e.getParameter());
                 put("Message", e.getMessage());
-                put("Error Message", "MethodArgumentNotValidException");
+                put("Error Message", e.getMessage() != null ? e.getMessage() : "MethodArgumentNotValidException");
                 put("Location", new HashMap<String, Object>() {
                     {
                         put("File Name", e.getStackTrace()[0].getFileName());

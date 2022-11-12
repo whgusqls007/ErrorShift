@@ -2,9 +2,12 @@ package com.example.test.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -111,21 +114,52 @@ public class GetController {
 
   @GetMapping(value = "/arrayIndexOutOfBounds")
   public void getArrayIndexOutOfBoundsException() {
-    throw new ArrayIndexOutOfBoundsException();
+    int [] arr = new int[2];
+    for(int i = 0 ; i <= 2; i++){
+      arr[i] = i;
+    }
   }
 
-  @GetMapping(value = "/indexOutOfBounds")
+  @GetMapping(value = "/indexoutofbounds")
   public void getIndexOutOfBoundsException() {
     throw new IndexOutOfBoundsException();
   }
 
   @GetMapping(value = "/arithmetic/{num}")
   public void getArithmeticException(@PathVariable int num) {
-    int n = 10 / num;
+    int n = num / 0;
   }
 
   @PostMapping(value = "/methodArgumentTypeMismatch/{num}")
   public void getMethodArgumentTypeMismatchException(@PathVariable int num) {
   }
+
+  @GetMapping(value = "/classcast")
+    public void getClassCastException(){
+      throw new ClassCastException();
+    }
+  
+  @GetMapping(value = "/methodArgumentValid")
+  public void getmethodArgumentVaildException() throws MethodArgumentNotValidException{
+    throw new MethodArgumentNotValidException(null, null);
+  }
+
+
+
+  @GetMapping(value = "/requestnot")
+  public void requestnot() throws  HttpRequestMethodNotSupportedException{
+    throw new  HttpRequestMethodNotSupportedException(null);
+  }
+
+  @PostMapping(value = "/typemismatch/{num}")
+  public void typemis(@PathVariable int num) {
+    throw  new TypeMismatchException(new int[]{1,2,3}, String.class);
+  }
+
+  
+ @GetMapping(value = "/numberformat")
+ public void numberformat(){
+  throw new NumberFormatException();
+ }
 
 }

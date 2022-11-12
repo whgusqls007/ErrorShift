@@ -1,6 +1,7 @@
 package com.ssafy.e206.response;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class NullPointerExceptionResponse {
@@ -24,17 +25,17 @@ public class NullPointerExceptionResponse {
     }
 
     public static NullPointerExceptionResponse koOf(final NullPointerException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스");
+        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스 ");
         sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서");
+        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
         sb.append("NullPointerException이 발생했습니다.");
         map.put("요약", sb);
-        map.put("상세", new HashMap<String, Object>(){
+        map.put("상세", new LinkedHashMap<String, Object>(){
             {
-                put("에러 메시지", "NullPointerException");
-                put("에러 발생 위치", new HashMap<String, Object>(){
+                put("에러 메시지",  e.getMessage() != null ? e.getMessage() : "NullPointerException");
+                put("에러 발생 위치", new LinkedHashMap<String, Object>(){
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
                         put("클래스 이름", e.getStackTrace()[0].getClassName());
@@ -49,7 +50,7 @@ public class NullPointerExceptionResponse {
     }
 
     public static NullPointerExceptionResponse enOf(final NullPointerException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
         sb.append("NullPointerException is occurred at ");
         sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
@@ -57,13 +58,13 @@ public class NullPointerExceptionResponse {
         sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
 
         map.put("Summary", sb);
-        map.put("Details", new HashMap<String , Object>(){
+        map.put("Details", new LinkedHashMap<String , Object>(){
             {
-                put("Error Message", "NullPointerException");
-                put("Location", new HashMap<String, Object>() {
+                put("Error Message", e.getMessage() != null ? e.getMessage() : "NullPointerException");
+                put("Location", new LinkedHashMap<String, Object>() {
                     {
-                        put("File Name", e.getStackTrace()[0].getFileName());
-                        put("Class Name", e.getStackTrace()[0].getClassName());
+                        put("File Name  ", e.getStackTrace()[0].getFileName());
+                        put("Class Name ", e.getStackTrace()[0].getClassName());
                         put("Line Number", e.getStackTrace()[0].getLineNumber());
                         put("Method Name", e.getStackTrace()[0].getMethodName());
                     }

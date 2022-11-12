@@ -2,7 +2,7 @@ package com.ssafy.e206.response;
 
 import org.springframework.beans.TypeMismatchException;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TypeMismatchExceptionResponse {
@@ -26,17 +26,18 @@ public class TypeMismatchExceptionResponse {
     }
 
     public static TypeMismatchExceptionResponse koOf(final TypeMismatchException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
         sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스");
         sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서");
-        sb.append("TypeMismatchException 발생했습니다.");
+        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
+        sb.append("TypeMismatchException이 발생했습니다.");
+        sb.append("요구되는 타입은 '" + e.getRequiredType() +"' 입니다");
         map.put("요약", sb);
-        map.put("상세", new HashMap<String, Object>(){
+        map.put("상세", new LinkedHashMap<String, Object>(){
             {
-                put("에러 메시지", "TypeMismatchException");
-                put("에러 발생 위치", new HashMap<String, Object>(){
+                put("에러 메시지", e.getMessage() != null ? e.getMessage() : "TypeMismatchExceptio");
+                put("에러 발생 위치", new LinkedHashMap<String, Object>(){
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
                         put("클래스 이름", e.getStackTrace()[0].getClassName());
@@ -44,8 +45,9 @@ public class TypeMismatchExceptionResponse {
                         put("메소드 이름", e.getStackTrace()[0].getMethodName());
                     }
                 });
-                put("타입", new HashMap<String, Object>(){
-                    {
+                put("타입", new LinkedHashMap<String, Object>(){
+                    {   
+                    
                         put("요구되는 타입", e.getRequiredType());
                         put("값", e.getValue());
                         put("속성 이름", e.getPropertyName());
@@ -59,7 +61,7 @@ public class TypeMismatchExceptionResponse {
     }
 
     public static TypeMismatchExceptionResponse enOf(final TypeMismatchException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
         sb.append("TypeMismatchException is occurred at ");
         sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
@@ -67,10 +69,10 @@ public class TypeMismatchExceptionResponse {
         sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
 
         map.put("Summary", sb);
-        map.put("Details", new HashMap<String , Object>(){
+        map.put("Details", new LinkedHashMap<String , Object>(){
             {
-                put("Error Message", "TypeMismatchException");
-                put("Location", new HashMap<String, Object>() {
+                put("Error Message",  e.getMessage() != null ? e.getMessage() : "TypeMismatchExceptio");
+                put("Location", new LinkedHashMap<String, Object>() {
                     {
                         put("File Name", e.getStackTrace()[0].getFileName());
                         put("Class Name", e.getStackTrace()[0].getClassName());
@@ -78,7 +80,7 @@ public class TypeMismatchExceptionResponse {
                         put("Method Name", e.getStackTrace()[0].getMethodName());
                     }
                 });
-                put("Type", new HashMap<String, Object>(){
+                put("Type", new LinkedHashMap<String, Object>(){
                     {
                         put("Required Type", e.getRequiredType());
                         put("Value", e.getValue());

@@ -174,6 +174,7 @@ public class ResponseAttribute {
 				break;
 
 			case "HttpRequestMethodNotSupportedException":
+				System.out.println("Case 는 들어오나뇽 ");
 				HttpRequestMethodNotSupportedExceptionResponse httpRequestMethodNotSupportedExceptionResponse = HttpRequestMethodNotSupportedExceptionResponse
 						.of((HttpRequestMethodNotSupportedException) exception, language);
 				if (showStackTrace) {
@@ -183,6 +184,7 @@ public class ResponseAttribute {
 				break;
 
 			case "TypeMismatchException":
+				System.out.println();
 				TypeMismatchExceptionResponse typeMismatchExceptionResponse = TypeMismatchExceptionResponse
 						.of((TypeMismatchException) exception, language);
 				if (showStackTrace) {

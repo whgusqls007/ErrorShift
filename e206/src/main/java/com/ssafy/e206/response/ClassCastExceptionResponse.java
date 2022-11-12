@@ -1,6 +1,7 @@
 package com.ssafy.e206.response;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ClassCastExceptionResponse {
@@ -24,16 +25,16 @@ public class ClassCastExceptionResponse {
     }
 
     public static ClassCastExceptionResponse koOf(final ClassCastException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스");
+        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스 ");
         sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서");
-        sb.append("ClassCastException 발생했습니다.");
+        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
+        sb.append("ClassCastException이 발생했습니다.");
         map.put("요약", sb);
         map.put("상세", new HashMap<String, Object>(){
             {
-                put("에러 메시지", "ClassCastException");
+                put("에러 메시지", e.getMessage() != null ? e.getMessage() : "ClassCastException");
                 put("에러 발생 위치", new HashMap<String, Object>(){
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
@@ -49,7 +50,7 @@ public class ClassCastExceptionResponse {
     }
 
     public static ClassCastExceptionResponse enOf(final ClassCastException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
         sb.append("ClassCastException is occurred at ");
         sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
@@ -59,7 +60,7 @@ public class ClassCastExceptionResponse {
         map.put("Summary", sb);
         map.put("Details", new HashMap<String , Object>(){
             {
-                put("Error Message", "ClassCastException");
+                put("Error Message", e.getMessage() != null ? e.getMessage() : "ClassCastException");
                 put("Location", new HashMap<String, Object>() {
                     {
                         put("File Name", e.getStackTrace()[0].getFileName());
