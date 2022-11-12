@@ -16,6 +16,7 @@ import com.ssafy.e206.annotation.TestAnnotation;
 //@TestAnnotation(exception = NullPointerException.class, message = "배곺ㅍ팡ㅇㅇㅇ", language = "ko")
 @TestAnnotation(exception = TypeMismatchException.class, language = "ko", message = "타입미스매치")
 @TestAnnotation(exception = NullPointerException.class, message = "배곺ㅍ팡ㅇㅇㅇ")
+@TestAnnotation(exception = TypeMismatchException.class, message = "이게 안된다고0", language = "ko")
 @TestAnnotation(exception = NoHandlerFoundException.class, httpStatus = HttpStatus.INTERNAL_SERVER_ERROR)
 @TestAnnotation(exception = IllegalArgumentException.class, language = "ko")
 @TestAnnotation(exception = MethodArgumentNotValidException.class, language = "ko")
