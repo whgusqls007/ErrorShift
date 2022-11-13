@@ -1,10 +1,10 @@
 import React from "react";
 import {
   MDBFooter,
-  // MDBContainer,
-  // MDBRow,
-  // MDBCol,
-  // MDBIcon,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
 } from "mdb-react-ui-kit";
 import mail from "../../assets/img/mail.png";
 import { Link } from "react-router-dom";
