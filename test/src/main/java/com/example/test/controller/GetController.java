@@ -1,7 +1,9 @@
 package com.example.test.controller;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,6 +86,16 @@ public class GetController {
     return ResponseEntity.ok(helloService.getName("test"));
   }
 
+//  @GetMapping(value = "/requestnot")
+//  public void requestnot() throws HttpRequestMethodNotSupportedException {
+//    throw new  HttpRequestMethodNotSupportedException(null);
+//  }
+
+  @GetMapping(value = "/requestnot")
+  public void requestnot() {
+    System.out.println("requestnot() called");
+  }
+
   @DeleteMapping("/test")
   @ResponseBody
   public ResponseEntity<String> testDelete() {
@@ -111,10 +123,13 @@ public class GetController {
 
   @GetMapping(value = "/arrayIndexOutOfBounds")
   public void getArrayIndexOutOfBoundsException() {
-    throw new ArrayIndexOutOfBoundsException();
+    int [] arr = new int[2];
+    for(int i = 0 ; i <= 2; i++){
+      arr[i] = i;
+    }
   }
 
-  @GetMapping(value = "/indexOutOfBounds")
+  @GetMapping(value = "/indexoutofbounds")
   public void getIndexOutOfBoundsException() {
     throw new IndexOutOfBoundsException();
   }
