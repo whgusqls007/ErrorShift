@@ -1,28 +1,18 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import img from "../../../assets/img/img1.jpg";
+import { useState } from "react";
 
 import "./Home.css";
 
 function Home() {
+  const [click1, setClick1] = useState(false)
+  const [click2, setClick2] = useState(false)
+  const [click3, setClick3] = useState(false)
+
   return (
     <div>
       <div className="Home">
-        <div className="main1">
-          {/* <div className="word" style={{color:"black"}}>
-            <h1>ErrorShift</h1>
-            <p className="more-easy" style={{ marginTop: 15 }}>
-              에러를 더 쉽게, 더 빠르게
-            </p>
-          </div> */}
-            {/* <div className="imgBox">
-              <img
-                style={{ width: "60rem", height: "40rem" }}
-                alt="babyImg"
-                src={img}
-              />
-            </div> */}
-        </div>
+        <div className="main1"> </div>
         <div className="main2">
           <div>
             <div className="main2_1">
@@ -53,35 +43,41 @@ function Home() {
             </div>
           </div>
         </div>
+
         <div className="main3">
-          <div className="img-one">
-            <img id="image1" alt="easy" />
-            <p className="main3-text" style={{ marginTop: 20 }}>
-              쉽고 빠른 에러 핸들링
-            </p>
-            <p style={{ marginTop: "2rem" }}>초보 개발자들도 쉽고 빠르게</p>
-            <p>에러를 찾을 수 있습니다</p>
+          <div className={click1 ? "card click1" : "card"} onClick={() => {setClick1(!click1)}}>
+            <div className="face face1">
+              <h2>쉽고 빠른 에러 핸들링</h2>
+              <p>초보 개발자들도 쉽고 빠르게<br/>
+                에러를 찾을 수 있습니다</p>
+            </div>
+            <div className="face face2">
+              <img id="image11" alt="easy" />
+            </div>
           </div>
-          <div className="img-two">
-            <img id="image2" alt="contribute" />
-            <p className="main3-text" style={{ marginTop: 20 }}>
-              쉬운 컨트리뷰트
-            </p>
-            <p style={{ marginTop: "2rem" }}>
-              누구나 컨트리뷰터가 될 수 있도록{" "}
-            </p>
-            <p>간단하고 가독성 좋게 구성하였습니다</p>
+
+          <div className={click2 ? "card click2" : "card"} onClick={() => {setClick2(!click2)}}>
+            <div className="face face1">
+              <h2>쉬운 컨트리뷰트</h2>
+              <p>누구나 컨트리뷰터가 될 수 있도록
+              간단하고 가독성 좋게 구성하였습니다</p>
+            </div>
+            <div className="face face2">
+              <img id="image12" alt="easy" />
+            </div>
           </div>
-          <div className="img-three">
-            <img id="image3" alt="customize" />
-            <p className="main3-text" style={{ marginTop: 20 }}>
-              사용자 커스터마이징
-            </p>
-            <p style={{ marginTop: "2rem" }}>
-              각 유저마다 커스터마이즈 할 수 있도록
-            </p>
-            <p>구성하였습니다</p>
+          
+          <div className={click3 ? "card click3" : "card"} onClick={() => {setClick3(!click3)}}>
+            <div className="face face1">
+              <h2>사용자 커스터마이징</h2>
+              <p>각 유저마다 커스터마이즈 할 수 있도록
+                구성하였습니다</p>
+            </div>
+            <div className="face face2">
+              <img id="image13" alt="easy" />
+            </div>
           </div>
+
         </div>
       </div>
     </div>
