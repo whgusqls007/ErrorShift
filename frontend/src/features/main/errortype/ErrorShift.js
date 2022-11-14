@@ -22,8 +22,8 @@ function ErrorShift() {
           <p>
             ErrorShift에서 사용 가능한 속성들은 다음과 같이,
             <p style={{ marginBottom: 0 }}>
-              message, logging, prettyRes, trace, httpStatus, userResPackage 가
-              있습니다.
+              message, logging, prettyRes, trace, httpStatus, userResPackage,
+              language 가 있습니다.
             </p>
           </p>
         </div>
@@ -35,7 +35,30 @@ function ErrorShift() {
             codeString={`// java
 @ErrorShift(exception = NullPointerException.class, prettyRes = true)`}
           />
-          결과값 여기 넣기
+          <Code
+            codeString={`// json
+{
+    "Summary": "NullPointerException is occurred at com.example.test.controller.GetController Class 83 line test method.",
+    "Details": {
+        "Error Message": "NullPointerException",
+        "Location": {
+            "File Name  ": "GetController.java",
+            "Class Name ": "com.example.test.controller.GetController",
+            "Line Number": 83,
+            "Method Name": "test"
+        }
+    },
+    "More Info": {
+        "Request URL": "/api/v1/get-api/test",
+        "Message": "No message available",
+        "Timestamp": "2022-11-14T05:51:48.920+00:00"
+    },
+    "HTTP": {
+        "Http Status": 500,
+        "Error": "Internal Server Error"
+    }
+}`}
+          />
         </div>
         <hr />
         <h4>2. message</h4>
@@ -49,25 +72,28 @@ function ErrorShift() {
 @ErrorShift(exception = NullPointerException.class, message = "My Message")`}
           />
           <Code
-            codeString={`
-// json
+            codeString={`// json
 {
-  "요약": "com.example.test.controller.GetController클래스의 83째 줄 test메소드 에서 null예외가 발생했습니다.",
-  "상세": {
-      "에러 메시지": "NullPointerException",
-      "에러 발생 위치": {
-          "클래스 이름": "com.example.test.controller.GetController",
-          "줄 번호": 83,
-          "메소드 이름": "test",
-          "파일 이름": "GetController.java"
-      }
-  },
-  "사용자 메시지": "My Message",
-  "요청 URL": "/api/v1/get-api/test",
-  "타임스탬프": "2022-11-11T01:04:58.605+00:00",
-  "메시지": "No message available",
-  "HTTP 상태 코드": 500,
-  "에러 종류": "Internal Server Error"
+    "Summary": "NullPointerException is occurred at com.example.test.controller.GetController Class 83 line test method.",
+    "Details": {
+        "Error Message": "NullPointerException",
+        "Location": {
+            "File Name  ": "GetController.java",
+            "Class Name ": "com.example.test.controller.GetController",
+            "Line Number": 83,
+            "Method Name": "test"
+        }
+    },
+    "User Message": "My Message",
+    "More Info": {
+        "Request URL": "/api/v1/get-api/test",
+        "Message": "No message available",
+        "Timestamp": "2022-11-14T05:58:05.403+00:00"
+    },
+    "HTTP": {
+        "Http Status": 500,
+        "Error": "Internal Server Error"
+    }
 }`}
           />
         </div>
@@ -79,7 +105,7 @@ function ErrorShift() {
           </p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, logging = true)`}
+@ErrorShift(exception = NullPointerException.class, message = "My Message", logging = true)`}
           />
           사진사진 어쩌고 저쩌고 코드넣고 결과넣고
         </div>
@@ -89,9 +115,46 @@ function ErrorShift() {
           <p>trace 속성을 true로 주면(기본 : false) stackTrace를 표시합니다.</p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, trace = true)`}
+@ErrorShift(exception = NullPointerException.class, message = "My Message", trace = true)`}
           />
-          사진사진 어쩌고 저쩌고 코드넣고 결과넣고
+          <Code
+            codeString={`// json
+{
+    "Stack Trace": [
+        {
+            "methodName": "test",
+            "fileName": "GetController.java",
+            "lineNumber": 83,
+            "className": "com.example.test.controller.GetController",
+            "nativeMethod": false
+        },
+        .
+        .
+        .
+    ],
+    "Summary": "NullPointerException is occurred at com.example.test.controller.GetController Class 83 line test method.",
+    "Details": {
+        "Error Message": "NullPointerException",
+        "Location": {
+            "File Name  ": "GetController.java",
+            "Class Name ": "com.example.test.controller.GetController",
+            "Line Number": 83,
+            "Method Name": "test"
+        }
+    },
+    "User Message": "My Message",
+    "More Info": {
+        "Request URL": "/api/v1/get-api/test",
+        "Message": "No message available",
+        "Timestamp": "2022-11-14T05:59:42.809+00:00"
+    },
+    "HTTP": {
+        "Http Status": 500,
+        "Error": "Internal Server Error"
+    }
+}
+          `}
+          />
         </div>
         <hr />
         <h4>5. httpStatus</h4>
@@ -102,10 +165,36 @@ function ErrorShift() {
           </p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, httpStatus = HttpStatus.BAD_REQUEST)`}
+@ErrorShift(exception = NullPointerException.class, message = "My Message", httpStatus = HttpStatus.NOT_FOUND)`}
           />
-          여기다가 사진사진
+          <Code
+            codeString={`// json
+{
+    "Summary": "NullPointerException is occurred at com.example.test.controller.GetController Class 83 line test method.",
+    "Details": {
+        "Error Message": "NullPointerException",
+        "Location": {
+            "File Name  ": "GetController.java",
+            "Class Name ": "com.example.test.controller.GetController",
+            "Line Number": 83,
+            "Method Name": "test"
+        }
+    },
+    "User Message": "My Message",
+    "More Info": {
+        "Request URL": "/api/v1/get-api/test",
+        "Message": "No message available",
+        "Timestamp": "2022-11-14T06:37:11.561+00:00"
+    },
+    "HTTP": {
+        "Http Status": 404,
+        "Error": "Not Found"
+    }
+}
+          `}
+          />
         </div>
+        <hr />
         <h4>6. userResPackage</h4>
         <div className="sub-content">
           <p>
@@ -136,8 +225,68 @@ public class UserResponse implements CommonResponse {
     return new UserResponse(map);
   }
 }`}
-            ></Code>
+            />
+            <Code
+              codeString={`// java
+@ErrorShift(exception = NullPointerException.class, message = "My Message", userResPackage = "com.example.test.response.UserResponse")
+`}
+            />
+            <Code
+              codeString={`// json
+{
+    "이런": "결과값이 나왔어요",
+    "User Message": "My Message",
+    "More Info": {
+        "Request URL": "/api/v1/get-api/test",
+        "Message": "No message available",
+        "Timestamp": "2022-11-14T06:53:52.915+00:00"
+    },
+    "HTTP": {
+        "Http Status": 500,
+        "Error": "Internal Server Error"
+    }
+}
+`}
+            />
           </p>
+        </div>
+        <hr />
+        <h4>7. language</h4>
+        <div className="sub-content">
+          <p>
+            language 속성(default : "en") 을 사용하여 응답의 언어를 설정 할 수
+            있습니다.
+          </p>
+          <Code
+            codeString={`// java
+@ErrorShift(exception = NullPointerException.class, message = "My Message", language = "ko")`}
+          />
+          <Code
+            codeString={`// json
+{
+    "요약": "com.example.test.controller.GetController 클래스 83째 줄 test 메소드에서 NullPointerException이 발생했습니다.",
+    "상세": {
+        "에러 메시지": "NullPointerException",
+        "에러 발생 위치": {
+            "파일 이름": "GetController.java",
+            "클래스 이름": "com.example.test.controller.GetController",
+            "발생 라인": 83,
+            "메소드 이름": "test"
+        }
+    },
+    "사용자 메시지": "My Message",
+    "추가 정보": {
+        "요청 URL": "/api/v1/get-api/test",
+        "발생 시각": "2022-11-14T06:59:54.493+00:00",
+        "메시지": "No message available"
+    },
+    "HTTP": {
+        "에러 종류": "Internal Server Error",
+        "HTTP 상태 코드": 500
+    }
+}
+`}
+          />
         </div>
       </div>
     </div>
