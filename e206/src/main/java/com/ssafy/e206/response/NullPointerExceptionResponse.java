@@ -1,6 +1,5 @@
 package com.ssafy.e206.response;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -32,10 +31,10 @@ public class NullPointerExceptionResponse {
         sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
         sb.append("NullPointerException이 발생했습니다.");
         map.put("요약", sb);
-        map.put("상세", new LinkedHashMap<String, Object>(){
+        map.put("상세", new LinkedHashMap<String, Object>() {
             {
-                put("에러 메시지",  e.getMessage() != null ? e.getMessage() : "NullPointerException");
-                put("에러 발생 위치", new LinkedHashMap<String, Object>(){
+                put("에러 메시지", e.getMessage() != null ? e.getMessage() : "NullPointerException");
+                put("에러 발생 위치", new LinkedHashMap<String, Object>() {
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
                         put("클래스 이름", e.getStackTrace()[0].getClassName());
@@ -58,7 +57,7 @@ public class NullPointerExceptionResponse {
         sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
 
         map.put("Summary", sb);
-        map.put("Details", new LinkedHashMap<String , Object>(){
+        map.put("Details", new LinkedHashMap<String, Object>() {
             {
                 put("Error Message", e.getMessage() != null ? e.getMessage() : "NullPointerException");
                 put("Location", new LinkedHashMap<String, Object>() {

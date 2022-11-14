@@ -42,22 +42,6 @@ public class ResponseAttribute {
 		return result;
 	}
 
-	private static Map<String, Object> setInfo(Map<String, Object> result,
-			AnnotationAttributes annotationAttribute, Throwable exception, String language, String message) {
-		switch (language) {
-			case "ko":
-				koInfo(result, message);
-				break;
-			case "en":
-				enInfo(result, message);
-				break;
-			default:
-
-				break;
-		}
-		return result;
-	}
-
 	private static Map<String, Object> koInfo(Map<String, Object> result, String message) {
 		if (!message.equals("")) {
 			result.put("사용자 메시지", message);
@@ -67,7 +51,7 @@ public class ResponseAttribute {
 		Object resMessage = result.get("message");
 
 		Map<String, Object> temp = new HashMap<>();
-		temp.put("추가 정보", new HashMap<String, Object>(){
+		temp.put("추가 정보", new HashMap<String, Object>() {
 			{
 				put("요청 URL", resPath);
 				put("발생 시각", resTimestamp);
@@ -83,14 +67,14 @@ public class ResponseAttribute {
 
 	private static Map<String, Object> enInfo(Map<String, Object> result, String message) {
 		if (!message.equals("")) {
-			 result.put("User Message", message);
+			result.put("User Message", message);
 		}
 		Object resPath = result.get("path");
 		Object resTimestamp = result.get("timestamp");
 		Object resMessage = result.get("message");
 
 		Map<String, Object> temp = new HashMap<>();
-		temp.put("More Info", new HashMap<String, Object>(){
+		temp.put("More Info", new HashMap<String, Object>() {
 			{
 				put("Request URL", resPath);
 				put("Timestamp", resTimestamp);
@@ -117,7 +101,7 @@ public class ResponseAttribute {
 			Map<String, Object> temp = new HashMap<>();
 			result.remove("status");
 			result.remove("error");
-			temp.put("HTTP", new HashMap<String, Object>(){
+			temp.put("HTTP", new HashMap<String, Object>() {
 				{
 					switch (language) {
 						case "ko":

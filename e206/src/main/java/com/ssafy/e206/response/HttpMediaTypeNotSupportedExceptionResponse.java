@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 
+@SuppressWarnings("null")
 public class HttpMediaTypeNotSupportedExceptionResponse {
     private Map<String, Object> details;
     private static StackTraceElement[] stackTrace;
@@ -34,10 +35,10 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
         sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
         sb.append("HttpMediaTypeNotSupportedException이 발생했습니다.");
         map.put("요약", sb);
-        map.put("상세", new HashMap<String, Object>(){
+        map.put("상세", new HashMap<String, Object>() {
             {
                 put("에러 메시지", e.getMessage() != null ? e.getMessage() : "HttpMediaTypeNotSupportedException");
-                put("에러 발생 위치", new HashMap<String, Object>(){
+                put("에러 발생 위치", new HashMap<String, Object>() {
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
                         put("클래스 이름", e.getStackTrace()[0].getClassName());
@@ -45,9 +46,9 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
                         put("메소드 이름", e.getStackTrace()[0].getMethodName());
                     }
                 });
-                put("콘텐츠", new HashMap<String, Object>(){
+                put("콘텐츠", new HashMap<String, Object>() {
                     {
-                        if (e.getContentType()!=null) {
+                        if (e.getContentType() != null) {
                             put("콘텐츠 타입", e.getContentType().toString());
                         }
                         put("지원되는 미디어 타입", e.getSupportedMediaTypes().toString());
@@ -68,7 +69,7 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
         sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
 
         map.put("Summary", sb);
-        map.put("Details", new HashMap<String , Object>(){
+        map.put("Details", new HashMap<String, Object>() {
             {
                 put("Error Message", e.getMessage() != null ? e.getMessage() : "HttpMediaTypeNotSupportedException");
                 put("Location", new HashMap<String, Object>() {
@@ -79,9 +80,9 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
                         put("Method Name", e.getStackTrace()[0].getMethodName());
                     }
                 });
-                put("Content", new HashMap<String, Object>(){
+                put("Content", new HashMap<String, Object>() {
                     {
-                        if (e.getContentType()!=null) {
+                        if (e.getContentType() != null) {
                             put("Content Type", e.getContentType().toString());
                         }
                         put("Supported Media Type", e.getSupportedMediaTypes().toString());
@@ -94,7 +95,8 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
         return new HttpMediaTypeNotSupportedExceptionResponse(map);
     }
 
-    public static HttpMediaTypeNotSupportedExceptionResponse of(final HttpMediaTypeNotSupportedException e, String language) {
+    public static HttpMediaTypeNotSupportedExceptionResponse of(final HttpMediaTypeNotSupportedException e,
+            String language) {
         switch (language) {
             case "en":
                 return enOf(e);

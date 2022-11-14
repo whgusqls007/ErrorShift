@@ -1,9 +1,6 @@
 package com.example.test.controller;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Null;
-
-import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +25,7 @@ import io.swagger.annotations.ApiParam;
 @Api(tags = { "hello" })
 @RequestMapping("/api/v1/get-api")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@SuppressWarnings({ "null", "unused" })
 public class GetController {
 
   @Autowired
@@ -86,10 +84,10 @@ public class GetController {
     return ResponseEntity.ok(helloService.getName("test"));
   }
 
-//  @GetMapping(value = "/requestnot")
-//  public void requestnot() throws HttpRequestMethodNotSupportedException {
-//    throw new  HttpRequestMethodNotSupportedException(null);
-//  }
+  // @GetMapping(value = "/requestnot")
+  // public void requestnot() throws HttpRequestMethodNotSupportedException {
+  // throw new HttpRequestMethodNotSupportedException(null);
+  // }
 
   @GetMapping(value = "/requestnot")
   public void requestnot() {
@@ -123,8 +121,8 @@ public class GetController {
 
   @GetMapping(value = "/arrayIndexOutOfBounds")
   public void getArrayIndexOutOfBoundsException() {
-    int [] arr = new int[2];
-    for(int i = 0 ; i <= 2; i++){
+    int[] arr = new int[2];
+    for (int i = 0; i <= 2; i++) {
       arr[i] = i;
     }
   }
