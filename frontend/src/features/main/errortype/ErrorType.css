@@ -1,6 +1,7 @@
 .overall-screen {
   display: flex;
   flex-direction: row;
+  padding-bottom: 5%;
 }
 
 .sub-content {
