@@ -27,9 +27,8 @@ public class UserResponse implements CommonResponse {
   public CommonResponse of(Exception e) {
     ArithmeticException arithmeticException = (ArithmeticException) e;
     HashMap<String, Object> map = new HashMap<>();
-    map.put("마마", "파파");
+    map.put("이런", "결과값이 나왔어요");
     setStackTrace(arithmeticException.getStackTrace());
     return new UserResponse(map);
   }
-
 }

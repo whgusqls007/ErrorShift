@@ -10,16 +10,13 @@ function ErrorType() {
         <SideBar></SideBar>
       </div>
       <div className="content">
-        <h1>시작하기</h1>
-        <div className="sub-content">
-          <p>ErrorShift는 빠르게 원하는 에러를 핸들링 할 수 있습니다.</p>
-        </div>
+        <h2>시작하기</h2>
+        <p>ErrorShift는 빠르게 원하는 에러를 핸들링 할 수 있습니다.</p>
         <br />
         <h2>빠른 시작</h2>
-
-        <p>
+        <h4>
           1. Maven (<strong>Not valid</strong>)
-        </p>
+        </h4>
         <div className="sub-content">
           <p>
             Maven 프로젝트에서는 pom.xml에 다음과 같은 의존성을 추가해야 합니다.
@@ -31,9 +28,9 @@ function ErrorType() {
 &lt;version&gt;1.0.0&lt;/version&gt;`}
           />
         </div>
-        <p>
+        <h4>
           2. Gradle (<strong>Not valid</strong>)
-        </p>
+        </h4>
         <div className="sub-content">
           <p>
             Gradle 프로젝트에서는, 다음과 같은 의존성을 build.gradle 파일에
@@ -45,7 +42,7 @@ function ErrorType() {
           <p>또는 짧은 형식으로 다음과 같이 사용 할 수 있습니다.</p>
           <Code codeString={"implementation 'com.ssafy:e206:1.0.0'"} />
         </div>
-        <p>3. 외부 Jar 파일</p>
+        <h4>3. 외부 Jar 파일</h4>
         <div className="sub-content">
           <p>
             <a href="https://errorshift.com/file/download" download>
@@ -54,6 +51,7 @@ function ErrorType() {
             를 눌러 jar 파일을 다운 받을 수 있습니다.
           </p>
         </div>
+        <br />
       </div>
     </div>
   );

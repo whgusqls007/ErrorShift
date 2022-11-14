@@ -16,6 +16,7 @@ import IndexOutOfBounds from "../features/errorpage/IndexOutOfBounds";
 import IllegalArgument from "../features/errorpage/IllegalArgument";
 import NavBar from "../common/navbar/NavBar";
 import Footer from "../common/footer/Footer";
+import ErrorShift from "../features/main/errortype/ErrorShift";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route exact path="/" element={<Main />} />
         <Route exact path="/adv" element={<Adv />} />
         <Route exact path="/errortype" element={<ErrorType />} />
-
+        <Route exact path="/errortype/annotation" element={<ErrorShift />} />
         <Route
           exact
           path="/errortype/MethodArgumentNotValid"

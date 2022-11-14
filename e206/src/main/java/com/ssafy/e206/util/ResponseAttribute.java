@@ -3,25 +3,14 @@ package com.ssafy.e206.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ssafy.e206.response.*;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
-import com.ssafy.e206.response.ArithmeticExceptionResponse;
-import com.ssafy.e206.response.ArrayIndexOutOfBoundsExceptionResponse;
-import com.ssafy.e206.response.ClassCastExceptionResponse;
-import com.ssafy.e206.response.CommonResponse;
-import com.ssafy.e206.response.HttpMediaTypeNotSupportedExceptionResponse;
-import com.ssafy.e206.response.HttpRequestMethodNotSupportedExceptionResponse;
-import com.ssafy.e206.response.IllegalArgumentExceptionResponse;
-import com.ssafy.e206.response.IndexOutOfBoundsExceptionResponse;
-import com.ssafy.e206.response.NoHandlerFoundExceptionResponse;
-import com.ssafy.e206.response.NullPointerExceptionResponse;
-import com.ssafy.e206.response.NumberFormatExceptionResponse;
-import com.ssafy.e206.response.TypeMismatchExceptionResponse;
 
 public class ResponseAttribute {
 	public static Map<String, Object> getResponseAttribute(Map<String, Object> result,
@@ -34,12 +23,27 @@ public class ResponseAttribute {
 		if (!userResPackage.equals("")) {
 			result = getUserResponse(userResPackage, exception, result, annotationAttribute.getBoolean("trace"));
 		} else if (useCustomResponse) {
-			result = getCustomResponse(exception, result, annotationAttribute.getBoolean("trace"));
+			result = getCustomResponse(exception, result, annotationAttribute.getBoolean("trace"), language);
 		}
 
 		String message = annotationAttribute.getString("message");
+
+		switch (language) {
+			case "ko":
+				result = koInfo(result, message);
+				break;
+			case "en":
+				result = enInfo(result, message);
+				break;
+		}
+
+		result = setHttpStatus(result, annotationAttribute, language);
+
+		return result;
+	}
+
+	private static Map<String, Object> koInfo(Map<String, Object> result, String message) {
 		if (!message.equals("")) {
-			// result.put("message", message);
 			result.put("사용자 메시지", message);
 		}
 		Object resPath = result.get("path");
@@ -47,47 +51,40 @@ public class ResponseAttribute {
 		Object resMessage = result.get("message");
 
 		Map<String, Object> temp = new HashMap<>();
-		temp.put("추가 정보", new HashMap<String, Object>(){
+		temp.put("추가 정보", new HashMap<String, Object>() {
 			{
 				put("요청 URL", resPath);
 				put("발생 시각", resTimestamp);
 				put("메시지", resMessage);
 			}
 		});
-
 		result.putAll(temp);
-
-		// result.put("요청 URL", result.get("path"));
 		result.remove("path");
-		// result.put("타임스탬프", result.get("timestamp"));
 		result.remove("timestamp");
-		// result.put("메시지", result.get("message"));
 		result.remove("message");
-
-		result = setHttpStatus(result, annotationAttribute, language);
-
 		return result;
 	}
 
-	private static Map<String, Object> setDetails(Map<String, Object> result, 
-			AnnotationAttributes annotationAttribute, Throwable exception, String language) {
-		switch (language) {
-			case "ko":
-
-				break;
-			case "en":
-
-				break;
-			default:
-
-				break;
+	private static Map<String, Object> enInfo(Map<String, Object> result, String message) {
+		if (!message.equals("")) {
+			result.put("User Message", message);
 		}
-		return result;
-	}
+		Object resPath = result.get("path");
+		Object resTimestamp = result.get("timestamp");
+		Object resMessage = result.get("message");
 
-	private static Map<String, Object> koDetail(Map<String, Object> result,
-			AnnotationAttributes annotationAttribute, Throwable exception, String language) {
-
+		Map<String, Object> temp = new HashMap<>();
+		temp.put("More Info", new HashMap<String, Object>() {
+			{
+				put("Request URL", resPath);
+				put("Timestamp", resTimestamp);
+				put("Message", resMessage);
+			}
+		});
+		result.putAll(temp);
+		result.remove("path");
+		result.remove("timestamp");
+		result.remove("message");
 		return result;
 	}
 
@@ -100,33 +97,38 @@ public class ResponseAttribute {
 	private static Map<String, Object> setHttpStatus(Map<String, Object> result,
 			AnnotationAttributes annotationAttribute, String language) {
 		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
-
 		if (status != 200) {
-			switch (language) {
-				case "ko":
-					result.remove("status");
-					result.put("HTTP 상태 코드", status);
-					result.remove("error");
-					try {
-						result.put("에러 종류", HttpStatus.valueOf(status).getReasonPhrase());
-					} catch (Exception ex) {
-						result.put("에러 종류", "Http Status " + status);
-					}
-					break;
-				case "en":
-					result.put("Http Status", status);
-					result.remove("error");
-					try {
-						 result.put("Error", HttpStatus.valueOf(status).getReasonPhrase());
-					} catch (Exception ex) {
-						 result.put("Error", "Http Status " + status);
-					}
-					break;
-				default:
-					break;
-			}
-		}
+			Map<String, Object> temp = new HashMap<>();
+			// result.remove("status");
+			result.put("status", status);
+			result.remove("error");
+			temp.put("HTTP", new HashMap<String, Object>() {
+				{
+					switch (language) {
+						case "ko":
+							put("HTTP 상태 코드", status);
+							try {
+								put("에러 종류", HttpStatus.valueOf(status).getReasonPhrase());
+							} catch (Exception ex) {
+								put("에러 종류", "Http Status " + status);
+							}
+							break;
+						case "en":
+							put("Http Status", status);
+							try {
+								put("Error", HttpStatus.valueOf(status).getReasonPhrase());
+							} catch (Exception ex) {
+								put("Error", "Http Status " + status);
+							}
+							break;
+						default:
+							break;
 
+					}
+				}
+			});
+			result.putAll(temp);
+		}
 		return result;
 	}
 
@@ -143,136 +145,114 @@ public class ResponseAttribute {
 	}
 
 	private static Map<String, Object> getCustomResponse(Throwable exception, Map<String, Object> result,
-			boolean showStackTrace) {
+			boolean showStackTrace, String language) {
+		result.remove("trace");
 		switch (getExceptionName(exception)) {
 
 			case "NullPointerException":
 				NullPointerExceptionResponse nullPointerExceptionResponse = NullPointerExceptionResponse
-						.of((NullPointerException) exception);
-				result.remove("trace");
+						.of((NullPointerException) exception, language);
 				if (showStackTrace) {
-					// result.put("trace", nullPointerExceptionResponse.getStackTrace());
 					result.put("Stack Trace", nullPointerExceptionResponse.getStackTrace());
 				}
-				// } else {
-				// result.remove("trace");
-				// }
 				result.putAll(nullPointerExceptionResponse.getDetails());
 				break;
 
 			case "HttpRequestMethodNotSupportedException":
+				System.out.println("Case 는 들어오나뇽 ");
 				HttpRequestMethodNotSupportedExceptionResponse httpRequestMethodNotSupportedExceptionResponse = HttpRequestMethodNotSupportedExceptionResponse
-						.of((HttpRequestMethodNotSupportedException) exception);
+						.of((HttpRequestMethodNotSupportedException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", httpRequestMethodNotSupportedExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", httpRequestMethodNotSupportedExceptionResponse.getStackTrace());
 				}
 				result.putAll(httpRequestMethodNotSupportedExceptionResponse.getDetails());
 				break;
 
 			case "TypeMismatchException":
+				System.out.println();
 				TypeMismatchExceptionResponse typeMismatchExceptionResponse = TypeMismatchExceptionResponse
-						.of((TypeMismatchException) exception);
+						.of((TypeMismatchException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", typeMismatchExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", typeMismatchExceptionResponse.getStackTrace());
 				}
 				result.putAll(typeMismatchExceptionResponse.getDetails());
 				break;
 
 			case "HttpMediaTypeNotSupportedException":
 				HttpMediaTypeNotSupportedExceptionResponse httpMediaTypeNotSupportedExceptionResponse = HttpMediaTypeNotSupportedExceptionResponse
-						.of((HttpMediaTypeNotSupportedException) exception);
+						.of((HttpMediaTypeNotSupportedException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", httpMediaTypeNotSupportedExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", httpMediaTypeNotSupportedExceptionResponse.getStackTrace());
 				}
 				result.putAll(httpMediaTypeNotSupportedExceptionResponse.getDetails());
 				break;
 
 			case "MethodArgumentNotValidException":
-				// MethodArgumentNotValidExceptionResponse
-				// methodArgumentNotValidExceptionResponse =
-				// MethodArgumentNotValidExceptionResponse
-				// .of((MethodArgumentNotValidException) exception);
-				// result.remove("path");
-				// result.put("message", "MethodArgumentNotValidException");
+				MethodArgumentNotValidExceptionResponse methodArgumentNotValidExceptionResponse = MethodArgumentNotValidExceptionResponse
+						.of((MethodArgumentNotValidException) exception, language);
+				if (showStackTrace) {
+					result.put("Stack Trace", methodArgumentNotValidExceptionResponse.getStackTrace());
+				}
+				result.putAll(methodArgumentNotValidExceptionResponse.getDetails());
 				break;
 
 			case "NoHandlerFoundException":
 				NoHandlerFoundExceptionResponse noHandlerFoundExceptionResponse = NoHandlerFoundExceptionResponse
-						.of((NoHandlerFoundException) exception);
+						.of((NoHandlerFoundException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", noHandlerFoundExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", noHandlerFoundExceptionResponse.getStackTrace());
 				}
 				result.putAll(noHandlerFoundExceptionResponse.getDetails());
 				break;
 
 			case "ArithmeticException":
 				ArithmeticExceptionResponse arithmeticExceptionResponse = ArithmeticExceptionResponse
-						.of((ArithmeticException) exception);
+						.of((ArithmeticException) exception, language, showStackTrace);
 				if (showStackTrace) {
-					result.put("trace", arithmeticExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", arithmeticExceptionResponse.getStackTrace());
 				}
 				result.putAll(arithmeticExceptionResponse.getDetails());
 				break;
 
 			case "ArrayIndexOutOfBoundsException":
 				ArrayIndexOutOfBoundsExceptionResponse arrayIndexOutOfBoundsExceptionResponse = ArrayIndexOutOfBoundsExceptionResponse
-						.of((ArrayIndexOutOfBoundsException) exception);
+						.of((ArrayIndexOutOfBoundsException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", arrayIndexOutOfBoundsExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", arrayIndexOutOfBoundsExceptionResponse.getStackTrace());
 				}
 				result.putAll(arrayIndexOutOfBoundsExceptionResponse.getDetails());
 				break;
 
 			case "IndexOutOfBoundsException":
 				IndexOutOfBoundsExceptionResponse indexOutOfBoundsExceptionResponse = IndexOutOfBoundsExceptionResponse
-						.of((IndexOutOfBoundsException) exception);
+						.of((IndexOutOfBoundsException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", indexOutOfBoundsExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", indexOutOfBoundsExceptionResponse.getStackTrace());
 				}
 				result.putAll(indexOutOfBoundsExceptionResponse.getDetails());
 				break;
 
 			case "IllegalArgumentException":
 				IllegalArgumentExceptionResponse illegalArgumentExceptionResponse = IllegalArgumentExceptionResponse
-						.of((IllegalArgumentException) exception);
+						.of((IllegalArgumentException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", illegalArgumentExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", illegalArgumentExceptionResponse.getStackTrace());
 				}
 				result.putAll(illegalArgumentExceptionResponse.getDetails());
 				break;
 			case "ClassCastException":
 				ClassCastExceptionResponse classCastExceptionResponse = ClassCastExceptionResponse
-						.of((ClassCastException) exception);
+						.of((ClassCastException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", classCastExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", classCastExceptionResponse.getStackTrace());
 				}
 				result.putAll(classCastExceptionResponse.getDetails());
 				break;
 			case "NumberFormatException":
 				NumberFormatExceptionResponse numberFormatExceptionResponse = NumberFormatExceptionResponse
-						.of((NumberFormatException) exception);
+						.of((NumberFormatException) exception, language);
 				if (showStackTrace) {
-					result.put("trace", numberFormatExceptionResponse.getStackTrace());
-				} else {
-					result.remove("trace");
+					result.put("Stack Trace", numberFormatExceptionResponse.getStackTrace());
 				}
 				result.putAll(numberFormatExceptionResponse.getDetails());
 				break;

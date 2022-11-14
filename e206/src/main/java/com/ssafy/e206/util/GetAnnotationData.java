@@ -3,8 +3,8 @@ package com.ssafy.e206.util;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
-import com.ssafy.e206.annotation.TestAnnotation;
-import com.ssafy.e206.annotation.TestAnnotations;
+import com.ssafy.e206.annotation.ErrorShift;
+import com.ssafy.e206.annotation.ErrorShifts;
 
 @SuppressWarnings("null")
 public class GetAnnotationData {
@@ -12,7 +12,7 @@ public class GetAnnotationData {
   public static AnnotationAttributes[] getAnnotations(AnnotationMetadata importMetadata) {
     try {
       return AnnotationAttributes
-          .fromMap(importMetadata.getAnnotationAttributes(TestAnnotations.class.getName()))
+          .fromMap(importMetadata.getAnnotationAttributes(ErrorShifts.class.getName()))
           .getAnnotationArray("value");
     } catch (Exception e) {
       return null;
@@ -22,7 +22,7 @@ public class GetAnnotationData {
   public static AnnotationAttributes getAnnotation(AnnotationMetadata importMetadata) {
     try {
       return AnnotationAttributes
-          .fromMap(importMetadata.getAnnotationAttributes(TestAnnotation.class.getName()));
+          .fromMap(importMetadata.getAnnotationAttributes(ErrorShift.class.getName()));
     } catch (Exception e) {
       return null;
     }
