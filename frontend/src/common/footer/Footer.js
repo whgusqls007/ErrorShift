@@ -26,7 +26,7 @@ export default function Footer() {
                 src={mail}
                 alt="mail"
               ></img>
-              <span style={{ marginLeft: 10 }}>chul2@protein.health</span>
+              <span style={{ marginLeft: 10 }}>errorshiftcom@gmail.com</span>
             </div>
           </div>
         </section>
