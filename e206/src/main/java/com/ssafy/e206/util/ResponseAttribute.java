@@ -99,7 +99,8 @@ public class ResponseAttribute {
 		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
 		if (status != 200) {
 			Map<String, Object> temp = new HashMap<>();
-			result.remove("status");
+			// result.remove("status");
+			result.put("status", status);
 			result.remove("error");
 			temp.put("HTTP", new HashMap<String, Object>() {
 				{

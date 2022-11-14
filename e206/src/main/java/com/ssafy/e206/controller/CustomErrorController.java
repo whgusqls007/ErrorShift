@@ -44,6 +44,7 @@ public class CustomErrorController extends BasicErrorController {
     Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
     HttpStatus status = body.get("status") != null ? HttpStatus.valueOf((Integer) body.get("status"))
         : getStatus(request);
+    body.remove("status");
     if (status == HttpStatus.NO_CONTENT) {
       return new ResponseEntity<>(status);
     }
