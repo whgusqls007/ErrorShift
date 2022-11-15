@@ -39,6 +39,7 @@ function SideBar() {
           </MenuItem>
 
           <MenuItem routerLink={<Link to="/errortype/annotation" />}>
+            <img src={arrow} alt="home" style={{ width: 12, height: 12 }}></img>{" "}
             ErrorShift{" "}
           </MenuItem>
           {arr.map((e, i) => {
