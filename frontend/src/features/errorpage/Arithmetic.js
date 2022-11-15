@@ -16,7 +16,7 @@ function Arithmetic() {
         <div>
           <SideBar></SideBar>
         </div>
-        <div className="content">
+        <div className="content" style={{height:500}}>
           <Code codeString={code} language="java" />
         </div>
       </div>
