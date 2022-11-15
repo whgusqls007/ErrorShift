@@ -21,7 +21,7 @@ function IllegalArgument() {
 @ErrorShift(exception = IllegalArgumentException.class)
 public class GlobalExceptionHandler {
 }
-    `}
+`}
             />
             <p>응답은 다음과 같습니다.</p>
             <Code
