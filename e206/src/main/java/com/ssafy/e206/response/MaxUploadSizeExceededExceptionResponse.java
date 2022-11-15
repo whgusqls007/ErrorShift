@@ -37,6 +37,8 @@ public class MaxUploadSizeExceededExceptionResponse {
         sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
         sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
         sb.append("MaxUploadSizeExceededException이 발생했습니다.");
+
+        System.out.println(sb + " ----------------------------------sb----------------------------");
         map.put("요약", sb);
         map.put("상세", new HashMap<String, Object>() {
             {
@@ -53,7 +55,7 @@ public class MaxUploadSizeExceededExceptionResponse {
         });
         setStackTraceElement(e.getStackTrace());
         return new MaxUploadSizeExceededExceptionResponse(map);
-    }
+        }
 
     public static MaxUploadSizeExceededExceptionResponse enOf(final MaxUploadSizeExceededException e) {
         HashMap<String, Object> map = new HashMap<>();
