@@ -67,6 +67,7 @@ public class TypeMismatchExceptionResponse {
         sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
         sb.append(e.getStackTrace()[0].getLineNumber()).append(" line ");
         sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
+        sb.append("The required type is " + e.getRequiredType());
 
         map.put("Summary", sb);
         map.put("Details", new LinkedHashMap<String , Object>(){

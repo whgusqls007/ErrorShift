@@ -1,6 +1,6 @@
 package com.ssafy.e206.response;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class NumberFormatExceptionResponse {
@@ -24,17 +24,16 @@ public class NumberFormatExceptionResponse {
     }
 
     public static NumberFormatExceptionResponse koOf(final NumberFormatException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스 ");
-        sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
-        sb.append("NumberFormatException이 발생했습니다.");
+
+        sb.append("NumberFormatException이 발생했습니다. 문자형을 숫자형으로 잘못 변경 시 발생하는 에러입니다.");
+        sb.append(" 요청 URL과 에러 메세지를 확인해주세요.");
         map.put("요약", sb);
-        map.put("상세", new HashMap<String, Object>() {
+        map.put("상세", new LinkedHashMap<String, Object>() {
             {
                 put("에러 메시지", e.getMessage() != null ? e.getMessage() : "NumberFormatException");
-                put("에러 발생 위치", new HashMap<String, Object>() {
+                put("에러 발생 위치", new LinkedHashMap<String, Object>() {
                     {
                         put("파일 이름", e.getStackTrace()[0].getFileName());
                         put("클래스 이름", e.getStackTrace()[0].getClassName());
@@ -49,18 +48,18 @@ public class NumberFormatExceptionResponse {
     }
 
     public static NumberFormatExceptionResponse enOf(final NumberFormatException e) {
-        HashMap<String, Object> map = new HashMap<>();
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append("NumberFormatException is occurred at ");
-        sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
-        sb.append(e.getStackTrace()[0].getLineNumber()).append(" line ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
+        sb.append("NumberFormatException is occurred  ");
+        sb.append("This error occurs when a character type is incorrectly changed to a numeric type.");
+        sb.append(" Please check the request URL and error message.");
+     
 
         map.put("Summary", sb);
-        map.put("Details", new HashMap<String, Object>() {
+        map.put("Details", new LinkedHashMap<String, Object>() {
             {
                 put("Error Message", e.getMessage() != null ? e.getMessage() : "NumberFormatException");
-                put("Location", new HashMap<String, Object>() {
+                put("Location", new LinkedHashMap<String, Object>() {
                     {
                         put("File Name", e.getStackTrace()[0].getFileName());
                         put("Class Name", e.getStackTrace()[0].getClassName());

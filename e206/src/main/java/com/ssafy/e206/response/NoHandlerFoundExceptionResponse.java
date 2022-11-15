@@ -30,22 +30,16 @@ public class NoHandlerFoundExceptionResponse {
     public static NoHandlerFoundExceptionResponse koOf(final NoHandlerFoundException e) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스 ");
-        sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
-        sb.append("NoHandlerFoundException이 발생했습니다.");
+        sb.append("NoHandlerFoundException이 발생했습니다. '");
+        sb.append(e.getRequestURL()).append("' 경로에 대한 '").append(e.getHttpMethod());
+        sb.append("' 메서드를 찾을 수 없습니다. path와 method를 다시한번 확인 바랍니다.");
+      
+       
         map.put("요약", sb);
         map.put("상세", new LinkedHashMap<String, Object>(){
             {
                 put("에러 메시지",  e.getMessage() != null ? e.getMessage() : "NoHandlerFoundException");
-                put("에러 발생 위치", new HashMap<String, Object>(){
-                    {
-                        put("파일 이름", e.getStackTrace()[0].getFileName());
-                        put("클래스 이름", e.getStackTrace()[0].getClassName());
-                        put("발생 라인", e.getStackTrace()[0].getLineNumber());
-                        put("메소드 이름", e.getStackTrace()[0].getMethodName());
-                    }
-                });
+
                 put("HTTP", new LinkedHashMap<String, Object>(){
                     {
                         put("HTTP 메소드", e.getHttpMethod());
@@ -61,23 +55,16 @@ public class NoHandlerFoundExceptionResponse {
     public static NoHandlerFoundExceptionResponse enOf(final NoHandlerFoundException e) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append("NoHandlerFoundException is occurred at ");
-        sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
-        sb.append(e.getStackTrace()[0].getLineNumber()).append(" line ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
+        sb.append("NoHandlerFoundException is occurred. ");
+        sb.append("Could not find '").append(e.getHttpMethod()).append("' method for path '");
+        sb.append(e.getRequestURL()).append("' Please check again the path and method.");
+    
 
         map.put("Summary", sb);
         map.put("Details", new LinkedHashMap<String , Object>(){
             {
                 put("Error Message", e.getMessage() != null ? e.getMessage() : "NoHandlerFoundException");
-                put("Location", new LinkedHashMap<String, Object>() {
-                    {
-                        put("File Name", e.getStackTrace()[0].getFileName());
-                        put("Class Name", e.getStackTrace()[0].getClassName());
-                        put("Line Number", e.getStackTrace()[0].getLineNumber());
-                        put("Method Name", e.getStackTrace()[0].getMethodName());
-                    }
-                });
+   
                 put("HTTP", new LinkedHashMap<String, Object>(){
                     {
                         put("HTTP Method", e.getHttpMethod());

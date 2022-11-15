@@ -232,15 +232,6 @@ public class ResponseAttribute {
 				}
 				result.putAll(indexOutOfBoundsExceptionResponse.getDetails());
 				break;
-
-			case "IllegalArgumentException":
-				IllegalArgumentExceptionResponse illegalArgumentExceptionResponse = IllegalArgumentExceptionResponse
-						.of((IllegalArgumentException) exception, language);
-				if (showStackTrace) {
-					result.put("Stack Trace", illegalArgumentExceptionResponse.getStackTrace());
-				}
-				result.putAll(illegalArgumentExceptionResponse.getDetails());
-				break;
 			case "ClassCastException":
 				ClassCastExceptionResponse classCastExceptionResponse = ClassCastExceptionResponse
 						.of((ClassCastException) exception, language);
@@ -258,14 +249,20 @@ public class ResponseAttribute {
 				result.putAll(numberFormatExceptionResponse.getDetails());
 				break;
 			case "MaxUploadSizeExceededException":
-				
 				MaxUploadSizeExceededExceptionResponse maxUploadSizeExceededExceptionResponse = MaxUploadSizeExceededExceptionResponse
 					.of((MaxUploadSizeExceededException) exception, language);
 					if (showStackTrace){
 						result.put("Stack Trace", maxUploadSizeExceededExceptionResponse.getStackTrace());
 					}
 					break;
-
+					case "IllegalArgumentException":
+					IllegalArgumentExceptionResponse illegalArgumentExceptionResponse = IllegalArgumentExceptionResponse
+							.of((IllegalArgumentException) exception, language);
+					if (showStackTrace) {
+						result.put("Stack Trace", illegalArgumentExceptionResponse.getStackTrace());
+					}
+					result.putAll(illegalArgumentExceptionResponse.getDetails());
+					break;
 			default:
 		}
 		return result;
