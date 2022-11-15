@@ -30,10 +30,9 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
     public static HttpMediaTypeNotSupportedExceptionResponse koOf(final HttpMediaTypeNotSupportedException e) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(e.getStackTrace()[0].getClassName()).append(" 클래스 ");
-        sb.append(e.getStackTrace()[0].getLineNumber()).append("째 줄 ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" 메소드에서 ");
-        sb.append("HttpMediaTypeNotSupportedException이 발생했습니다.");
+   
+        sb.append("HttpMediaTypeNotSupportedException이 발생했습니다.  ");
+        sb.append(e.getContentType() + "은 지원하지 않는 콘텐츠 타입입니다.");
         map.put("요약", sb);
         map.put("상세", new HashMap<String, Object>() {
             {
@@ -63,10 +62,11 @@ public class HttpMediaTypeNotSupportedExceptionResponse {
     public static HttpMediaTypeNotSupportedExceptionResponse enOf(final HttpMediaTypeNotSupportedException e) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         StringBuilder sb = new StringBuilder();
-        sb.append("HttpMediaTypeNotSupportedException is occurred at ");
-        sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
-        sb.append(e.getStackTrace()[0].getLineNumber()).append(" line ");
-        sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
+        sb.append("HttpMediaTypeNotSupportedException is occurred.  ");
+        sb.append("Content type ").append(e.getContentType()).append(" not supported");
+        // sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
+        // sb.append(e.getStackTrace()[0].getLineNumber()).append(" line ");
+        // sb.append(e.getStackTrace()[0].getMethodName()).append(" method.");
 
         map.put("Summary", sb);
         map.put("Details", new HashMap<String, Object>() {
