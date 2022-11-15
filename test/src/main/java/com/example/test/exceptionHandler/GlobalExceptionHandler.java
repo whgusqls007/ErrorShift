@@ -1,5 +1,6 @@
 package com.example.test.exceptionHandler;
 
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -7,6 +8,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.ssafy.e206.annotation.ErrorShift;
@@ -25,7 +27,9 @@ import com.ssafy.e206.annotation.ErrorShift;
 @ErrorShift(exception = ArithmeticException.class, language = "ko")
 @ErrorShift(exception = ArrayIndexOutOfBoundsException.class, language = "ko")
 @ErrorShift(exception = ClassCastException.class, language = "ko")
-// @ErrorShift(exception = IndexOutOfBoundsException.class, language = "ko")
-// @ErrorShift(exception = NumberFormatException.class, language = "ko")
+@ErrorShift(exception = IndexOutOfBoundsException.class, language = "ko")
+@ErrorShift(exception = NumberFormatException.class, language = "ko")
+@ErrorShift(exception = MaxUploadSizeExceededException.class, language = "ko")
+@ControllerAdvice
 public class GlobalExceptionHandler {
 }

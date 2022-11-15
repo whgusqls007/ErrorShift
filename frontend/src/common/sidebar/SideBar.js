@@ -1,4 +1,10 @@
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import {
+  Sidebar,
+  Menu,
+  MenuItem,
+  SubMenu,
+  useProSidebar,
+} from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import home from "../../assets/img/home.png";
 import arrow from "../../assets/img/arrow.png";
@@ -31,8 +37,8 @@ function SideBar() {
             ></img>{" "}
             Home{" "}
           </MenuItem>
+
           <MenuItem routerLink={<Link to="/errortype/annotation" />}>
-            <img src={arrow} alt="home" style={{ width: 12, height: 12 }}></img>{" "}
             ErrorShift{" "}
           </MenuItem>
           {arr.map((e, i) => {

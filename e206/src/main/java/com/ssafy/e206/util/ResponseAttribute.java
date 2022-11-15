@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ssafy.e206.response.*;
+
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 public class ResponseAttribute {
@@ -18,7 +20,6 @@ public class ResponseAttribute {
 			Class<? extends Throwable> handleException, boolean useCustomResponse) {
 
 		String language = getLanguage(result, annotationAttribute);
-
 		String userResPackage = annotationAttribute.getString("userResPackage");
 		if (!userResPackage.equals("")) {
 			result = getUserResponse(userResPackage, exception, result, annotationAttribute.getBoolean("trace"));
@@ -148,7 +149,7 @@ public class ResponseAttribute {
 			boolean showStackTrace, String language) {
 		result.remove("trace");
 		switch (getExceptionName(exception)) {
-
+		
 			case "NullPointerException":
 				NullPointerExceptionResponse nullPointerExceptionResponse = NullPointerExceptionResponse
 						.of((NullPointerException) exception, language);
@@ -231,15 +232,6 @@ public class ResponseAttribute {
 				}
 				result.putAll(indexOutOfBoundsExceptionResponse.getDetails());
 				break;
-
-			case "IllegalArgumentException":
-				IllegalArgumentExceptionResponse illegalArgumentExceptionResponse = IllegalArgumentExceptionResponse
-						.of((IllegalArgumentException) exception, language);
-				if (showStackTrace) {
-					result.put("Stack Trace", illegalArgumentExceptionResponse.getStackTrace());
-				}
-				result.putAll(illegalArgumentExceptionResponse.getDetails());
-				break;
 			case "ClassCastException":
 				ClassCastExceptionResponse classCastExceptionResponse = ClassCastExceptionResponse
 						.of((ClassCastException) exception, language);
@@ -256,7 +248,21 @@ public class ResponseAttribute {
 				}
 				result.putAll(numberFormatExceptionResponse.getDetails());
 				break;
-
+			case "MaxUploadSizeExceededException":
+				MaxUploadSizeExceededExceptionResponse maxUploadSizeExceededExceptionResponse = MaxUploadSizeExceededExceptionResponse
+					.of((MaxUploadSizeExceededException) exception, language);
+					if (showStackTrace){
+						result.put("Stack Trace", maxUploadSizeExceededExceptionResponse.getStackTrace());
+					}
+					break;
+					case "IllegalArgumentException":
+					IllegalArgumentExceptionResponse illegalArgumentExceptionResponse = IllegalArgumentExceptionResponse
+							.of((IllegalArgumentException) exception, language);
+					if (showStackTrace) {
+						result.put("Stack Trace", illegalArgumentExceptionResponse.getStackTrace());
+					}
+					result.putAll(illegalArgumentExceptionResponse.getDetails());
+					break;
 			default:
 		}
 		return result;

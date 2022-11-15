@@ -217,7 +217,7 @@
 .card:hover .face2 #image11 {
   width: 5rem;
   height: 5rem;
-  content: url("../../../assets/img/easy_hover.png");
+  content: url("../../../assets/img/easy_hover2.png");
   transition: opacity 1s;
   cursor: pointer;
 }
@@ -225,7 +225,7 @@
 .card:hover .face2 #image12 {
   width: 5rem;
   height: 5rem;
-  content: url("../../../assets/img/contribute_hover.png");
+  content: url("../../../assets/img/contribute_hover2.png");
   transition: opacity 1s;
   cursor: pointer;
 }
@@ -233,7 +233,7 @@
 .card:hover .face2 #image13 {
   width: 5rem;
   height: 5rem;
-  content: url("../../../assets/img/customize_hover.png");
+  content: url("../../../assets/img/customize_hover2.png");
   transition: opacity 1s;
   cursor: pointer;
 }
@@ -251,7 +251,7 @@
 .click1 .face2 #image11 {
   width: 5rem;
   height: 5rem;
-  content: url("../../../assets/img/easy_hover.png");
+  content: url("../../../assets/img/easy_hover2.png");
   transition: opacity 1s;
 }
 
@@ -268,7 +268,7 @@
 .click2 .face2 #image12 {
   width: 5rem;
   height: 5rem;
-  content: url("../../../assets/img/contribute_hover.png");
+  content: url("../../../assets/img/contribute_hover2.png");
   transition: opacity 1s;
 }
 
@@ -285,6 +285,6 @@
 .click3 .face2 #image13 {
   width: 5rem;
   height: 5rem;
-  content: url("../../../assets/img/customize_hover.png");
+  content: url("../../../assets/img/customize_hover2.png");
   transition: opacity 1s;
 }
