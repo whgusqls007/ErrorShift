@@ -20,11 +20,11 @@ function ErrorShift() {
           </p>
           <Code codeString={`@ErrorShift(exception = Exception.class)`} />
           <p>
-            ErrorShift에서 사용 가능한 속성들은 다음과 같이,
-            <p style={{ marginBottom: 0 }}>
-              message, logging, prettyRes, trace, httpStatus, userResPackage,
-              language 가 있습니다.
-            </p>
+            ErrorShift 어노테이션은 ControllerAdvice 어노테이션이 포함되어
+            있습니다. 따라서, GlobalExceptionHandler 클래스를 따로 만들어
+            어노테이션들을 사용하는 것을 권장합니다. <br />
+            ErrorShift에서 사용 가능한 속성들은 다음과 같이, message, logging,
+            prettyRes, trace, httpStatus, userResPackage, language 가 있습니다.
           </p>
         </div>
         <hr />
@@ -33,7 +33,10 @@ function ErrorShift() {
           <p>prettyRes 속성(기본 : true)은 결과를 가독성 있게 만들어 줍니다.</p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, prettyRes = true)`}
+@ErrorShift(exception = NullPointerException.class, prettyRes = true)
+public class GlobalExceptionHandler {
+}
+`}
           />
           <Code
             codeString={`// json
@@ -69,7 +72,10 @@ function ErrorShift() {
           </p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, message = "My Message")`}
+@ErrorShift(exception = NullPointerException.class, message = "My Message")
+public class GlobalExceptionHandler {
+}
+`}
           />
           <Code
             codeString={`// json
@@ -105,7 +111,10 @@ function ErrorShift() {
           </p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, message = "My Message", logging = true)`}
+@ErrorShift(exception = NullPointerException.class, message = "My Message", logging = true)
+public class GlobalExceptionHandler {
+}
+`}
           />
           사진사진 어쩌고 저쩌고 코드넣고 결과넣고
         </div>
@@ -115,7 +124,10 @@ function ErrorShift() {
           <p>trace 속성을 true로 주면(기본 : false) stackTrace를 표시합니다.</p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, message = "My Message", trace = true)`}
+@ErrorShift(exception = NullPointerException.class, message = "My Message", trace = true)
+public class GlobalExceptionHandler {
+}
+`}
           />
           <Code
             codeString={`// json
@@ -165,7 +177,10 @@ function ErrorShift() {
           </p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, message = "My Message", httpStatus = HttpStatus.NOT_FOUND)`}
+@ErrorShift(exception = NullPointerException.class, message = "My Message", httpStatus = HttpStatus.NOT_FOUND)
+public class GlobalExceptionHandler {
+}
+`}
           />
           <Code
             codeString={`// json
@@ -229,6 +244,8 @@ public class UserResponse implements CommonResponse {
             <Code
               codeString={`// java
 @ErrorShift(exception = NullPointerException.class, message = "My Message", userResPackage = "com.example.test.response.UserResponse")
+public class GlobalExceptionHandler {
+}
 `}
             />
             <Code
@@ -259,7 +276,10 @@ public class UserResponse implements CommonResponse {
           </p>
           <Code
             codeString={`// java
-@ErrorShift(exception = NullPointerException.class, message = "My Message", language = "ko")`}
+@ErrorShift(exception = NullPointerException.class, message = "My Message", language = "ko")
+public class GlobalExceptionHandler {
+}
+`}
           />
           <Code
             codeString={`// json
