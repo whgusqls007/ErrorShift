@@ -141,4 +141,9 @@ public class GetController {
   public void getMethodArgumentTypeMismatchException(@PathVariable int num) {
   }
 
+  @GetMapping(value = "/classcastexception")
+  public void getClassCastException() {
+    Object obj = new Integer(0);
+    System.out.println((String) obj);
+  }
 }
