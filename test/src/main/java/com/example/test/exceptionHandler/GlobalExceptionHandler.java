@@ -13,15 +13,18 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.ssafy.e206.annotation.ErrorShift;
 
-//@ErrorShift(exception = NullPointerException.class, message = "배곺ㅍ팡ㅇㅇㅇ", language = "ko")
-@ErrorShift(exception = TypeMismatchException.class, message = "이게 안된다고0", language = "ko")
-@ErrorShift(exception = NoHandlerFoundException.class, httpStatus = HttpStatus.INTERNAL_SERVER_ERROR)
-@ErrorShift(exception = IllegalArgumentException.class, language = "ko")
-@ErrorShift(exception = MethodArgumentNotValidException.class, language = "ko")
-@ErrorShift(exception = HttpRequestMethodNotSupportedException.class, language = "ko")
-@ErrorShift(exception = HttpMessageNotReadableException.class)
-@ErrorShift(exception = HttpMediaTypeNotSupportedException.class, message = "시발", language = "ko")
-@ErrorShift(exception = ArithmeticException.class, httpStatus = HttpStatus.BAD_GATEWAY, message = "수문제", language = "ko")
+@ErrorShift(exception = NullPointerException.class)
+// @ErrorShift(exception = TypeMismatchException.class, message = "이게 안된다고0",
+// language = "ko")
+// @ErrorShift(exception = NoHandlerFoundException.class, logging = true)
+// @ErrorShift(exception = IllegalArgumentException.class, language = "ko")
+// @ErrorShift(exception = MethodArgumentNotValidException.class, language =
+// "ko")
+// @ErrorShift(exception = HttpRequestMethodNotSupportedException.class,
+// language = "ko")
+// @ErrorShift(exception = HttpMessageNotReadableException.class)
+@ErrorShift(exception = HttpMediaTypeNotSupportedException.class, language = "ko")
+@ErrorShift(exception = ArithmeticException.class, language = "ko")
 @ErrorShift(exception = ArrayIndexOutOfBoundsException.class, language = "ko")
 @ErrorShift(exception = ClassCastException.class, language = "ko")
 @ErrorShift(exception = IndexOutOfBoundsException.class, language = "ko")
