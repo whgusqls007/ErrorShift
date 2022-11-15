@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import com.ssafy.e206.configuration.CustomErrorAttributes;
 import com.ssafy.e206.controller.CustomErrorController;
@@ -16,6 +17,7 @@ import com.ssafy.e206.controller.CustomErrorController;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import({ CustomErrorAttributes.class, CustomErrorController.class })
+@ControllerAdvice
 public @interface ErrorShift {
   String message() default "";
 
