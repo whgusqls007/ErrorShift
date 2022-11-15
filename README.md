@@ -3,6 +3,19 @@
 When you work in spring boot project, "ErrorSfhit" can support your error handling.
 
 ## Usage
+#### Annotation property
+|Name|Value|
+|---|---|
+|exception|Exception class to apply error handling|
+|language|"en" or "ko"|
+|prettyRes|"true" or "false"|
+|message|Custom exception message|
+|userResPackage|User custom response to the exception|
+|logging|"true" or "false"|
+|httpStatus|Http status of exception|
+|trace|"true" or "false"|
+
+## Start
 Choose one of the following.
 #### Maven (Not valid)
 Add the following dependency to your project.
