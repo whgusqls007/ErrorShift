@@ -25,10 +25,10 @@ public class UserResponse implements CommonResponse {
 
   @Override
   public CommonResponse of(Exception e) {
-    ArithmeticException arithmeticException = (ArithmeticException) e;
+    NullPointerException nullPointerException = (NullPointerException) e;
     HashMap<String, Object> map = new HashMap<>();
     map.put("이런", "결과값이 나왔어요");
-    setStackTrace(arithmeticException.getStackTrace());
+    setStackTrace(nullPointerException.getStackTrace());
     return new UserResponse(map);
   }
 }

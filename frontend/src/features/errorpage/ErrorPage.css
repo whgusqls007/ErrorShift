@@ -34,5 +34,9 @@
   padding: 10px 0px 10px 0px;
   border-radius: 5px;
   margin: 80px 10% 0 10%;
-  width: 80%;
+  width: 60%;
+}
+
+.sub-content {
+  margin-left: 20px;
 }

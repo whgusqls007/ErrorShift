@@ -24,6 +24,7 @@ import javax.xml.ws.WebServiceException;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,9 +38,9 @@ public class Error500RuntimeExceptionController {
         // throw new AnnotationTypeMismatchException();
     }
 
-    @GetMapping("/arithmetic")
-    public void getArithmeticException() {
-        throw new ArithmeticException();
+    @GetMapping(value = "/arithmetic/{num}")
+    public void getArithmeticException(@PathVariable int num) {
+        int n = 10 / num;
     }
 
     @GetMapping("/array-store")
