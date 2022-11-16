@@ -1,8 +1,15 @@
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import home from "../../assets/img/home.png";
 import { useSelector, useDispatch } from "react-redux";
-import { changeState } from "../../store";
+import {
+  changeState,
+  setIsHome,
+  setIsErrorShift,
+  setOpenIndex,
+} from "../../store";
+import { AiOutlineHome, AiTwotoneHome } from "react-icons/ai";
+
+import { BsCaretRightFill, BsCaretRight } from "react-icons/bs";
 
 const arr = [
   "ArithmeticException",
@@ -12,7 +19,6 @@ const arr = [
   "HttpRequestMethodNotSupportedException",
   "IllegalArgumentException",
   "IndexOutOfBoundsException",
-  // "MethodArgumentNotValidException",
   "NoHandlerFoundException",
   "NullPointerException",
   "NumberFormatException",
@@ -23,25 +29,32 @@ function SideBar() {
   const state = useSelector((state) => {
     return state.state;
   });
+
   const dispatch = useDispatch();
+
   return (
     <div>
       <Sidebar style={{ marginTop: 80 }}>
         <Menu>
-          <MenuItem routerLink={<Link to="/errortype" />}>
-            <img
-              src={home}
-              alt="home"
-              style={{ width: 16, height: 16, paddingBottom: 2 }}
-            ></img>{" "}
-            Home{" "}
+          <MenuItem
+            routerLink={<Link to="/errortype" />}
+            onClick={() => dispatch(setIsHome())}
+          >
+            {state.home ? <AiTwotoneHome /> : <AiOutlineHome />}
+            &nbsp; Home{" "}
           </MenuItem>
 
-          <MenuItem routerLink={<Link to="/errortype/annotation" />}>
-            ErrorShift{" "}
+          <MenuItem
+            routerLink={<Link to="/errortype/annotation" />}
+            onClick={() => dispatch(setIsErrorShift())}
+          >
+            {state.errorShift ? <BsCaretRightFill /> : <BsCaretRight />}
+            &nbsp;ErrorShift{" "}
           </MenuItem>
           <Menu
-            renderExpandIcon={({ open }) => <span>{open ? "-" : "+"}</span>}
+            renderExpandIcon={({ open }) => (
+              <span>{open ? <strong>+</strong> : <strong>-</strong>}</span>
+            )}
             onClick={() => dispatch(changeState())}
           >
             <SubMenu label="Exception" open={state.state}>
@@ -50,8 +63,14 @@ function SideBar() {
                   <MenuItem
                     key={i}
                     routerLink={<Link to={"/errortype/" + e} />}
+                    onClick={() => dispatch(setOpenIndex(i))}
                   >
-                    {e}
+                    {i === state.openIndex ? (
+                      <BsCaretRightFill />
+                    ) : (
+                      <BsCaretRight />
+                    )}
+                    &nbsp;{e}
                   </MenuItem>
                 );
               })}
