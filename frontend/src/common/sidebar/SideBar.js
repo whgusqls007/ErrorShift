@@ -1,13 +1,6 @@
-import {
-  Sidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-  useProSidebar,
-} from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import home from "../../assets/img/home.png";
-import arrow from "../../assets/img/arrow.png";
 
 const arr = [
   "ArithmeticException",
@@ -17,7 +10,7 @@ const arr = [
   "HttpRequestMethodNotSupportedException",
   "IllegalArgumentException",
   "IndexOutOfBoundsException",
-  "MethodArgumentNotValidException",
+  // "MethodArgumentNotValidException",
   "NoHandlerFoundException",
   "NullPointerException",
   "NumberFormatException",
@@ -41,11 +34,16 @@ function SideBar() {
           <MenuItem routerLink={<Link to="/errortype/annotation" />}>
             ErrorShift{" "}
           </MenuItem>
-          <Menu renderExpandIcon={({ open }) => <span>{open ? '-' : '+'}</span>}>
+          <Menu
+            renderExpandIcon={({ open }) => <span>{open ? "-" : "+"}</span>}
+          >
             <SubMenu defaultOpen label="Exception">
               {arr.map((e, i) => {
                 return (
-                  <MenuItem key={i} routerLink={<Link to={"/errortype/" + e} />}>
+                  <MenuItem
+                    key={i}
+                    routerLink={<Link to={"/errortype/" + e} />}
+                  >
                     {e}
                   </MenuItem>
                 );
