@@ -1,6 +1,8 @@
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import home from "../../assets/img/home.png";
+import { useSelector, useDispatch } from "react-redux";
+import { changeState } from "../../store";
 
 const arr = [
   "ArithmeticException",
@@ -18,6 +20,10 @@ const arr = [
 ];
 
 function SideBar() {
+  const state = useSelector((state) => {
+    return state.state;
+  });
+  const dispatch = useDispatch();
   return (
     <div>
       <Sidebar style={{ marginTop: 80 }}>
@@ -36,8 +42,9 @@ function SideBar() {
           </MenuItem>
           <Menu
             renderExpandIcon={({ open }) => <span>{open ? "-" : "+"}</span>}
+            onClick={() => dispatch(changeState())}
           >
-            <SubMenu defaultOpen label="Exception">
+            <SubMenu label="Exception" open={state.state}>
               {arr.map((e, i) => {
                 return (
                   <MenuItem
