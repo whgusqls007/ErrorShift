@@ -1,6 +1,5 @@
 package com.ssafy.e206.response;
 
-import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ public class MaxUploadSizeExceededExceptionResponse {
 
     private static void setStackTraceElement(StackTraceElement[] stackTrace) {
         MaxUploadSizeExceededExceptionResponse.stackTrace = stackTrace;
-        
+
     }
 
     public StackTraceElement[] getStackTrace() {
@@ -29,7 +28,6 @@ public class MaxUploadSizeExceededExceptionResponse {
 
     public static MaxUploadSizeExceededExceptionResponse koOf(final MaxUploadSizeExceededException e) {
 
-       
         HashMap<String, Object> map = new HashMap<>();
         StringBuilder sb = new StringBuilder();
         System.out.println(e.getStackTrace()[0].getClassName());
@@ -55,12 +53,12 @@ public class MaxUploadSizeExceededExceptionResponse {
         });
         setStackTraceElement(e.getStackTrace());
         return new MaxUploadSizeExceededExceptionResponse(map);
-        }
+    }
 
     public static MaxUploadSizeExceededExceptionResponse enOf(final MaxUploadSizeExceededException e) {
         HashMap<String, Object> map = new HashMap<>();
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append(e.getMaxUploadSize() + "             ");
         sb.append("MaxUploadSizeExceededException is occurred at ");
         sb.append(e.getStackTrace()[0].getClassName()).append(" Class ");
@@ -72,7 +70,7 @@ public class MaxUploadSizeExceededExceptionResponse {
             {
                 put("Error Message", e.getMessage() != null ? e.getMessage() : "MaxUploadSizeExceededException");
                 put("Location", new HashMap<String, Object>() {
-                    {   
+                    {
                         put("File Name", e.getStackTrace()[0].getFileName());
                         put("Class Name", e.getStackTrace()[0].getClassName());
                         put("Line Number", e.getStackTrace()[0].getLineNumber());

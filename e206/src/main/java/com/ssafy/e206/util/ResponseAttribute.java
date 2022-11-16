@@ -60,9 +60,9 @@ public class ResponseAttribute {
 			}
 		});
 		result.putAll(temp);
-		result.remove("path");
-		result.remove("timestamp");
-		result.remove("message");
+		// result.remove("path");
+		// result.remove("timestamp");
+		// result.remove("message");
 		return result;
 	}
 
@@ -83,9 +83,9 @@ public class ResponseAttribute {
 			}
 		});
 		result.putAll(temp);
-		result.remove("path");
-		result.remove("timestamp");
-		result.remove("message");
+		// result.remove("path");
+		// result.remove("timestamp");
+		// result.remove("message");
 		return result;
 	}
 
@@ -102,7 +102,7 @@ public class ResponseAttribute {
 			Map<String, Object> temp = new HashMap<>();
 			// result.remove("status");
 			result.put("status", status);
-			result.remove("error");
+			// result.remove("error");
 			temp.put("HTTP", new HashMap<String, Object>() {
 				{
 					switch (language) {
@@ -149,7 +149,7 @@ public class ResponseAttribute {
 			boolean showStackTrace, String language) {
 		result.remove("trace");
 		switch (getExceptionName(exception)) {
-		
+
 			case "NullPointerException":
 				NullPointerExceptionResponse nullPointerExceptionResponse = NullPointerExceptionResponse
 						.of((NullPointerException) exception, language);
@@ -160,7 +160,6 @@ public class ResponseAttribute {
 				break;
 
 			case "HttpRequestMethodNotSupportedException":
-				System.out.println("Case 는 들어오나뇽 ");
 				HttpRequestMethodNotSupportedExceptionResponse httpRequestMethodNotSupportedExceptionResponse = HttpRequestMethodNotSupportedExceptionResponse
 						.of((HttpRequestMethodNotSupportedException) exception, language);
 				if (showStackTrace) {
@@ -251,8 +250,8 @@ public class ResponseAttribute {
 			case "MaxUploadSizeExceededException":
 				System.out.println(" 케이스문 ");
 				MaxUploadSizeExceededExceptionResponse maxUploadSizeExceededExceptionResponse = MaxUploadSizeExceededExceptionResponse
-					.of((MaxUploadSizeExceededException) exception, language);
-				if (showStackTrace){
+						.of((MaxUploadSizeExceededException) exception, language);
+				if (showStackTrace) {
 					result.put("Stack Trace", maxUploadSizeExceededExceptionResponse.getStackTrace());
 				}
 				result.putAll(maxUploadSizeExceededExceptionResponse.getDetails());
