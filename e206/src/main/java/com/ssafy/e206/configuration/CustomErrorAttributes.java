@@ -3,6 +3,7 @@ package com.ssafy.e206.configuration;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssafy.e206.response.NullPointerExceptionResponse;
 import com.ssafy.e206.util.GetAnnotationData;
 import com.ssafy.e206.util.ResponseAttribute;
 
@@ -121,22 +123,28 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
     String message = myAnnotationAttributes.getString("message");
     String language = myAnnotationAttributes.getString("language");
     Map<String, Object> details = null;
+    String summary = null;
+    
     String errorMsg = null;
     switch (language) {
       case "en":
         details = (Map<String, Object>) errorAttributes.get("Details");
         errorMsg = (String) details.get("Error Message");
+        summary = errorAttributes.get("Summary").toString();
         break;
       case "ko":
         details = (Map<String, Object>) errorAttributes.get("상세");
         errorMsg = (String) details.get("에러 메시지");
+        summary = errorAttributes.get("요약").toString();
         break;
     }
-
-    System.out.println((String) details.get("Error Message"));
+    
     Logger logger = LoggerFactory.getLogger(myHandleException);
+    
     logger.error(
-        "\nstatus \t\t------>\t "
+        "\nsumarry \t------>\t " + 
+            summary +
+            "\nstatus \t\t------>\t "
             + errorAttributes.get("status")
             + "\nerror \t\t------>\t "
             + errorAttributes.get("error")
