@@ -116,7 +116,16 @@ public class GlobalExceptionHandler {
 }
 `}
           />
-          사진사진 어쩌고 저쩌고 코드넣고 결과넣고
+          <Code
+            codeString={`// console
+2022-11-16 12:14:44.854 ERROR 2036 --- [nio-8080-exec-2] java.lang.NullPointerException           :
+status          ------>  500
+error           ------>  Internal Server Error
+message         ------>  이게 내 메세지다 홓홓홓
+path            ------>  /api/v1/re/null-pointer
+errorMessage    ------>  NullPointerException
+`}
+          />
         </div>
         <hr />
         <h4>4. trace</h4>
