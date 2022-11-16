@@ -107,7 +107,9 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
       if (logging) {
         errorLogging(errorAttributes, myAnnotationAttributes, myHandleException);
       }
-
+      errorAttributes.remove("path");
+      errorAttributes.remove("timestamp");
+      errorAttributes.remove("message");
     } else {
       removeErrorAttributes(errorAttributes, webRequest, options);
     }
@@ -116,31 +118,34 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
 
   private void errorLogging(Map<String, Object> errorAttributes, AnnotationAttributes myAnnotationAttributes,
       Class<? extends Throwable> myHandleException) {
-    Map<String, Object> location = errorAttributes.get("location") == null ? null
-        : (Map<String, Object>) errorAttributes.get("location");
-    String myMessage = myAnnotationAttributes.getString("message");
+    String message = myAnnotationAttributes.getString("message");
+    String language = myAnnotationAttributes.getString("language");
+    Map<String, Object> details = null;
+    String errorMsg = null;
+    switch (language) {
+      case "en":
+        details = (Map<String, Object>) errorAttributes.get("Details");
+        errorMsg = (String) details.get("Error Message");
+        break;
+      case "ko":
+        details = (Map<String, Object>) errorAttributes.get("상세");
+        errorMsg = (String) details.get("에러 메시지");
+        break;
+    }
 
+    System.out.println((String) details.get("Error Message"));
     Logger logger = LoggerFactory.getLogger(myHandleException);
     logger.error(
         "\nstatus \t\t------>\t "
             + errorAttributes.get("status")
             + "\nerror \t\t------>\t "
             + errorAttributes.get("error")
-            + (!myMessage.equals("") ? "\nmessage \t------>\t "
-                + errorAttributes.get("message") : "")
+            + (!message.equals("") ? "\nmessage \t------>\t "
+                + myAnnotationAttributes.getString("message") : "")
             + "\npath \t\t------>\t "
             + errorAttributes.get("path")
-            + "\nerrorMessage \t------>\t "
-            + errorAttributes.get("errorMessage")
-            + (location != null ? "\nlocation { \n\tclassName \t------>\t "
-                + location.get("className")
-                + "\n\tmethodName \t------>\t "
-                + location.get("methodName")
-                + "\n\tlineNumber \t------>\t "
-                + location.get("lineNumber")
-                + "\n\tfileName \t------>\t "
-                + location.get("fileName")
-                + "\n}" : ""));
+            + (errorMsg != null ? "\nerrorMessage \t------>\t "
+                + errorMsg : ""));
   }
 
   private Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
