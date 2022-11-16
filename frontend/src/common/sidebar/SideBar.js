@@ -39,21 +39,19 @@ function SideBar() {
           </MenuItem>
 
           <MenuItem routerLink={<Link to="/errortype/annotation" />}>
-            <img src={arrow} alt="home" style={{ width: 12, height: 12 }}></img>{" "}
             ErrorShift{" "}
           </MenuItem>
-          {arr.map((e, i) => {
-            return (
-              <MenuItem key={i} routerLink={<Link to={"/errortype/" + e} />}>
-                <img
-                  src={arrow}
-                  alt="home"
-                  style={{ width: 12, height: 12 }}
-                ></img>{" "}
-                {e}
-              </MenuItem>
-            );
-          })}
+          <Menu renderExpandIcon={({ open }) => <span>{open ? '-' : '+'}</span>}>
+            <SubMenu defaultOpen label="Exception">
+              {arr.map((e, i) => {
+                return (
+                  <MenuItem key={i} routerLink={<Link to={"/errortype/" + e} />}>
+                    {e}
+                  </MenuItem>
+                );
+              })}
+            </SubMenu>
+          </Menu>
         </Menu>
       </Sidebar>
     </div>

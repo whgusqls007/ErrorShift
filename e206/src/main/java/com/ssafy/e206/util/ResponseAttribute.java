@@ -248,11 +248,13 @@ public class ResponseAttribute {
 				result.putAll(numberFormatExceptionResponse.getDetails());
 				break;
 			case "MaxUploadSizeExceededException":
+				System.out.println(" 케이스문 ");
 				MaxUploadSizeExceededExceptionResponse maxUploadSizeExceededExceptionResponse = MaxUploadSizeExceededExceptionResponse
 						.of((MaxUploadSizeExceededException) exception, language);
 				if (showStackTrace) {
 					result.put("Stack Trace", maxUploadSizeExceededExceptionResponse.getStackTrace());
 				}
+				result.putAll(maxUploadSizeExceededExceptionResponse.getDetails());
 				break;
 			case "IllegalArgumentException":
 				IllegalArgumentExceptionResponse illegalArgumentExceptionResponse = IllegalArgumentExceptionResponse
