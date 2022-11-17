@@ -3,27 +3,28 @@ import Code from "react-code-prettify";
 import "./ErrorPage.css";
 function TypeMismatch() {
   return (
-    <div>
-      <div className="overall-screen">
-        <div>
-          <SideBar></SideBar>
-        </div>
-        <div className="content">
-          <h2>TypeMismatchException</h2>
-          <div className="sub-content">
-            <p>
-              TypeMismatchException 핸들링 하기 위해선 다음 코드를 작성하면
-              됩니다.
-            </p>
-            <Code
-              codeString={`// java
+    <strong>
+      <div>
+        <div className="overall-screen">
+          <div>
+            <SideBar></SideBar>
+          </div>
+          <div className="content">
+            <h2>TypeMismatchException</h2>
+            <div className="sub-content">
+              <p>
+                TypeMismatchException 핸들링 하기 위해선 다음 코드를 작성하면
+                됩니다.
+              </p>
+              <Code
+                codeString={`// java
 @ErrorShift(exception = TypeMismatchException.class)
 public class GlobalExceptionHandler {
 }`}
-            />
-            <p>응답은 다음과 같습니다.</p>
-            <Code
-              codeString={`// json
+              />
+              <p>응답은 다음과 같습니다.</p>
+              <Code
+                codeString={`// json
 {
     "Summary": "TypeMismatchException is occurred at com.example.test.controller.GetController Class 155 line getTypeMisatchException method.The required type is class java.lang.String",
     "Details": {
@@ -51,18 +52,18 @@ public class GlobalExceptionHandler {
         "Error": "Internal Server Error"
     }
 }`}
-            />
-            <hr />
-            <p>한글 응답은 다음과 같습니다.</p>
-            <Code
-              codeString={`// java
+              />
+              <hr />
+              <p>한글 응답은 다음과 같습니다.</p>
+              <Code
+                codeString={`// java
 @ErrorShift(exception = TypeMismatchException.class, language = "ko")
 public class GlobalExceptionHandler {
 }
 `}
-            />
-            <Code
-              codeString={`// json
+              />
+              <Code
+                codeString={`// json
 {
     "요약": "com.example.test.controller.GetController 클래스155째 줄 getTypeMisatchException 메소드에서 TypeMismatchException이 발생했습니다.요구되는 타입은 'class java.lang.String' 입니다",
     "상세": {
@@ -90,11 +91,12 @@ public class GlobalExceptionHandler {
         "HTTP 상태 코드": 500
     }
 }`}
-            />
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </strong>
   );
 }
 export default TypeMismatch;

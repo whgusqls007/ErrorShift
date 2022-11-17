@@ -20,6 +20,7 @@ import Footer from "../common/footer/Footer";
 import ErrorShift from "../features/main/errortype/ErrorShift";
 import NumberFormat from "../features/errorpage/NumberFormat";
 import Exceptions from "../features/errorpage/Exceptions";
+import Contribute from "../features/main/errortype/Contribute";
 
 function App() {
   return (
@@ -95,6 +96,7 @@ function App() {
           path="/errortype/MultipleExceptions"
           element={<Exceptions />}
         />
+        <Route exact path="/errortype/contribute" element={<Contribute />} />
       </Routes>
       <Footer></Footer>
     </Router>
