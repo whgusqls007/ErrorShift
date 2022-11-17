@@ -3,7 +3,6 @@ package com.ssafy.e206.configuration;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -33,7 +32,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ssafy.e206.response.NullPointerExceptionResponse;
 import com.ssafy.e206.util.GetAnnotationData;
 import com.ssafy.e206.util.ResponseAttribute;
 
@@ -112,6 +110,7 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
       errorAttributes.remove("path");
       errorAttributes.remove("timestamp");
       errorAttributes.remove("message");
+      errorAttributes.remove("error");
     } else {
       removeErrorAttributes(errorAttributes, webRequest, options);
     }
@@ -124,7 +123,7 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
     String language = myAnnotationAttributes.getString("language");
     Map<String, Object> details = null;
     String summary = null;
-    
+
     String errorMsg = null;
     switch (language) {
       case "en":
@@ -138,11 +137,11 @@ public class CustomErrorAttributes implements ImportAware, ErrorAttributes, Hand
         summary = errorAttributes.get("요약").toString();
         break;
     }
-    
+
     Logger logger = LoggerFactory.getLogger(myHandleException);
-    
+
     logger.error(
-        "\nsumarry \t------>\t " + 
+        "\nsumarry \t------>\t " +
             summary +
             "\nstatus \t\t------>\t "
             + errorAttributes.get("status")

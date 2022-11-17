@@ -1,35 +1,12 @@
 package com.example.test.exceptionHandler;
 
-import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
-import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.ssafy.e206.annotation.ErrorShift;
 
-@ErrorShift(exception = NullPointerException.class)
-// @ErrorShift(exception = TypeMismatchException.class, message = "이게 안된다고0",
-// language = "ko")
-// @ErrorShift(exception = NoHandlerFoundException.class, logging = true)
-// @ErrorShift(exception = IllegalArgumentException.class, language = "ko")
-// @ErrorShift(exception = MethodArgumentNotValidException.class, language =
-// "ko")
-// @ErrorShift(exception = HttpRequestMethodNotSupportedException.class,
-// language = "ko")
-// @ErrorShift(exception = HttpMessageNotReadableException.class)
-@ErrorShift(exception = HttpMediaTypeNotSupportedException.class, language = "ko")
-@ErrorShift(exception = ArithmeticException.class, language = "ko")
-@ErrorShift(exception = ArrayIndexOutOfBoundsException.class, language = "ko")
-@ErrorShift(exception = ClassCastException.class, language = "ko")
-@ErrorShift(exception = IndexOutOfBoundsException.class, language = "ko")
-@ErrorShift(exception = NumberFormatException.class, language = "ko")
-@ErrorShift(exception = MaxUploadSizeExceededException.class, language = "ko")
+@ErrorShift(exception = NullPointerException.class, message = "Null Pointer Exception", httpStatus = HttpStatus.BAD_REQUEST)
+@ErrorShift(exception = ArithmeticException.class, message = "Arithmetic Exception", httpStatus = HttpStatus.NOT_FOUND, language = "ko")
 @ControllerAdvice
 public class GlobalExceptionHandler {
 }

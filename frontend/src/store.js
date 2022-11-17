@@ -5,6 +5,7 @@ const initialState = {
   home: true,
   errorShift: false,
   openIndex: -1,
+  exceptions: false,
 };
 
 let state = createSlice({
@@ -23,24 +24,39 @@ let state = createSlice({
       state.home = true;
       state.errorShift = false;
       state.openIndex = -1;
+      state.exceptions = false;
     },
 
     setIsErrorShift(state) {
       state.home = false;
       state.errorShift = true;
       state.openIndex = -1;
+      state.exceptions = false;
     },
 
     setOpenIndex(state, payload) {
       state.home = false;
       state.errorShift = false;
       state.openIndex = payload.payload;
+      state.exceptions = false;
+    },
+
+    setIsExceptions(state) {
+      state.home = false;
+      state.errorShift = false;
+      state.openIndex = -1;
+      state.exceptions = true;
     },
   },
 });
 
-export let { changeState, setIsHome, setIsErrorShift, setOpenIndex } =
-  state.actions;
+export let {
+  changeState,
+  setIsHome,
+  setIsErrorShift,
+  setOpenIndex,
+  setIsExceptions,
+} = state.actions;
 
 export default configureStore({
   reducer: {

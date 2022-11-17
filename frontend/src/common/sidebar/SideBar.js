@@ -6,6 +6,7 @@ import {
   setIsHome,
   setIsErrorShift,
   setOpenIndex,
+  setIsExceptions,
 } from "../../store";
 import { AiOutlineHome, AiTwotoneHome } from "react-icons/ai";
 
@@ -53,7 +54,7 @@ function SideBar() {
           </MenuItem>
           <Menu
             renderExpandIcon={({ open }) => (
-              <span>{open ? <strong>+</strong> : <strong>-</strong>}</span>
+              <span>{open ? <strong>-</strong> : <strong>+</strong>}</span>
             )}
             onClick={() => dispatch(changeState())}
           >
@@ -76,6 +77,13 @@ function SideBar() {
               })}
             </SubMenu>
           </Menu>
+          <MenuItem
+            routerLink={<Link to="/errortype/MultipleExceptions" />}
+            onClick={() => dispatch(setIsExceptions())}
+          >
+            {state.exceptions ? <BsCaretRightFill /> : <BsCaretRight />}
+            &nbsp;MultipleExceptions{" "}
+          </MenuItem>
         </Menu>
       </Sidebar>
     </div>

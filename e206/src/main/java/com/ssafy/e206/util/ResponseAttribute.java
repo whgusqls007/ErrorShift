@@ -60,9 +60,6 @@ public class ResponseAttribute {
 			}
 		});
 		result.putAll(temp);
-		// result.remove("path");
-		// result.remove("timestamp");
-		// result.remove("message");
 		return result;
 	}
 
@@ -83,9 +80,6 @@ public class ResponseAttribute {
 			}
 		});
 		result.putAll(temp);
-		// result.remove("path");
-		// result.remove("timestamp");
-		// result.remove("message");
 		return result;
 	}
 
@@ -100,9 +94,7 @@ public class ResponseAttribute {
 		Integer status = ((HttpStatus) annotationAttribute.getEnum("httpStatus")).value();
 		if (status != 200) {
 			Map<String, Object> temp = new HashMap<>();
-			// result.remove("status");
 			result.put("status", status);
-			result.remove("error");
 			temp.put("HTTP", new HashMap<String, Object>() {
 				{
 					switch (language) {
@@ -248,7 +240,6 @@ public class ResponseAttribute {
 				result.putAll(numberFormatExceptionResponse.getDetails());
 				break;
 			case "MaxUploadSizeExceededException":
-				System.out.println(" 케이스문 ");
 				MaxUploadSizeExceededExceptionResponse maxUploadSizeExceededExceptionResponse = MaxUploadSizeExceededExceptionResponse
 						.of((MaxUploadSizeExceededException) exception, language);
 				if (showStackTrace) {

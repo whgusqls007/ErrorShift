@@ -19,6 +19,7 @@ import NavBar from "../common/navbar/NavBar";
 import Footer from "../common/footer/Footer";
 import ErrorShift from "../features/main/errortype/ErrorShift";
 import NumberFormat from "../features/errorpage/NumberFormat";
+import Exceptions from "../features/errorpage/Exceptions";
 
 function App() {
   return (
@@ -88,6 +89,11 @@ function App() {
           exact
           path="/errortype/NumberFormatException"
           element={<NumberFormat />}
+        />
+        <Route
+          exact
+          path="/errortype/MultipleExceptions"
+          element={<Exceptions />}
         />
       </Routes>
       <Footer></Footer>

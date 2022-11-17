@@ -32,7 +32,7 @@ dependencies {
 	implementation 'com.ssafy:e206:1.0.0'
 	testImplementation 'com.ssafy:e206:1.0.0'
 	// implementation group: 'com.ssafy', name: 'e206', version: '1.0.0'
-	// implementation files("./e206-1.0.0.jar")
+	// implementation files("./ErrorShift.jar")
 
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	// swagger annotations 1.5.21
