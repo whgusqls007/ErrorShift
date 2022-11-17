@@ -4,28 +4,29 @@ import "./ErrorPage.css";
 
 function Arithmetic() {
   return (
-    <div>
-      <div className="overall-screen">
-        <div>
-          <SideBar></SideBar>
-        </div>
-        <div className="content">
-          <h2>ArithmeticException</h2>
-          <div className="sub-content">
-            <p>
-              ArithmeticException을 핸들링 하기 위해선 다음 코드를 작성하면
-              됩니다.
-            </p>
-            <Code
-              codeString={`// java
+    <strong>
+      <div>
+        <div className="overall-screen">
+          <div>
+            <SideBar></SideBar>
+          </div>
+          <div className="content">
+            <h2>ArithmeticException</h2>
+            <div className="sub-content">
+              <p>
+                ArithmeticException을 핸들링 하기 위해선 다음 코드를 작성하면
+                됩니다.
+              </p>
+              <Code
+                codeString={`// java
 @ErrorShift(exception = ArithmeticException.class)
 public class GlobalExceptionHandler {
 }
 `}
-            />
-            <p>응답은 다음과 같습니다.</p>
-            <Code
-              codeString={`// json
+              />
+              <p>응답은 다음과 같습니다.</p>
+              <Code
+                codeString={`// json
 {
     "Summary": "ArithmeticException is occurred at com.example.test.controller.GetController Class 137 line getArithmeticException method.",
     "Details": {
@@ -47,18 +48,18 @@ public class GlobalExceptionHandler {
         "Error": "Internal Server Error"
     }
 }`}
-            />
-            <hr />
-            <p>한글 응답은 다음과 같습니다.</p>
-            <Code
-              codeString={`// java
+              />
+              <hr />
+              <p>한글 응답은 다음과 같습니다.</p>
+              <Code
+                codeString={`// java
     @ErrorShift(exception = ArithmeticException.class, language = "ko")
     public class GlobalExceptionHandler {
     }
     `}
-            />
-            <Code
-              codeString={`// json
+              />
+              <Code
+                codeString={`// json
 {
     "요약": "com.example.test.controller.Error500RuntimeExceptionController 클래스 43째 줄 getArithmeticException 메소드에서 ArithmeticException이 발생했습니다.",
     "상세": {
@@ -80,11 +81,12 @@ public class GlobalExceptionHandler {
         "HTTP 상태 코드": 500
     }
 }`}
-            />
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </strong>
   );
 }
 export default Arithmetic;

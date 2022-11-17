@@ -4,28 +4,29 @@ import "./ErrorPage.css";
 
 function ArrayIndexOutOfBounds() {
   return (
-    <div>
-      <div className="overall-screen">
-        <div>
-          <SideBar></SideBar>
-        </div>
-        <div className="content">
-          <h2>ArrayIndexOutOfBoundsException</h2>
-          <div className="sub-content">
-            <p>
-              ArrayIndexOutOfBoundsException 핸들링 하기 위해선 다음 코드를
-              작성하면 됩니다.
-            </p>
-            <Code
-              codeString={`// java
+    <strong>
+      <div>
+        <div className="overall-screen">
+          <div>
+            <SideBar></SideBar>
+          </div>
+          <div className="content">
+            <h2>ArrayIndexOutOfBoundsException</h2>
+            <div className="sub-content">
+              <p>
+                ArrayIndexOutOfBoundsException 핸들링 하기 위해선 다음 코드를
+                작성하면 됩니다.
+              </p>
+              <Code
+                codeString={`// java
 @ErrorShift(exception = ArrayIndexOutOfBoundsException.class)
 public class GlobalExceptionHandler {
 }
 `}
-            />
-            <p>응답은 다음과 같습니다.</p>
-            <Code
-              codeString={`// json
+              />
+              <p>응답은 다음과 같습니다.</p>
+              <Code
+                codeString={`// json
 {
     "Summary": "ArrayIndexOutOfBoundsException is occurred at com.example.test.controller.GetController Class 126 line getArrayIndexOutOfBoundsException method.",
     "Details": {
@@ -47,18 +48,18 @@ public class GlobalExceptionHandler {
         "Error": "Internal Server Error"
     }
 }`}
-            />
-            <hr />
-            <p>한글 응답은 다음과 같습니다.</p>
-            <Code
-              codeString={`// java
+              />
+              <hr />
+              <p>한글 응답은 다음과 같습니다.</p>
+              <Code
+                codeString={`// java
     @ErrorShift(exception = ArrayIndexOutOfBoundsException.class, language = "ko")
     public class GlobalExceptionHandler {
     }
     `}
-            />
-            <Code
-              codeString={`// json
+              />
+              <Code
+                codeString={`// json
 {
     "요약": "com.example.test.controller.GetController 클래스 126째 줄 getArrayIndexOutOfBoundsException 메소드에서 ArrayIndexOutOfBoundsException이 발생했습니다.",
     "상세": {
@@ -80,11 +81,12 @@ public class GlobalExceptionHandler {
         "HTTP 상태 코드": 500
     }
 }`}
-            />
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </strong>
   );
 }
 export default ArrayIndexOutOfBounds;

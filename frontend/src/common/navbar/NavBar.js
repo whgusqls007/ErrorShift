@@ -4,10 +4,12 @@ import Navbar from "react-bootstrap/Navbar";
 import logo from "../../assets/img/logo.png";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { setIsHome } from "../../store";
 import "./NavBar.css";
 
 function NavBar() {
+  const dispatch = useDispatch();
   return (
     <div>
       <Navbar className="navbar-box" bg="light" variant="light" fixed="top">
@@ -41,6 +43,7 @@ function NavBar() {
               className="nav-link link"
               to={"/errortype"}
               style={{ marginRight: "3rem" }}
+              onClick={() => dispatch(setIsHome())}
             >
               문서
             </Link>
