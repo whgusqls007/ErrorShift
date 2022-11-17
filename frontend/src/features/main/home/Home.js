@@ -5,9 +5,9 @@ import { useState } from "react";
 import "./Home.css";
 
 function Home() {
-  const [click1, setClick1] = useState(false)
-  const [click2, setClick2] = useState(false)
-  const [click3, setClick3] = useState(false)
+  const [click1, setClick1] = useState(false);
+  const [click2, setClick2] = useState(false);
+  const [click3, setClick3] = useState(false);
 
   return (
     <div>
@@ -43,41 +43,56 @@ function Home() {
             </div>
           </div>
         </div>
-
         <div className="main3">
-          <div className={click1 ? "card click1" : "card"} onClick={() => {setClick1(!click1)}}>
+          <div
+            className={click1 ? "card click1" : "card"}
+            onClick={() => {
+              setClick1(!click1);
+            }}
+          >
             <div className="face face1">
               <h2>쉽고 빠른 에러 핸들링</h2>
-              <p>초보 개발자들도 쉽고 빠르게<br/>
-                에러를 찾을 수 있습니다</p>
+              <p>
+                초보 개발자들도 쉽고 빠르게
+                <br />
+                에러를 찾을 수 있습니다
+              </p>
             </div>
             <div className="face face2">
               <img id="image11" alt="easy" />
             </div>
           </div>
-
-          <div className={click2 ? "card click2" : "card"} onClick={() => {setClick2(!click2)}}>
+          <div
+            className={click2 ? "card click2" : "card"}
+            onClick={() => {
+              setClick2(!click2);
+            }}
+          >
             <div className="face face1">
               <h2>쉬운 컨트리뷰트</h2>
-              <p>누구나 컨트리뷰터가 될 수 있도록
-              간단하고 가독성 좋게 구성하였습니다</p>
+              <p>
+                누구나 컨트리뷰터가 될 수 있도록 간단하고 가독성 좋게
+                구성하였습니다
+              </p>
             </div>
             <div className="face face2">
               <img id="image12" alt="easy" />
             </div>
           </div>
-          
-          <div className={click3 ? "card click3" : "card"} onClick={() => {setClick3(!click3)}}>
+          <div
+            className={click3 ? "card click3" : "card"}
+            onClick={() => {
+              setClick3(!click3);
+            }}
+          >
             <div className="face face1">
               <h2>사용자 커스터마이징</h2>
-              <p>각 유저마다 커스터마이즈 할 수 있도록
-                구성하였습니다</p>
+              <p>각 유저마다 커스터마이즈 할 수 있도록 구성하였습니다</p>
             </div>
             <div className="face face2">
               <img id="image13" alt="easy" />
             </div>
           </div>
-
         </div>
       </div>
     </div>

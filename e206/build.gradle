@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.ssafy'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = '8'
 
 configurations {
@@ -25,7 +25,7 @@ publishing {
         maven(MavenPublication) {
             // groupId, artifactId, version을 따로 지정하지 않으면 처음 생성할 때 지정한 기본설정으로 생성한다. (생략가능)
             groupId = 'com.ssafy'
-            artifactId = 'e206'
+            artifactId = 'ErrorShift'
 						version="1.0.0"
             from components.java
         }

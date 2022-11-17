@@ -7,10 +7,15 @@ import {
   setIsErrorShift,
   setOpenIndex,
   setIsExceptions,
+  setIsContribute,
 } from "../../store";
 import { AiOutlineHome, AiTwotoneHome } from "react-icons/ai";
 
-import { BsCaretRightFill, BsCaretRight } from "react-icons/bs";
+import {
+  BsCaretRightFill,
+  BsCaretRight,
+  BsFillCaretDownFill,
+} from "react-icons/bs";
 
 const arr = [
   "ArithmeticException",
@@ -56,9 +61,26 @@ function SideBar() {
             renderExpandIcon={({ open }) => (
               <span>{open ? <strong>-</strong> : <strong>+</strong>}</span>
             )}
-            onClick={() => dispatch(changeState())}
+            onClick={() => {
+              dispatch(changeState());
+            }}
           >
-            <SubMenu label="Exception" open={state.state}>
+            <SubMenu
+              label={
+                state.state ? (
+                  <>
+                    <BsFillCaretDownFill />
+                    &nbsp;Exceptions
+                  </>
+                ) : (
+                  <>
+                    <BsCaretRight />
+                    &nbsp;Exceptions
+                  </>
+                )
+              }
+              open={state.state}
+            >
               {arr.map((e, i) => {
                 return (
                   <MenuItem
@@ -83,6 +105,13 @@ function SideBar() {
           >
             {state.exceptions ? <BsCaretRightFill /> : <BsCaretRight />}
             &nbsp;MultipleExceptions{" "}
+          </MenuItem>
+          <MenuItem
+            routerLink={<Link to="/errortype/contribute" />}
+            onClick={() => dispatch(setIsContribute())}
+          >
+            {state.contribute ? <BsCaretRightFill /> : <BsCaretRight />}
+            &nbsp;Contribute Guide{" "}
           </MenuItem>
         </Menu>
       </Sidebar>
