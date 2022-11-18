@@ -38,7 +38,7 @@ import com.ssafy.e206.util.ResponseAttribute;
 @Component
 @SuppressWarnings({ "null", "unchecked" })
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class CustomErrorAttributes implements ImportAware, ErrorAttributes, HandlerExceptionResolver, Ordered {
+public class ErrorShiftAttributes implements ImportAware, ErrorAttributes, HandlerExceptionResolver, Ordered {
   private static final String ERROR_INTERNAL_ATTRIBUTE = DefaultErrorAttributes.class.getName() + ".ERROR";
   private AnnotationAttributes[] annotationAttributes;
   private AnnotationAttributes annotationAttribute;

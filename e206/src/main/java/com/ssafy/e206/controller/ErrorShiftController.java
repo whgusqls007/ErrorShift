@@ -20,9 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
-public class CustomErrorController extends BasicErrorController {
+public class ErrorShiftController extends BasicErrorController {
 
-  public CustomErrorController(ErrorAttributes errorAttributes,
+  public ErrorShiftController(ErrorAttributes errorAttributes,
       ServerProperties serverProperties,
       List<ErrorViewResolver> errorViewResolvers) {
     super(errorAttributes, serverProperties.getError(), errorViewResolvers);
@@ -30,7 +30,6 @@ public class CustomErrorController extends BasicErrorController {
 
   @Override
   public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-    System.out.println("e206 CustomErrorController errorHtml() called");
     HttpStatus status = getStatus(request);
     Map<String, Object> model = Collections
         .unmodifiableMap(getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.TEXT_HTML)));

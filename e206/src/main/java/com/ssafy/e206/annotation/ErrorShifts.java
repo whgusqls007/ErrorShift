@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import com.ssafy.e206.configuration.CustomErrorAttributes;
-import com.ssafy.e206.controller.CustomErrorController;
+import com.ssafy.e206.configuration.ErrorShiftAttributes;
+import com.ssafy.e206.controller.ErrorShiftController;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ CustomErrorAttributes.class, CustomErrorController.class })
+@Import({ ErrorShiftAttributes.class, ErrorShiftController.class })
 @ControllerAdvice
 public @interface ErrorShifts {
   ErrorShift[] value();

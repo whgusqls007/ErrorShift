@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import com.ssafy.e206.configuration.CustomErrorAttributes;
-import com.ssafy.e206.controller.CustomErrorController;
+import com.ssafy.e206.configuration.ErrorShiftAttributes;
+import com.ssafy.e206.controller.ErrorShiftController;
 
 @Repeatable(ErrorShifts.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ CustomErrorAttributes.class, CustomErrorController.class })
+@Import({ ErrorShiftAttributes.class, ErrorShiftController.class })
 @ControllerAdvice
 public @interface ErrorShift {
   String message() default "";
