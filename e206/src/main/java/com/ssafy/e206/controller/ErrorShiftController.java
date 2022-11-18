@@ -20,9 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
-public class CustomErrorController extends BasicErrorController {
+public class ErrorShiftController extends BasicErrorController {
 
-  public CustomErrorController(ErrorAttributes errorAttributes,
+  public ErrorShiftController(ErrorAttributes errorAttributes,
       ServerProperties serverProperties,
       List<ErrorViewResolver> errorViewResolvers) {
     super(errorAttributes, serverProperties.getError(), errorViewResolvers);
