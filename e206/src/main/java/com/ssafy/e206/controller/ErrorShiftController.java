@@ -30,7 +30,6 @@ public class ErrorShiftController extends BasicErrorController {
 
   @Override
   public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-    System.out.println("e206 CustomErrorController errorHtml() called");
     HttpStatus status = getStatus(request);
     Map<String, Object> model = Collections
         .unmodifiableMap(getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.TEXT_HTML)));

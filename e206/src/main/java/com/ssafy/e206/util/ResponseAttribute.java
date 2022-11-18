@@ -161,7 +161,6 @@ public class ResponseAttribute {
 				break;
 
 			case "TypeMismatchException":
-				System.out.println();
 				TypeMismatchExceptionResponse typeMismatchExceptionResponse = TypeMismatchExceptionResponse
 						.of((TypeMismatchException) exception, language);
 				if (showStackTrace) {
