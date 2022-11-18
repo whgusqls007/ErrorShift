@@ -29,8 +29,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-	implementation 'com.ssafy:e206:1.0.0'
-	testImplementation 'com.ssafy:e206:1.0.0'
+	implementation 'com.ssafy:ErrorShift:1.0.0'
+	testImplementation 'com.ssafy:ErrorShift:1.0.0'
 	// implementation group: 'com.ssafy', name: 'e206', version: '1.0.0'
 	// implementation files("./ErrorShift.jar")
 
