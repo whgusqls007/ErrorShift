@@ -125,23 +125,14 @@ public class ErrorShiftAttributes implements ImportAware, ErrorAttributes, Handl
     String summary = null;
 
     String errorMsg = null;
+
+    String logMessage = null;
     switch (language) {
       case "en":
         details = (Map<String, Object>) errorAttributes.get("Details");
         errorMsg = (String) details.get("Error Message");
         summary = errorAttributes.get("Summary").toString();
-        break;
-      case "ko":
-        details = (Map<String, Object>) errorAttributes.get("상세");
-        errorMsg = (String) details.get("에러 메시지");
-        summary = errorAttributes.get("요약").toString();
-        break;
-    }
-
-    Logger logger = LoggerFactory.getLogger(myHandleException);
-
-    logger.error(
-        "\nsumarry \t------>\t " +
+        logMessage = "\nsummary \t------>\t " +
             summary +
             "\nstatus \t\t------>\t "
             + errorAttributes.get("status")
@@ -152,7 +143,30 @@ public class ErrorShiftAttributes implements ImportAware, ErrorAttributes, Handl
             + "\npath \t\t------>\t "
             + errorAttributes.get("path")
             + (errorMsg != null ? "\nerrorMessage \t------>\t "
-                + errorMsg : ""));
+                + errorMsg : "");
+        break;
+      case "ko":
+        details = (Map<String, Object>) errorAttributes.get("상세");
+        errorMsg = (String) details.get("에러 메시지");
+        summary = errorAttributes.get("요약").toString();
+        logMessage = "\n요약 \t\t------>\t " +
+            summary +
+            "\n상태 \t\t------>\t "
+            + errorAttributes.get("status")
+            + "\n에러 \t\t------>\t "
+            + errorAttributes.get("error")
+            + (!message.equals("") ? "\n메시지 \t------>\t "
+                + myAnnotationAttributes.getString("message") : "")
+            + "\n경로 \t\t------>\t "
+            + errorAttributes.get("path")
+            + (errorMsg != null ? "\n에러메시지 \t------>\t "
+                + errorMsg : "");
+        break;
+    }
+
+    Logger logger = LoggerFactory.getLogger(myHandleException);
+
+    logger.error(logMessage);
   }
 
   private Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
