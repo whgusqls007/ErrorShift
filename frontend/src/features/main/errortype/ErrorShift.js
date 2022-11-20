@@ -240,17 +240,17 @@ public class GlobalExceptionHandler {
 @NoArgsConstructor
 public class UserResponse implements CommonResponse {
 
-  public Map<String, Object> details;
+  public Map&lt;String, Object&gt; details;
   public StackTraceElement[] stackTrace;
 
-  UserResponse(HashMap<String, Object> map) {
+  UserResponse(HashMap&lt;String, Object&gt; map) {
     this.details = map;
   }
 
   @Override
   public CommonResponse of(Exception e) {
     ArithmeticException arithmeticException = (ArithmeticException) e;
-    HashMap<String, Object> map = new HashMap<>();
+    HashMap&lt;String, Object&gt; map = new HashMap<>();
     map.put("이런", "결과값이 나왔어요");
     setStackTrace(arithmeticException.getStackTrace());
     return new UserResponse(map);
