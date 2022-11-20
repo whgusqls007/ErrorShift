@@ -9,7 +9,7 @@ function Adv() {
         <div className="adv-main">
           <p className="adv-title">ErrorShift 영상</p>
           <div className="adv-video">
-            <YoutubeEmbed embedId="jA0PiCWDc0Q" />
+            <YoutubeEmbed embedId="z3b8cCjDhao" />
           </div>
         </div>
       </div>
