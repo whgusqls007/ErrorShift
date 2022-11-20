@@ -1,0 +1,21 @@
+a {
+  text-decoration: none;
+}
+
+MDBFooter {
+  position: relative;
+  transform: translateY(-100%);
+}
+
+.link {
+  padding: 0px;
+  margin: 0px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.link:hover {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}

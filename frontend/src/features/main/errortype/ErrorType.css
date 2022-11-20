@@ -1,0 +1,14 @@
+.overall-screen {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 5%;
+}
+
+.sub-content {
+  margin-left: 20px;
+}
+
+.img {
+  border: 1.5px solid gray;
+  border-radius: 5px;
+}
