@@ -14,6 +14,10 @@ When you work in spring boot project, "ErrorSfhit" can support your error handli
 |logging|"true" or "false"|
 |httpStatus|Http status of exception|
 |trace|"true" or "false"|
+#### Implemented exceptions
+|Exceptions|
+|---|
+|ArithmeticException, ArrayIndexOutOfBoundsException, ClassCastException, HttpMediaTypeNotSupportedException, HttpRequestMethodNotSupportedException, IllegalArgumentException, IndexOutOfBoundsException, MaxUploadSizeExceededException, NoHandlerFoundException, NullPointerException, NumberFormatException, TypeMismatchException|
 
 ## Start
 Choose one of the following.
