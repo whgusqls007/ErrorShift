@@ -1,31 +1,3 @@
-**에러핸들러를 제공해주는 SpringBoot 라이브러리**
-
-<aside>
-💬 초보 웹 개발자를 위한 OpenSource 라이브러리로, `어노테이션`으로 에러핸들러를 쉽게 제공해 줍니다. RestAPI 요청시 발생하는 HTTP 에러에 대해 응답을 `커스텀` 할 수 있습니다.
-</aside>
-
-</br>
-
-<aside>
-💡 싸피 교육생 또는 초보 개발자를 위한 에러핸들러로, 기본 에러 내용의 복잡함을 보다 가독성 있게 바꿔줌과 동시에 에러핸들러를 직접 제작하는 시간적, 인적 비용을 최소화 하기 위해 서비스를 기획하였습니다.
-</aside>
-
-</br>
-
-<aside>
-👉 SpringBoot의 에러 처리로직을 공부하고 에러핸들러 및 커스텀 어노테이션 제작등 라이브러리 제작을 담당하였습니다.
-</aside>
-
-</br>
-</br>
-
-**어려웠던 점 및 배운 점**
-
-<aside>
-💬 초기에는 Lombok형태로 에러핸들러를 제공하고자 했습니다. Lombok은 Compiler Tree API를 사용해 Compile타임에 어노테이션을 스캔하여 Annotation Processor의 동작에 따라 Systax tree에 class파일을 추가시켜줍니다. 하지만 실제 코드를 작성하는 단계에선 존재하지 않는 내용이기 때문에 에러가 나게 되고, 이를 JAVA IDE에서는 확장 프로그램, 플러그인 등으로 처리를 해 줍니다. 이러한 플러그인을 제작하는데 실력과 시간적 한계가 존재하였고, BasicErrorController, DefaultErrorAttribute를 재 정의 하고 ImportAware 인터페이스를 사용해 구현을 하며, SpringBoot의 에러 처리의 전반적인 부분을 공부 하였습니다.
-
-</aside>
-
 # ErrorShift
 When you work in spring boot project, "ErrorSfhit" can support your error handling.
 
@@ -103,3 +75,30 @@ implementation 'com.ssafy:e206:1.0.0'
 |---|---|---|---|---|---|
 |Mincheol Kim|Dokyeong Yu|Sumin Lee|Wonseok Jang|Hyunbin Jo|Yuri Kim|
 
+**에러핸들러를 제공해주는 SpringBoot 라이브러리**
+
+<aside>
+💬 초보 웹 개발자를 위한 OpenSource 라이브러리로, `어노테이션`으로 에러핸들러를 쉽게 제공해 줍니다. RestAPI 요청시 발생하는 HTTP 에러에 대해 응답을 `커스텀` 할 수 있습니다.
+</aside>
+
+</br>
+
+<aside>
+💡 싸피 교육생 또는 초보 개발자를 위한 에러핸들러로, 기본 에러 내용의 복잡함을 보다 가독성 있게 바꿔줌과 동시에 에러핸들러를 직접 제작하는 시간적, 인적 비용을 최소화 하기 위해 서비스를 기획하였습니다.
+</aside>
+
+</br>
+
+<aside>
+👉 SpringBoot의 에러 처리로직을 공부하고 에러핸들러 및 커스텀 어노테이션 제작등 라이브러리 제작을 담당하였습니다.
+</aside>
+
+</br>
+</br>
+
+**어려웠던 점 및 배운 점**
+
+<aside>
+💬 초기에는 Lombok형태로 에러핸들러를 제공하고자 했습니다. Lombok은 Compiler Tree API를 사용해 Compile타임에 어노테이션을 스캔하여 Annotation Processor의 동작에 따라 Systax tree에 class파일을 추가시켜줍니다. 하지만 실제 코드를 작성하는 단계에선 존재하지 않는 내용이기 때문에 에러가 나게 되고, 이를 JAVA IDE에서는 확장 프로그램, 플러그인 등으로 처리를 해 줍니다. 이러한 플러그인을 제작하는데 실력과 시간적 한계가 존재하였고, BasicErrorController, DefaultErrorAttribute를 재 정의 하고 ImportAware 인터페이스를 사용해 구현을 하며, SpringBoot의 에러 처리의 전반적인 부분을 공부 하였습니다.
+
+</aside>
