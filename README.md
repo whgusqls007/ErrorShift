@@ -75,6 +75,8 @@ implementation 'com.ssafy:e206:1.0.0'
 |---|---|---|---|---|---|
 |Mincheol Kim|Dokyeong Yu|Sumin Lee|Wonseok Jang|Hyunbin Jo|Yuri Kim|
 
+##
+
 **에러핸들러를 제공해주는 SpringBoot 라이브러리**
 
 <aside>
